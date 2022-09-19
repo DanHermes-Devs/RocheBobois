@@ -177,7 +177,6 @@ return [
 
         Intervention\Image\ImageServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        Orangehill\Iseed\IseedServiceProvider::class,
 
     ],
 

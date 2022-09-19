@@ -695,9 +695,7 @@
         <div id="concierge">
             <div class="row align-items-center bg_white_1">
                 <div class="col-12 col-md-6 text-center text-dark p-5">
-                    <a href="{{ route('login') }}">
-                        <img src="{{ asset('image/logo_concierge.svg') }}" class="img-fluid w-50 mb-5">
-                    </a>
+                    <img src="{{ asset('image/logo_concierge.svg') }}" class="img-fluid w-50 mb-5">
                     <p class="mb-0">Embajador de servicio</p>
                     <h3 class="fw-bold">
                         EXCLUSIVO
