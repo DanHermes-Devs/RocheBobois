@@ -169,7 +169,7 @@ MÓVIL HORIZONTAL (SM revisamos en 576px)
         padding: 4rem 0;
     }
 
-    a.navbar-brand.text-white {
+    a.navbar-brand {
         width: 60%!important;
     }
 
@@ -219,7 +219,7 @@ MOVIL VERTICAL (revisamos en 320px)
         padding: 4rem 0;
     }
 
-    a.navbar-brand.text-white {
+    a.navbar-brand {
         width: 60%!important;
     }
 }
