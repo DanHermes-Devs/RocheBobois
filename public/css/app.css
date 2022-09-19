@@ -10850,3 +10850,71 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+body {
+  font-family: "Helvetica";
+  font-size: 17px;
+}
+
+.nav-link,
+.nav-link:hover, .nav-link:focus {
+  color: #fff;
+  text-transform: uppercase;
+}
+.nav-link:hover,
+.nav-link:hover:hover, .nav-link:focus:hover {
+  color: #fff;
+}
+
+.btn_descargar_catalogo {
+  background: #000;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  color: #fff;
+  font-size: 1rem;
+  border: 2px solid #fff;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 180px;
+  min-width: 180px;
+  text-align: center;
+  transition: 0.3s ease all;
+  margin: 0 auto;
+}
+
+.btn_roche_outline_dark {
+  background: transparent;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  color: #000;
+  font-size: 1rem;
+  border: 2px solid #000;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 180px;
+  min-width: 180px;
+  text-align: center;
+  transition: 0.3s ease all;
+  margin: 0 auto;
+}
+
+ul.dropdown-menu.show {
+  background: #000;
+  border-radius: 0;
+}
+
+a.dropdown-item {
+  color: #FFF;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  color: #FFF;
+  background-color: #000;
+}
+
+.dropdown-item:active {
+  background-color: #000;
+}
+
+.bg-dark {
+  background: #000 !important;
+}

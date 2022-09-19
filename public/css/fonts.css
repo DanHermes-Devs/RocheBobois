@@ -1,0 +1,11 @@
+/* Cargar fuente */
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/Helvetica.ttf');
+}
+
+/* Cargar otra fuente */
+@font-face {
+    font-family: 'Cormorant';
+    src: url('../fonts/Cormorant-Regular.ttf');
+}

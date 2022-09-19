@@ -1,0 +1,209 @@
+:root{
+    --gris-claro: #F8FAFC;
+    --gris-oscuro: #1E293B;
+    --gris-medium: #506f9c;
+    --gris-oscuro-hover: #324564;
+}
+
+html {
+    height: 100%;
+}
+
+.dashboard{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--gris-claro);
+}
+
+.dashboard__header{
+    background-color: var(--gris-oscuro);
+    padding: 1rem;
+}
+
+.dashboard__header-grid{
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dashboard__header-grid a {
+    color: #FFF;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.dashboard__header-logo{
+    width: 35%;
+}
+
+.dashboard__grid {
+    display: flex;
+    flex: 1;
+    width: 100%;
+}
+
+.dashboard__aside{
+    background-color: var(--gris-oscuro);
+    width: 10%;
+}
+
+.dashboard__contenido{
+    width: 100%;
+    padding: 2rem;
+}
+
+.dashboard__menu{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.dashboard__enlace{
+    color: var(--gris-medium);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.dashboard__enlace-active{
+    background-color: var(--gris-oscuro-hover);
+    color: #FFF;
+}
+
+.dashboard__enlace:hover{
+    background-color: var(--gris-oscuro-hover);
+    color: #FFF;
+}
+
+.dashboard__icono{
+    font-size: 1.5rem;
+}
+
+.btn {
+    border-radius: .5rem;
+}
+
+.dashboard__menu-texto{
+    margin-top: .5rem;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.dashboard__card {
+    background-color: #FFF;
+    box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+    border: 0 rgba(0,0,0,.125);
+    border-radius: 1rem;
+    word-wrap: break-word;
+    padding: 0.5rem 1rem;
+}
+
+.dropdown-menu.dropdown-menu-end.show {
+    background: #1e293b;
+    padding: 0.5rem;
+    top: 71%!important;
+    border-radius: 0;
+    width: 100%;
+    text-align: center;
+}
+
+/* Estilos para trix editor */
+trix-editor {
+    min-height: 400px !important;
+}
+
+.trix-button-group--file-tools {
+    display: none!important;
+}
+
+a {
+    text-decoration: none!important;
+}
+
+a.btn,
+button.btn {
+    max-width: 180px;
+    width: 100%;
+    min-width: 180px;
+}
+
+.table .btn {
+    width: 100%;
+    max-width: 50px;
+    min-width: 50px;
+}
+
+/*============================================= 
+TABLET HORIZONTAL (LG revisamos en 1024px) 
+=============================================*/ 
+
+@media (max-width:1199px) and (min-width:992px){ 
+
+} 
+
+/*============================================= 
+TABLET VERTICAL (MD revisamos en 768px) 
+=============================================*/ 
+
+@media (max-width:991px) and (min-width:768px){ 
+
+} 
+
+/*============================================= 
+MÓVIL HORIZONTAL (SM revisamos en 576px) 
+=============================================*/ 
+
+@media (max-width:767px) and (min-width:576px){ 
+
+} 
+
+/*============================================= 
+MOVIL VERTICAL (revisamos en 320px) 
+=============================================*/ 
+
+@media (max-width:575px){ 
+    .dashboard__header-grid{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .dashboard__header-grid {
+        flex-direction: row;
+    }
+
+    .dashboard__header-logo {
+        width: 60%;
+    }
+
+    .dashboard__menu-texto{
+        display: none;
+    }
+
+    .dashboard__aside {
+        width: 12%;
+    }
+
+    .dashboard__menu {
+        padding: 0.5rem;
+    }
+
+    .dashboard__contenido {
+        width: 88%;
+    }
+
+    .table .btn {
+        width: 100%;
+        max-width: 50px;
+        min-width: 50px;
+    }
+}
