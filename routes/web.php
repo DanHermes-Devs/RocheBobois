@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\ContactController;
@@ -26,9 +28,18 @@ use App\Mail\Contacto;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Rutas publicas
-// Index
 
+// Auth::routes();
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/register', [RegisterController::class, 'store'])->name('store.register');
+
+
+// Rutas publicas
 Route::get('/', [InicioController::class, 'index'])->name('inicio');
 
 // Showrooms
@@ -52,10 +63,8 @@ Route::get('/eventos', [EventoController::class, 'index'])->name('front.eventos'
 // Building
 Route::get('/building', [BuildingHController::class, 'index'])->name('front.building');
 
-Auth::routes();
-
 Route::group(['middleware' => 'auth'], function () {
-    Route::group(['prefix' => 'dashboard'], function() {
+    Route::group(['middleware' => 'admin', 'prefix' => 'dashboard'], function() {
         Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 
         // Rutas Colecciones Especiales

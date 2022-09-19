@@ -54,18 +54,20 @@
                         <li class="nav-item">
                             <a href="/" class="nav-link">Inicio</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              Concierge
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="{{ route('front.colecciones')}} ">COLECCIONES ESPECIALES</a></li>
-                              <li><a class="dropdown-item" href="{{ route('front.eventos') }}">EVENTOS</a></li>
-                              <li><a class="dropdown-item" href="{{ route('front.building') }}">ROCHE BOBOIS BUILDING</a></li>
-                              <li><a class="dropdown-item" href="#">OPORTUNIDADES ÚNICAS</a></li>
-                              <li><a class="dropdown-item" href="#">SALES</a></li>
-                            </ul>
-                        </li>
+                        @if (Auth::user())
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Concierge
+                                </a>
+                                <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('front.colecciones')}} ">COLECCIONES ESPECIALES</a></li>
+                                <li><a class="dropdown-item" href="{{ route('front.eventos') }}">EVENTOS</a></li>
+                                <li><a class="dropdown-item" href="{{ route('front.building') }}">ROCHE BOBOIS BUILDING</a></li>
+                                <li><a class="dropdown-item" href="#">OPORTUNIDADES ÚNICAS</a></li>
+                                <li><a class="dropdown-item" href="#">SALES</a></li>
+                                </ul>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <a href="{{ route('front.showrooms') }}" class="nav-link">Showrooms</a>
                         </li>
