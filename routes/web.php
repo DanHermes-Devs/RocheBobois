@@ -53,6 +53,20 @@ Route::get('/mailable/contact', function(){
     return new Contacto('Dan hermes', 'dan@mail.com', '654367', 'México', 'Ninguno', 'Si');
 });
 
+// Hacer publica la ruta de almacenamiento
+Route::get('/storage_link', function() {
+
+    Artisan::call('storage:link');
+
+});
+
+// Fresh y almcaenamiento de la base de datos
+Route::get('/fresh_db', function() {
+
+    Artisan::call('migrate:fresh --seed');
+
+});
+
 // Colecciones especiales
 Route::get('/colecciones-especiales', [ColeccionController::class, 'index'])->name('front.colecciones');
 Route::get('/coleccion-especial/{slug}', [ColeccionController::class, 'show'])->name('front.colecciones.show');
