@@ -15,8 +15,12 @@
                         <div class="card text-center">
                             <img src="{{ asset('storage/' . $product->imagen_1) }}" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $product->nombre_producto }}</h5>
-                                <p class="card-text">${{ $product->precio }}</p>
+                                <h5 class="card-title">
+                                    {{ $product->nombre_producto }}
+                                </h5>
+                                <p class="card-text">
+                                    ${{ $product->precio }} USD
+                                </p>
                                 {{-- <a href="#" class="btn_roche_outline_dark">Ver más</a> --}}
                             </div>
                         </div>
