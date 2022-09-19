@@ -15,7 +15,7 @@
                         <div class="card text-center">
                             <img src="{{ asset('storage/' . $oportunidad->imagen_1) }}" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $oportunidad->nombre_oportunidado }}</h5>
+                                <h5 class="card-title">{{ $oportunidad->nombre_oportunidad }}</h5>
                                 <p class="card-text">
                                     <span class="text-decoration-line-through">
                                         ${{ $oportunidad->precio }} USD
