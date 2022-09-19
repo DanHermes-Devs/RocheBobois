@@ -20,7 +20,7 @@
                                     <span class="text-decoration-line-through">${{ $oportunidad->precio }}</span>
                                     ${{ $oportunidad->precio_descuento }}
                                 </p>
-                                <a href="#" class="btn_roche_outline_dark">Ver más</a>
+                                {{-- <a href="#" class="btn_roche_outline_dark">Ver más</a> --}}
                             </div>
                         </div>
                     </div>
