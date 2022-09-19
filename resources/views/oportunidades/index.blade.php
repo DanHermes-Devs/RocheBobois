@@ -17,8 +17,8 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $oportunidad->nombre_oportunidado }}</h5>
                                 <p class="card-text">
-                                    <span class="text-decoration-line-through">${{ $oportunidad->precio }}</span>
-                                    ${{ $oportunidad->precio_descuento }}
+                                    <span class="text-decoration-line-through">${{ $oportunidad->precio }} USD </span>
+                                    ${{ $oportunidad->precio_descuento }} USD
                                 </p>
                                 {{-- <a href="#" class="btn_roche_outline_dark">Ver más</a> --}}
                             </div>
