@@ -82,7 +82,7 @@
                     @endforeach
                 </div>
 
-                <div class="restaurantes">
+                {{-- <div class="restaurantes">
                     <h2 class="text-uppercase fw-bold">Restaurantes</h2>
                     @foreach ($buildings as $building)
                         @if ($building->categoria === 'restaurantes')
@@ -112,7 +112,7 @@
                             </div>
                         @endif
                     @endforeach
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
