@@ -673,7 +673,7 @@
         <!--/owl-slider-->
     </section>
 
-    <div class="container-fluid pb-3">
+    <div class="container-fluid pb-5">
         <div id="conoce_coleccion">
             <div class="row align-items-center bg_dark_1">
                 <div class="col-12 col-md-6 p-0">
