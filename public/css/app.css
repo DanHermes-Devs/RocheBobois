@@ -10919,3 +10919,26 @@ a.dropdown-item {
 .bg-dark {
   background: #000 !important;
 }
+
+/*============================================= 
+TABLET HORIZONTAL (LG revisamos en 1024px) 
+=============================================*/
+/*============================================= 
+TABLET VERTICAL (MD revisamos en 768px) 
+=============================================*/
+/*============================================= 
+MÓVIL HORIZONTAL (SM revisamos en 576px) 
+=============================================*/
+@media (max-width: 767px) and (min-width: 576px) {
+  a.navbar-brand {
+    width: 60% !important;
+  }
+}
+/*============================================= 
+MOVIL VERTICAL (revisamos en 320px) 
+=============================================*/
+@media (max-width: 575px) {
+  a.navbar-brand {
+    width: 60% !important;
+  }
+}
