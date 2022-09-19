@@ -17,7 +17,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $product->nombre_producto }}</h5>
                                 <p class="card-text">${{ $product->precio }}</p>
-                                <a href="#" class="btn_roche_outline_dark">Ver más</a>
+                                {{-- <a href="#" class="btn_roche_outline_dark">Ver más</a> --}}
                             </div>
                         </div>
                     </div>
