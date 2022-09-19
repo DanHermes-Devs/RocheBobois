@@ -703,8 +703,8 @@
                         EXCLUSIVO
                     </h3>
                 </div>
-                <div class="col-12 col-md-6 p-0">
-                    <img src="{{ asset('image/TEMPS-CALME-Outdoor-1.jpg') }}" class="img_cards_section">
+                <div class="col-12 col-md-6 p-0 d-none d-md-block">
+                    <img src="https://rocheboboismexico.com/wp-content/uploads/2022/05/Domino_compo_naturelle_focus5.jpg" class="img_cards_section">
                 </div>
             </div>
         </div>
