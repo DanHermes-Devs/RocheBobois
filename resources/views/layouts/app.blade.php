@@ -39,7 +39,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md bg-dark shadow-sm position-fixed w-100" style="z-index: 9">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-sm position-fixed w-100" style="z-index: 9">
             <div class="container">
                 <a class="navbar-brand text-white" href="{{ url('/') }}">
                     <img src="{{ asset('image/rochebobois_white_logo.svg') }}" alt="logo" style="width:50%;">
