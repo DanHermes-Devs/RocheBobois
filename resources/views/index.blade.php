@@ -759,7 +759,7 @@
                                         <figcaption>{{ $showroom->ciudad_showroom }}</figcaption>
                                     </figure>
                                     <!--anchor-->
-                                    <a href="holawe.html">Anchor link</a>
+                                    <a href="/showroom/{{ $showroom->slug }}">Anchor link</a>
                                 </li>
                             @endforeach
 
