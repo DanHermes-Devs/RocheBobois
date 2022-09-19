@@ -36,6 +36,7 @@
                 <div class="lifestyle">
                     <h2 class="text-uppercase fw-bold">Lifestyle</h2>
                     @foreach ($buildings as $building)
+                        {{-- Validamos que tenga algo la variable $building --}}
                         @if ($building->categoria === 'lifestyle')
                             <div class="grid-event">
                                 <div class="img_fecha" style="background: url('{{ asset('storage/'.$building->imagen_destacada) }}');background-size: cover;background-position: center;background-repeat: no-repeat;">
@@ -46,7 +47,6 @@
                                 </div>
                             </div>
                         @endif
-                        
                     @endforeach
                 </div>
                 

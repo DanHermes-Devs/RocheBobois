@@ -31,6 +31,26 @@
                 </div>
             </div>
 
+            <div class="row mb-5">
+                @foreach ($productos as $producto)
+                    {{-- Grid de productoos --}}
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <div class="card text-center">
+                            <img src="{{ asset('storage/' . $producto->imagen_1) }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $producto->nombre_productoo }}</h5>
+                                <p class="card-text">
+                                    <span class="text-decoration-line-through">${{ $producto->precio }}</span>
+                                    ${{ $producto->precio_descuento }}
+                                </p>
+                                <a href="#" class="btn_roche_outline_dark">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                {{ $productos->links('pagination::bootstrap-4') }}
+            </div>
+
             <div class="row">
                 <div class="col-12 col-md-7">
                     <h1>{{ $coleccion->nombre_disenador }}</h1>

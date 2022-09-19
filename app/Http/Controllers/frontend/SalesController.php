@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\frontend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Collection;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class ColeccionController extends Controller
+class SalesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,14 @@ class ColeccionController extends Controller
      */
     public function index()
     {
-        $colecciones = Collection::all();
-        return view('colecciones.index', compact('colecciones'));
+        $products = Product::where('mostrar_en_sales', 1)->paginate(8);
+        return view('sales.index', compact('products'));
+    }
+
+    public function oportunidadesUnicas()
+    {
+        $op_unicas = Product::where('oportunidad_unica', 1)->paginate(8);
+        return view('oportunidades.index', compact('op_unicas'));
     }
 
     /**
@@ -47,11 +52,9 @@ class ColeccionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {
-        $coleccion = Collection::where('slug', $slug)->firstOrFail();
-        $productos = Product::where('coleccion_pertenece', $coleccion->id)->paginate(4);
-        return view('colecciones.show', compact('coleccion', 'productos'));
+        //
     }
 
     /**

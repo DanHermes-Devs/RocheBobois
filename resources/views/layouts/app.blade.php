@@ -63,8 +63,8 @@
                                 <li><a class="dropdown-item" href="{{ route('front.colecciones')}} ">COLECCIONES ESPECIALES</a></li>
                                 <li><a class="dropdown-item" href="{{ route('front.eventos') }}">EVENTOS</a></li>
                                 <li><a class="dropdown-item" href="{{ route('front.building') }}">ROCHE BOBOIS BUILDING</a></li>
-                                <li><a class="dropdown-item" href="#">OPORTUNIDADES ÚNICAS</a></li>
-                                <li><a class="dropdown-item" href="#">SALES</a></li>
+                                <li><a class="dropdown-item" href="{{ route('front.oportunidadesUnicas') }}">OPORTUNIDADES ÚNICAS</a></li>
+                                <li><a class="dropdown-item" href="{{ route('front.sales') }}">SALES</a></li>
                                 </ul>
                             </li>
                         @endif

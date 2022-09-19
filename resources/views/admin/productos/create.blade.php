@@ -35,9 +35,21 @@
                         <input type="number" class="form-control" id="precio" name="precio" step="any">
                     </div>
                     <div class="mb-3">
+                        <label for="precio_descuento" class="form-label">Precio con descuento</label>
+                        <input type="number" class="form-control" id="precio_descuento" name="precio_descuento" step="any">
+                    </div>
+                    <div class="mb-3">
                         <label for="mostrar_en_sales" class="form-label">Mostrar en Sales</label>
                         <select class="form-select" id="mostrar_en_sales" name="mostrar_en_sales">
                             <option selected>-- Selecciona una opción --</option>
+                            <option value="1">Sí</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="oportunidad_unica" class="form-label">¿Oportunidad única?</label>
+                        <select class="form-select" id="oportunidad_unica" name="oportunidad_unica">
+                            <option selected value="2">-- Selecciona una opción --</option>
                             <option value="1">Sí</option>
                             <option value="0">No</option>
                         </select>

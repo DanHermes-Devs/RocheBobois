@@ -9,6 +9,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\frontend\BuildingHController;
 use App\Http\Controllers\frontend\ColeccionController;
 use App\Http\Controllers\frontend\EventoController;
+use App\Http\Controllers\frontend\SalesController;
 use App\Http\Controllers\frontend\ShowroomController as FrontendShowroomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -52,6 +53,12 @@ Route::post('/contacto', [ContactController::class, 'store'])->name('store.conta
 Route::get('/mailable/contact', function(){
     return new Contacto('Dan hermes', 'dan@mail.com', '654367', 'México', 'Ninguno', 'Si');
 });
+
+// Sales
+Route::get('/sales', [SalesController::class, 'index'])->name('front.sales');
+
+// Oportunidades únicas
+Route::get('/oportunidades-unicas', [SalesController::class, 'oportunidadesUnicas'])->name('front.oportunidadesUnicas');
 
 // Hacer publica la ruta de almacenamiento
 Route::get('/storage_link', function() {

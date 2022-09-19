@@ -52,7 +52,7 @@ class ProductController extends Controller
         
         if(request('imagen_1')){
             $imagen_1 = $request->imagen_1->store('uploads/productos', 'public');
-            $img_1 = Image::make(public_path("storage/{$imagen_1}"));
+            $img_1 = Image::make(public_path("storage/{$imagen_1}"))->fit(300, 300);
             $img_1->save();
             $producto->imagen_1 = $imagen_1;
         }
@@ -97,7 +97,9 @@ class ProductController extends Controller
         $producto->descripcion = $request->descripcion;
         $producto->descripcion_corta = $request->descripcion_corta;
         $producto->precio = $request->precio;
+        $producto->precio_descuento = $request->precio_descuento;
         $producto->mostrar_en_sales = $request->mostrar_en_sales;
+        $producto->oportunidad_unica = $request->oportunidad_unica;
         $producto->coleccion_pertenece = $request->coleccion_pertenece;
         // Crear slug con funcion str::slug
         $producto->slug = Str::slug($request->nombre_producto);
@@ -163,7 +165,7 @@ class ProductController extends Controller
             }
 
             $imagen_1 = $request->imagen_1->store('uploads/productos', 'public');
-            $img_1 = Image::make(public_path("storage/{$imagen_1}"));
+            $img_1 = Image::make(public_path("storage/{$imagen_1}"))->fit(300, 300);
             $img_1->save();
             $producto->imagen_1 = $imagen_1;
         }
@@ -237,7 +239,9 @@ class ProductController extends Controller
         $producto->descripcion = $request->descripcion;
         $producto->descripcion_corta = $request->descripcion_corta;
         $producto->precio = $request->precio;
+        $producto->precio_descuento = $request->precio_descuento;
         $producto->mostrar_en_sales = $request->mostrar_en_sales;
+        $producto->oportunidad_unica = $request->oportunidad_unica;
         $producto->coleccion_pertenece = $request->coleccion_pertenece;
         // Crear slug con funcion str::slug
         $producto->slug = Str::slug($request->nombre_producto);
