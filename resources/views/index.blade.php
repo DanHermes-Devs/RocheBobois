@@ -407,248 +407,253 @@
 
     /* OWL */
     .header-content {
-    padding: 0;
-    position: relative;
-    overflow: hidden;
-}
+        padding: 0;
+        position: relative;
+        overflow: hidden;
+    }
 
-.header-content .item {
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    background-position: center;
-    background-size: cover;
-}
-
-.header-content .item .box {
-    position: absolute;
-    width: 100%;
-    color: #fff;
-    top: 30%;
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-    z-index: 99;
-    background: #000;
-    width: 35%;
-    padding: 2rem;
-    right: 0;
-}
-
-.header-content .item .title {
-    color: white;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    text-transform: none;
-}
-
-.header-content .item .btn {
-    margin-top: 40px;
-}
-
-@media (min-width: 768px) {
     .header-content .item {
         height: 100vh;
+        position: relative;
+        overflow: hidden;
+        background-position: center;
+        background-size: cover;
     }
+
+    .header-content .item .box {
+        position: absolute;
+        width: 100%;
+        color: #fff;
+        top: 30%;
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        z-index: 99;
+        background: #000;
+        width: 35%;
+        padding: 2rem;
+        right: 0;
+    }
+
     .header-content .item .title {
-        font-size: 300%;
+        color: white;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        text-transform: none;
     }
-}
 
-@media (min-width: 1200px) {
-    .header-content .item {
-        height: 100vh;
+    .header-content .item .btn {
+        margin-top: 40px;
     }
-    .header-content .item .title {
-        font-size: 300%;
+
+    @media (min-width: 768px) {
+        .header-content .item {
+            height: 100vh;
+        }
+
+        .header-content .item .title {
+            font-size: 300%;
+        }
     }
-}
 
-.header-content .owl-theme .owl-controls .owl-pagination {
-    text-align: end;
-    padding-right: 20px;
-}
+    @media (min-width: 1200px) {
+        .header-content .item {
+            height: 100vh;
+        }
 
-.header-content .owl-theme .owl-controls .owl-buttons div span {
-    color: white;
-}
+        .header-content .item .title {
+            font-size: 300%;
+        }
+    }
 
-.header-content .owl-theme .owl-controls .owl-page span {
-    background: white;
-}
+    .header-content .owl-theme .owl-controls .owl-pagination {
+        text-align: end;
+        padding-right: 20px;
+    }
 
-/*  
+    .header-content .owl-theme .owl-controls .owl-buttons div span {
+        color: white;
+    }
+
+    .header-content .owl-theme .owl-controls .owl-page span {
+        background: white;
+    }
+
+    /*
     ----------------------------------
     42. Quotes
     ----------------------------------
 */
-.quotes {
-    padding: 60px 0;
-    background-color: #000;
-    position: relative;
-    background-size: cover;
-    background-position: center;
-}
-
-@media (min-width: 992px) {
     .quotes {
-        padding: 80px 0;
+        padding: 60px 0;
+        background-color: #000;
+        position: relative;
+        background-size: cover;
+        background-position: center;
     }
-}
 
-.quotes header {
-    position: relative;
-    z-index: 2;
-}
+    @media (min-width: 992px) {
+        .quotes {
+            padding: 80px 0;
+        }
+    }
 
-.quotes header .title {
-    color: white;
-    text-align: center;
-}
+    .quotes header {
+        position: relative;
+        z-index: 2;
+    }
 
-.quotes:after {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    top: 0;
-    left: 0;
-    z-index: 0;
-}
+    .quotes header .title {
+        color: white;
+        text-align: center;
+    }
 
-.quotes .row {
-    position: relative;
-    z-index: 10;
-}
+    .quotes:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
 
-.quotes .row, .quotes .row > div {
-    margin: 0;
-    padding: 0;
-}
+    .quotes .row {
+        position: relative;
+        z-index: 10;
+    }
 
-.quotes .quote {
-    color: white;
-    text-align: center;
-}
+    .quotes .row,
+    .quotes .row>div {
+        margin: 0;
+        padding: 0;
+    }
 
-.quotes .quote .image {
-    -moz-border-radius: 100%;
-    -webkit-border-radius: 100%;
-    border-radius: 100%;
-    -moz-transition: all 0.2s;
-    -o-transition: all 0.2s;
-    -webkit-transition: all 0.2s;
-    transition: all 0.2s;
-    width: 100px;
-    height: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    overflow: hidden;
-    top: 0;
-    margin-bottom: 40px;
-}
-
-.quotes .quote .image img {
-    width: 100%;
-    -moz-border-radius: 100%;
-    -webkit-border-radius: 100%;
-    border-radius: 100%;
-}
-
-.quotes .quote .text h4, .quotes .quote .text .h4 {
-    text-transform: none;
-    margin-bottom: 10px;
-}
-
-.quotes .quote:hover .image {
-    -moz-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    -o-transform: scale(1.2);
-    -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-}
-
-.quotes .quote .more .rating {
-    text-align: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    font-size: 20px;
-}
-
-.quotes .quote .more .rating .icon {
-    width: 16px;
-    display: inline-block;
-}
-
-@media (max-width: 767px) {
     .quotes .quote {
-        margin-bottom: 80px;
+        color: white;
+        text-align: center;
     }
-}
 
-.quotes.quotes-slider .quote {
-    padding-top: 30px;
-}
+    .quotes .quote .image {
+        -moz-border-radius: 100%;
+        -webkit-border-radius: 100%;
+        border-radius: 100%;
+        -moz-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        -webkit-transition: all 0.2s;
+        transition: all 0.2s;
+        width: 100px;
+        height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        overflow: hidden;
+        top: 0;
+        margin-bottom: 40px;
+    }
 
-.quotes.quotes-slider .quote .image img {
-    width: 100px;
-}
+    .quotes .quote .image img {
+        width: 100%;
+        -moz-border-radius: 100%;
+        -webkit-border-radius: 100%;
+        border-radius: 100%;
+    }
 
-@media (max-width: 767px) {
+    .quotes .quote .text h4,
+    .quotes .quote .text .h4 {
+        text-transform: none;
+        margin-bottom: 10px;
+    }
+
+    .quotes .quote:hover .image {
+        -moz-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+
+    .quotes .quote .more .rating {
+        text-align: center;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: 20px;
+    }
+
+    .quotes .quote .more .rating .icon {
+        width: 16px;
+        display: inline-block;
+    }
+
+    @media (max-width: 767px) {
+        .quotes .quote {
+            margin-bottom: 80px;
+        }
+    }
+
     .quotes.quotes-slider .quote {
-        margin-bottom: 0;
+        padding-top: 30px;
     }
-}
 
-.quotes.quotes-slider .owl-theme {
-    margin-bottom: 20px;
-}
+    .quotes.quotes-slider .quote .image img {
+        width: 100px;
+    }
 
-.quotes.quotes-slider .owl-theme .owl-controls .owl-buttons > div {
-    color: white;
-}
+    @media (max-width: 767px) {
+        .quotes.quotes-slider .quote {
+            margin-bottom: 0;
+        }
+    }
 
-.quotes.quotes-slider .owl-theme .owl-controls .owl-buttons > div span {
-    background-color: transparent;
-}
+    .quotes.quotes-slider .owl-theme {
+        margin-bottom: 20px;
+    }
 
-.quotes.quotes-slider .owl-theme .owl-controls .owl-pagination {
-    position: relative;
-    margin-top: 40px;
-}
+    .quotes.quotes-slider .owl-theme .owl-controls .owl-buttons>div {
+        color: white;
+    }
 
-.quotes.quotes-slider .owl-theme .owl-controls .owl-page span {
-    background-color: rgba(255, 255, 255, 0.5);
-}
+    .quotes.quotes-slider .owl-theme .owl-controls .owl-buttons>div span {
+        background-color: transparent;
+    }
 
-.quotes.quotes-slider .owl-theme .owl-controls .owl-page.active span {
-    background-color: white;
-    -moz-transform: scale(1.5);
-    -ms-transform: scale(1.5);
-    -o-transform: scale(1.5);
-    -webkit-transform: scale(1.5);
-    transform: scale(1.5);
-}
+    .quotes.quotes-slider .owl-theme .owl-controls .owl-pagination {
+        position: relative;
+        margin-top: 40px;
+    }
 
-.header-content .owl-theme .owl-controls .owl-buttons div span {
-    color: white;
-}
+    .quotes.quotes-slider .owl-theme .owl-controls .owl-page span {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
 
-.owl-theme .owl-controls .owl-buttons .owl-prev {
-    left: 0!important;
-    background: #000;
-}
-.owl-theme .owl-controls .owl-buttons .owl-next {
-    right: 0!important;
-    background: #000;
-}
-    
-.owl-theme .owl-controls .owl-buttons {
-    opacity: 1!important;
-}
+    .quotes.quotes-slider .owl-theme .owl-controls .owl-page.active span {
+        background-color: white;
+        -moz-transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        -o-transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+    }
+
+    .header-content .owl-theme .owl-controls .owl-buttons div span {
+        color: white;
+    }
+
+    .owl-theme .owl-controls .owl-buttons .owl-prev {
+        left: 0 !important;
+        background: #000;
+    }
+
+    .owl-theme .owl-controls .owl-buttons .owl-next {
+        right: 0 !important;
+        background: #000;
+    }
+
+    .owl-theme .owl-controls .owl-buttons {
+        opacity: 1 !important;
+    }
 </style>
 
 @section('content')
@@ -704,7 +709,8 @@
                     </h3>
                 </div>
                 <div class="col-12 col-md-6 p-0 d-none d-md-block">
-                    <img src="https://rocheboboismexico.com/wp-content/uploads/2022/05/Domino_compo_naturelle_focus5.jpg" class="img_cards_section">
+                    <img src="https://rocheboboismexico.com/wp-content/uploads/2022/05/Domino_compo_naturelle_focus5.jpg"
+                        class="img_cards_section">
                 </div>
             </div>
         </div>
