@@ -8,7 +8,7 @@
 </style>
 @section('content')
     <div class="container-fluid">
-        <div class="row justify-content-center dashboard__card p-4">
+        <div class="row card p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0 fw-bold">Nuevo producto</h2>
             </div>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="mostrar_en_sales" class="form-label">Mostrar en Sales</label>
-                        <select class="form-select" id="mostrar_en_sales" name="mostrar_en_sales">
+                        <select class="form-control" id="mostrar_en_sales" name="mostrar_en_sales">
                             <option selected>-- Selecciona una opción --</option>
                             <option value="1">Sí</option>
                             <option value="0">No</option>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="oportunidad_unica" class="form-label">¿Oportunidad única?</label>
-                        <select class="form-select" id="oportunidad_unica" name="oportunidad_unica">
+                        <select class="form-control" id="oportunidad_unica" name="oportunidad_unica">
                             <option selected value="2">-- Selecciona una opción --</option>
                             <option value="1">Sí</option>
                             <option value="0">No</option>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="coleccion_pertenece" class="form-label">¿Ah qué colección pertenece?</label>
-                        <select class="form-select" id="coleccion_pertenece" name="coleccion_pertenece">
+                        <select class="form-control" id="coleccion_pertenece" name="coleccion_pertenece">
                             <option selected value="0">-- Selecciona una opción --</option>
                             @foreach ($colecciones as $coleccion)
                                 <option value="{{ $coleccion->id }}">{{ $coleccion->nombre_disenador }}</option>

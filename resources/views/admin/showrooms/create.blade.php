@@ -8,9 +8,9 @@
 </style>
 @section('content')
     <div class="container-fluid">
-        <div class="row justify-content-center dashboard__card p-4">
+        <div class="row card p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="mb-0 fw-bold">Nuevo evento</h2>
+                <h2 class="mb-0 fw-bold">Nuevo showroom</h2>
             </div>
 
             <form action="{{ route('store.showroom') }}" method="POST" enctype="multipart/form-data" class="row">

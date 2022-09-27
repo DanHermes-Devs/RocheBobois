@@ -8,7 +8,7 @@
 </style>
 @section('content')
     <div class="container-fluid">
-        <div class="row justify-content-center dashboard__card p-4">
+        <div class="row card p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0 fw-bold">Nueva building</h2>
             </div>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="categoria" class="form-label">Categoría</label>
-                        <select name="categoria" id="categoria" class="form-select">
+                        <select name="categoria" id="categoria" class="form-control">
                             <option value="0" selected>-- Selecciona una opcion --</option>
                             <option value="lifestyle">Lifestyle</option>
                             <option value="hoteles">Hoteles</option>

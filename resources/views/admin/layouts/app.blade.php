@@ -1,160 +1,448 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/dashboard.js') }}" defer></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    {{-- Font awesome --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
-    <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+
+    <!-- Google Font: Source Sans Pro -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+    <!-- Font Awesome Icons -->
+
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap4.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.2.0/css/rowGroup.bootstrap4.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"/>
+
+
+
+    {{-- waitme --}}
+
+    <link rel="stylesheet" href="{{ asset('css/waitMe.min.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" />
 
     {{-- Trix editor --}}
-    <link rel="stylesheet" href="{{ asset('css/trixeditor.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/trixeditor.min.css') }}" />
 
-    {{-- Waitme --}}
-    <link rel="stylesheet" href="{{ asset('css/waitme.min.css') }}"/>
 
-    <!-- Styles -->
-    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Theme style -->
 
-    @yield('styles')
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+
 </head>
-<body class="dashboard">
-    <header class="dashboard__header px-md-5">
-        <div class="dashboard__header-grid">
-            <a href="/">
-                <img src="{{ asset('image/rochebobois_white_logo.svg') }}" alt="Logo Roche Bobois" class="img-fluid dashboard__header-logo">
-            </a>
 
-            <nav class="">
-                <ul class="navbar-nav ms-auto">
+<style>
+    body {
+        background-color: #f4f6f9!important;
+    }
+
+    .wrapper .content-wrapper{
+        height: auto!important;
+    }
+
+    .content-wrapper {
+        margin-bottom: 3rem;
+    }
+
+    .trix-button-group--file-tools {
+        display: none !important;
+    }
+</style>
+<body class="hold-transition sidebar-mini">
+
+    <div class="wrapper">
+
+        <!-- Navbar -->
+
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+
+            <!-- Left navbar links -->
+
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
+
+                            class="fas fa-bars"></i></a>
+
+                </li>
+
+            </ul>
+
+
+
+            <!-- Right navbar links -->
+
+            <ul class="navbar-nav ml-auto">
+
+                <!-- Notifications Dropdown Menu -->
+
+                @guest
+
+                    @if (Route::has('login'))
+
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+
+                        </li>
+
+                    @endif
+
+
+
+                    @if (Route::has('register'))
+
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+
+                        </li>
+
+                    @endif
+
+                @else
+
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+
+                            data-toggle="dropdown" href="#">
+
                             {{ Auth::user()->name }}
+
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item text-uppercase" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                {{ __('Cerrar Sesión') }}
+
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+
+                                                        document.getElementById('logout-form').submit();">
+
+                                {{ __('Cerrar sesión') }}
+
                             </a>
 
+
+
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+
                                 @csrf
+
                             </form>
+
                         </div>
+
                     </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <div id="app" class="dashboard__grid">
-        <aside class="dashboard__aside">
-            <nav class="dashboard__menu">
-                <a href="{{ route('dashboard') }}" class="dashboard__enlace {{ Route::is('dashboard') ? 'dashboard__enlace-active' : false}}">
-                    <i class="fa-solid fa-house dashboard__icono"></i>
-                    <span class="dashboard__menu-texto">
-                        Inicio
-                    </span>
-                </a>
-                {{-- Link Home --}}
-                
-                <a href="{{ route('colecciones-especiales') }}" class="dashboard__enlace {{ Route::is(['colecciones-especiales', 'create.coleccion', 'edit.coleccion']) ? 'dashboard__enlace-active' : false}}">
-                    <i class="fa-solid fa-gem dashboard__icono"></i>
-                    <span class="dashboard__menu-texto">
-                        Colecciones Especiales
-                    </span>
-                </a>
-                {{-- Link Colecciones Especiales --}}
-                
-                <a href="{{ route('eventos') }}" class="dashboard__enlace {{ Route::is(['eventos', 'create.evento', 'edit.evento']) ? 'dashboard__enlace-active' : false}}">
-                    <i class="fa-regular fa-calendar-days dashboard__icono"></i>
-                    <span class="dashboard__menu-texto">
-                        Eventos
-                    </span>
-                </a>
-                {{-- Link Eventos --}}
+                @endguest
 
-                <a href="{{ route('productos') }}" class="dashboard__enlace {{ Route::is(['productos', 'create.producto', 'edit.producto']) ? 'dashboard__enlace-active' : false}}">
-                    <i class="fa-solid fa-couch dashboard__icono"></i>
-                    <span class="dashboard__menu-texto">
-                        Productos
-                    </span>
-                </a>
-                {{-- Link Productos --}}
+            </ul>
 
-                <a href="{{ route('building') }}" class="dashboard__enlace {{ Route::is(['building', 'create.building']) ? 'dashboard__enlace-active' : false}}">
-                    <i class="fa-solid fa-bell-concierge dashboard__icono"></i>
-                    <span class="dashboard__menu-texto">
-                        Building
-                    </span>
-                </a>
-                {{-- Link Roche Bobois Building --}}
+        </nav>
 
-                <a href="{{ route('showrooms') }}" class="dashboard__enlace {{ Route::is(['showrooms', 'create.showroom']) ? 'dashboard__enlace-active' : false}}">
-                    <i class="fa-solid fa-shop dashboard__icono"></i>
-                    <span class="dashboard__menu-texto">
-                        Showrooms
-                    </span>
-                </a>
-                {{-- Link Showrooms --}}
-                
-                <a href="{{ route('sliders') }}" class="dashboard__enlace {{ Route::is(['sliders', 'create.slider']) ? 'dashboard__enlace-active' : false}}">
-                    <i class="fa-regular fa-image dashboard__icono"></i>
-                    <span class="dashboard__menu-texto">
-                        Slider
-                    </span>
-                </a>
-                {{-- Link Slider --}}
-                
-                <a href="{{ route('contacto') }}" class="dashboard__enlace {{ Route::is('contacto') ? 'dashboard__enlace-active' : false}}">
-                    <i class="fa-regular fa-address-book dashboard__icono"></i>
-                    <span class="dashboard__menu-texto">
-                     Contacto
-                    </span>
-                </a>
-                {{-- Link Contacto --}}
-            </nav>
+        <!-- /.navbar -->
+
+
+
+        <!-- Main Sidebar Container -->
+
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+            <!-- Brand Logo -->
+
+            <a href="{{ route('dashboard') }}" class="brand-link">
+
+                {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+
+                    style="opacity: .8"> --}}
+
+                <span class="brand-text font-weight-light">ROCHE BOBOIS MÉXICO</span>
+
+            </a>
+
+
+
+            <!-- Sidebar -->
+
+            <div class="sidebar">
+
+                <!-- Sidebar Menu -->
+
+                <nav class="mt-2">
+
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+
+                        data-accordion="true">
+
+
+
+                        <li class="nav-item">
+
+                            <a href="{{ route('colecciones-especiales') }}" class="nav-link">
+
+                                <i class="nav-icon fas fa-id-card"></i>
+
+                                <p>Colecciones Especiales</p>
+
+                            </a>
+
+                        </li>
+
+
+
+                        <li class="nav-item">
+
+                            <a href="{{ route('showrooms') }}" class="nav-link">
+
+                                <i class="nav-icon fas fa-id-card"></i>
+
+                                <p>Showrooms</p>
+
+                            </a>
+
+                        </li>
+
+
+
+                        <li class="nav-item">
+
+                            <a href="{{ route('sliders') }}" class="nav-link">
+
+                                <i class="nav-icon fas fa-id-card"></i>
+
+                                <p>Sliders</p>
+
+                            </a>
+
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a href="#" class="nav-link">
+
+                                <i class="nav-icon fas fa-cog"></i>
+
+                                <p>
+
+                                    Eventos
+
+                                    <i class="right fas fa-angle-left"></i>
+
+                                </p>
+
+                            </a>
+
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+
+                                    <a href="{{ route('eventos') }}" class="nav-link">
+
+                                        <i class="far fa-circle nav-icon"></i>
+
+                                        <p>Todos los Eventos</p>
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a href="#" class="nav-link">
+
+                                <i class="nav-icon fas fa-cog"></i>
+
+                                <p>
+
+                                    Productos
+
+                                    <i class="right fas fa-angle-left"></i>
+
+                                </p>
+
+                            </a>
+
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+
+                                    <a href="{{ route('productos') }}" class="nav-link">
+
+                                        <i class="far fa-circle nav-icon"></i>
+
+                                        <p>Todos los Productos</p>
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a href="#" class="nav-link">
+
+                                <i class="nav-icon fas fa-cog"></i>
+
+                                <p>
+
+                                    Buildings
+
+                                    <i class="right fas fa-angle-left"></i>
+
+                                </p>
+
+                            </a>
+
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+
+                                    <a href="{{ route('building') }}" class="nav-link">
+
+                                        <i class="far fa-circle nav-icon"></i>
+
+                                        <p>Todos los Buildings</p>
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+                <!-- /.sidebar-menu -->
+
+            </div>
+
+            <!-- /.sidebar -->
+
         </aside>
-        <main class="py-4 dashboard__contenido">
-            @yield('content')
-        </main>
+
+
+
+        <div class="content-wrapper">
+
+            <div class="content-header">
+
+                <div class="container-fluid"></div>
+
+            </div>
+
+            <div class="content">
+                @yield('content')
+            </div>
+
+
+        </div>
+
+
+
+        <!-- Main Footer -->
+
+        <footer class="main-footer">
+
+            <!-- Default to the left -->
+
+            <strong>Copyright &copy; {{ date('Y') }} <a href="https://wearetrafika.com/">Gestor de encuestas</a>.</strong> All rights reserved.
+
+        </footer>
+
+        <!-- REQUIRED SCRIPTS -->
+
     </div>
 
-    {{-- jQuery --}}
-    <script src="{{ asset('js/jquery.min.js')}}"></script>
+    <!-- ./wrapper -->
 
-    {{-- Bootstrap --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
 
-    {{-- Trix Editor JS --}}
-    <script src="{{ asset('js/trixeditor.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
+    <!-- Bootstrap 4 -->
+
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- AdminLTE App -->
+
+    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+
+
+
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap4.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.2.0/js/dataTables.rowGroup.min.js"></script>
+
     
-    {{-- FontAwesome --}}
-    <script src="{{ asset('js/all.min.js')}}"></script>
+    {{-- Trixeditor --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js"></script>
 
-    {{-- Waitme JS --}}
-    <script src="{{ asset('js/waitme.min.js') }}"></script>
 
-    {{-- Sweet Alert 2 --}}
-    <script src="{{ asset('js/sweetalert.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 
-    {{-- Script personalizados con yield --}}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap4.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+
     @yield('scripts')
+
+    {{-- <script>
+        $("trix-file-accept", (e) => {
+            e.preventDefault()
+        });
+    </script> --}}
+
 </body>
+
+
+
 </html>
+

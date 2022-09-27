@@ -8,7 +8,7 @@
 </style>
 @section('content')
     <div class="container-fluid">
-        <div class="row justify-content-center dashboard__card p-4">
+        <div class="row card p-4">
             <div class="d-flex mb-2">
                 <a href="{{ route('building') }}" class="text-dark"> <i class="fa-solid fa-arrow-left mr-2"></i> Volver</a>
             </div>
