@@ -1,23 +1,26 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\BuildingController;
-use App\Http\Controllers\CollectionController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\frontend\BuildingHController;
-use App\Http\Controllers\frontend\ColeccionController;
-use App\Http\Controllers\frontend\EventoController;
-use App\Http\Controllers\frontend\SalesController;
-use App\Http\Controllers\frontend\ShowroomController as FrontendShowroomController;
+use App\Mail\Contacto;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\InicioController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ShowroomController;
 use App\Http\Controllers\SliderController;
-use App\Mail\Contacto;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BuildingController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ShowroomController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\frontend\SalesController;
+use App\Http\Controllers\frontend\EventoController;
+use App\Http\Controllers\frontend\BuildingHController;
+use App\Http\Controllers\frontend\ColeccionController;
+use App\Http\Controllers\frontend\ShowroomController as FrontendShowroomController;
+use App\Http\Controllers\SubcategoryController;
+use App\Models\Subcategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,9 +114,22 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/productos/{id}/edit', [ProductController::class, 'edit'])->name('edit.producto');
         Route::match(['put', 'patch'], '/productos/{id}', [ProductController::class, 'update'])->name('update.producto');
         Route::delete('/productos/{id}', [ProductController::class, 'destroy'])->name('destroy.producto');
-        
-        // Almacenamos la imagen que viene desde dropzone en la carpeta uploads/productos
-        Route::post('/productos/{id}/upload', [ProductController::class, 'storeImage'])->name('storeImage.producto');
+
+        // Rutas Categorias de Productos
+        Route::get('/categorias-productos', [CategoryController::class, 'index'])->name('categorias');
+        Route::get('/categorias-productos/nueva-categoria', [CategoryController::class, 'create'])->name('create.categoria');
+        Route::post('/categorias-productos', [CategoryController::class, 'store'])->name('store.categoria');
+        Route::get('/categorias-productos/{id}/edit', [CategoryController::class, 'edit'])->name('edit.categoria');
+        Route::match(['put', 'patch'], '/categorias-productos/{id}', [CategoryController::class, 'update'])->name('update.categoria');
+        Route::delete('/categorias-productos/{id}', [CategoryController::class, 'destroy'])->name('destroy.categoria');
+
+        // Rutas Subcategorias de Productos
+        Route::get('/subcategorias-productos', [SubcategoryController::class, 'index'])->name('subcategorias');
+        Route::get('/subcategorias-productos/nueva-subcategoria', [SubcategoryController::class, 'create'])->name('create.subcategoria');
+        Route::post('/subcategorias-productos', [SubcategoryController::class, 'store'])->name('store.subcategoria');
+        Route::get('/subcategorias-productos/{id}/edit', [SubcategoryController::class, 'edit'])->name('edit.subcategoria');
+        Route::match(['put', 'patch'], '/subcategorias-productos/{id}', [SubcategoryController::class, 'update'])->name('update.subcategoria');
+        Route::delete('/subcategorias-productos/{id}', [SubcategoryController::class, 'destroy'])->name('destroy.subcategoria');
 
         // Rutas Building
         Route::get('/building', [BuildingController::class, 'index'])->name('building');

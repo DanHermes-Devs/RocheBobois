@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Collection;
+use App\Models\Subcategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -30,7 +32,9 @@ class ProductController extends Controller
     public function create()
     {
         $colecciones = Collection::all();
-        return view('admin.productos.create', compact('colecciones'));
+        $categorias = Category::all();
+        $subcategorias = Subcategory::all();
+        return view('admin.productos.create', compact('colecciones', 'categorias', 'subcategorias'));
     }
 
     /**
@@ -69,6 +73,10 @@ class ProductController extends Controller
         $producto->precio = $request->precio;
         $producto->precio_descuento = $request->precio_descuento;
         $producto->mostrar_en_sales = $request->mostrar_en_sales;
+
+        // Guardamos el array de subcategorias
+        $subcategorias = $request->subcategorias;
+        $producto->subcategory_id = json_encode($subcategorias);
         $producto->save();
 
         return redirect()->route('productos')->with(['producto' => $producto, 'store' => 'Producto creado correctamente.', 'status' => 'success']);

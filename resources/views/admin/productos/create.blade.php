@@ -49,6 +49,41 @@
                 </div>
 
                 <div class="col-12 col-md-4">
+                    {{-- Mostrar las subcategorias en checkbox con su categoria padre --}}
+                    <div class="mb-3 border p-3">
+                        <div class="row">
+
+                            <label for="subcategorias" class="form-label">Categorías</label>
+                            @foreach ($categorias as $categoria)
+                                {{-- Checkbox de la categoria padre --}}
+                                <div class="col-12">
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" value="{{ $categoria->id }}"
+                                        id="categoria_{{ $categoria->id }}" name="categorias[]">
+                                        <label class="form-check-label" for="categoria_{{ $categoria->id }}">
+                                            {{ $categoria->nombre }}
+                                        </label>
+
+                                        {{-- Seguido de su checkbox de las subcategorias --}}
+                                        @foreach ($subcategorias as $subcategoria)
+                                            @if ($subcategoria->category_id == $categoria->id)
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        value="{{ $subcategoria->id }}"
+                                                        id="subcategoria_{{ $subcategoria->id }}"
+                                                        name="subcategorias[]">
+                                                    <label class="form-check-label"
+                                                        for="subcategoria_{{ $subcategoria->id }}">
+                                                        {{ $subcategoria->nombre }}
+                                                    </label>
+                                                </div>
+                                            @endif
+                                        @endforeach 
+                                    </div>
+                                </div>                              
+                            @endforeach
+                        </div>
+                    </div>
                     <div class="mb-3">
                         <label for="imagen_destacada" class="form-label">Imagen Destacada</label>
                         <input type="file" name="imagen_destacada" id="imagen_destacada" class="form-control">

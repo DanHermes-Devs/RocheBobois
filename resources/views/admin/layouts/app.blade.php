@@ -44,7 +44,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 
-    @stack('styles')
+    @yield('styles')
 
 </head>
 
@@ -290,6 +290,30 @@
                                     </a>
 
                                 </li>
+                                
+                                <li class="nav-item">
+
+                                    <a href="{{ route('categorias') }}" class="nav-link">
+
+                                        <i class="far fa-circle nav-icon"></i>
+
+                                        <p>Categorias</p>
+
+                                    </a>
+
+                                </li>
+                                
+                                <li class="nav-item">
+
+                                    <a href="{{ route('subcategorias') }}" class="nav-link">
+
+                                        <i class="far fa-circle nav-icon"></i>
+
+                                        <p>Subcategorias</p>
+
+                                    </a>
+
+                                </li>
 
                             </ul>
 
@@ -390,7 +414,7 @@
 
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
 
-    @stack('scripts')
+    @yield('scripts')
 
     {{-- <script>
         $("trix-file-accept", (e) => {
