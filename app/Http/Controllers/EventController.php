@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
@@ -40,8 +41,10 @@ class EventController extends Controller
     {
         $evento = new Event;
 
+        $evento->slug = Str::slug($request->nombre_evento);
+
         if(request('imagen_destacada')){
-            $imagen_destacada = $request->imagen_destacada->store('uploads/evento', 'public');
+            $imagen_destacada = $request->imagen_destacada->store('uploads/evento/'.$evento->slug, 'public');
             $img_1 = Image::make(public_path("storage/{$imagen_destacada}"));
             $img_1->save();
             $evento->imagen_destacada = $imagen_destacada;
@@ -89,6 +92,8 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         $evento = Event::find($request->id);
+        $evento->slug = Str::slug($request->nombre_evento);
+
         if(request('imagen_destacada')){
             // Eliminar primero imagen anterior
             $imagen_path = public_path("storage/{$evento->imagen_destacada}");
@@ -96,7 +101,7 @@ class EventController extends Controller
                 unlink($imagen_path);
             }
             
-            $imagen_destacada = $request->imagen_destacada->store('uploads/evento', 'public');
+            $imagen_destacada = $request->imagen_destacada->store('uploads/evento/'.$evento->slug, 'public');
             $img_1 = Image::make(public_path("storage/{$imagen_destacada}"));
             $img_1->save();
             $evento->imagen_destacada = $imagen_destacada;
@@ -119,12 +124,21 @@ class EventController extends Controller
     public function destroy(Event $event, $id)
     {
         $evento = Event::findOrFail($id);
+
+        // Eliminamos la imagen destacada
         $imagen_path = public_path("storage/{$evento->imagen_destacada}");
         if(File::exists($imagen_path)){
             if($evento->imagen_destacada != null){
                 unlink($imagen_path);
             }
         }
+
+        // Eliminamos la carpeta del evento
+        $carpeta_path = public_path("storage/uploads/evento/{$evento->slug}");
+        if(File::exists($carpeta_path)){
+            File::deleteDirectory($carpeta_path);
+        }
+
         $evento->delete();
         return response()->json(['status' => 'success', 'message' => 'Evento eliminado correctamente.']);
     }

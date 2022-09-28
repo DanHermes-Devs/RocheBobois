@@ -21,17 +21,14 @@ class CreateProductsTable extends Migration
             $table->float('precio')->nullable();
             $table->float('precio_descuento')->nullable();
             $table->integer('mostrar_en_sales')->nullable();
-            $table->integer('oportunidad_unica')->nullable();
-            $table->unsignedBigInteger('coleccion_pertenece')->nullable();
             $table->text('imagen_destacada')->nullable();
-            $table->text('imagen_1')->nullable();
-            $table->text('imagen_2')->nullable();
-            $table->text('imagen_3')->nullable();
-            $table->text('imagen_4')->nullable();
-            $table->text('imagen_5')->nullable();
-            $table->text('imagen_6')->nullable();
-            // Campo slug
+            $table->text('galeria')->nullable();
             $table->text('slug')->nullable();
+
+            // Relacion con la tabla subcategories
+            $table->unsignedBigInteger('subcategory_id')->nullable();
+            $table->foreign('subcategory_id')->references('id')->on('subcategories')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

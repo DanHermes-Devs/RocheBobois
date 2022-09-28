@@ -2,8 +2,6 @@
 
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-
-
 <head>
 
     <meta charset="utf-8">
@@ -12,10 +10,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
 
 
     <!-- Google Font: Source Sans Pro -->
@@ -26,8 +21,6 @@
 
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
 
-
-
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css"/>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap4.min.css"/>
@@ -36,7 +29,9 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"/>
 
-
+    {{-- Font awesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+    <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
 
     {{-- waitme --}}
 
@@ -46,10 +41,10 @@
     {{-- Trix editor --}}
     <link rel="stylesheet" href="{{ asset('css/trixeditor.min.css') }}" />
 
-
     <!-- Theme style -->
-
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+
+    @stack('styles')
 
 </head>
 
@@ -244,35 +239,25 @@
 
                         <li class="nav-item">
 
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('eventos') }}" class="nav-link">
 
-                                <i class="nav-icon fas fa-cog"></i>
+                                <i class="far fa-circle nav-icon"></i>
 
-                                <p>
-
-                                    Eventos
-
-                                    <i class="right fas fa-angle-left"></i>
-
-                                </p>
+                                <p>Eventos</p>
 
                             </a>
 
-                            <ul class="nav nav-treeview">
+                        </li>
 
-                                <li class="nav-item">
+                        <li class="nav-item">
 
-                                    <a href="{{ route('eventos') }}" class="nav-link">
+                            <a href="{{ route('building') }}" class="nav-link">
 
-                                        <i class="far fa-circle nav-icon"></i>
+                                <i class="far fa-circle nav-icon"></i>
 
-                                        <p>Todos los Eventos</p>
+                                <p>Buildings</p>
 
-                                    </a>
-
-                                </li>
-
-                            </ul>
+                            </a>
 
                         </li>
 
@@ -301,40 +286,6 @@
                                         <i class="far fa-circle nav-icon"></i>
 
                                         <p>Todos los Productos</p>
-
-                                    </a>
-
-                                </li>
-
-                            </ul>
-
-                        </li>
-
-                        <li class="nav-item">
-
-                            <a href="#" class="nav-link">
-
-                                <i class="nav-icon fas fa-cog"></i>
-
-                                <p>
-
-                                    Buildings
-
-                                    <i class="right fas fa-angle-left"></i>
-
-                                </p>
-
-                            </a>
-
-                            <ul class="nav nav-treeview">
-
-                                <li class="nav-item">
-
-                                    <a href="{{ route('building') }}" class="nav-link">
-
-                                        <i class="far fa-circle nav-icon"></i>
-
-                                        <p>Todos los Buildings</p>
 
                                     </a>
 
@@ -381,7 +332,7 @@
 
             <!-- Default to the left -->
 
-            <strong>Copyright &copy; {{ date('Y') }} <a href="https://wearetrafika.com/">Gestor de encuestas</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; {{ date('Y') }} <a href="#">Roche Bobois México</a>.</strong> All rights reserved.
 
         </footer>
 
@@ -405,7 +356,7 @@
 
 
 
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
@@ -417,10 +368,17 @@
 
     <script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.2.0/js/dataTables.rowGroup.min.js"></script>
 
+    {{-- Sweet Alert 2 --}}
+    <script src="{{ asset('js/sweetalert.min.js') }}"></script>
+
+    {{-- Waitme JS --}}
+    <script src="{{ asset('js/waitme.min.js') }}"></script>
     
     {{-- Trixeditor --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js"></script>
 
+    {{-- FontAwesome --}}
+    <script src="{{ asset('js/all.min.js')}}"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 
@@ -432,7 +390,7 @@
 
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
 
-    @yield('scripts')
+    @stack('scripts')
 
     {{-- <script>
         $("trix-file-accept", (e) => {

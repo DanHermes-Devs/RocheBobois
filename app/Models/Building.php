@@ -13,6 +13,8 @@ class Building extends Model
         'nombre_hotel',
         'descripcion',
         'categoria',
-        'imagen_destacada'
+        'imagen_destacada',
+        'galeria',
+        'slug'
     ];
 }

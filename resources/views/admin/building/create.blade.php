@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="row card p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="mb-0 fw-bold">Nueva building</h2>
+                <h2 class="mb-0 fw-bold">Agregar building</h2>
             </div>
 
             <form action="{{ route('store.building') }}" method="POST" enctype="multipart/form-data" class="row">
@@ -42,6 +42,10 @@
                     <div class="mb-3">
                         <label for="imagen_destacada" class="form-label">Imagen destacada</label>
                         <input type="file" name="imagen_destacada" id="imagen_destacada" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="galeria" class="form-label">Galería</label>
+                        <input type="file" name="galeria[]" multiple accept=".png,.jpg,.jpeg" id="galeria" class="form-control">
                     </div>
                     <div class="mb-3">
                         <button type="submit" class="btn btn-success w-100">Crear building</button>

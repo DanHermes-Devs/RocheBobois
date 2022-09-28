@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Building;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
@@ -39,12 +40,25 @@ class BuildingController extends Controller
     public function store(Request $request)
     {
         $building = new Building;
+        $building->slug = Str::slug($request->nombre_hotel);
 
         if(request('imagen_destacada')){
-            $imagen_destacada = $request->imagen_destacada->store('uploads/hoteles', 'public');
+            $imagen_destacada = $request->imagen_destacada->store('uploads/buildings/'.$building->slug, 'public');
             $img_1 = Image::make(public_path("storage/{$imagen_destacada}"));
             $img_1->save();
             $building->imagen_destacada = $imagen_destacada;
+        }
+
+        if($request->file('galeria')){
+            $galerias = $request->file('galeria');
+            $img_galeria = array();
+            foreach ($galerias as $imagefile) {
+                $imagefile = $imagefile->store('uploads/buildings/'.$building->slug, 'public');
+                $img_2 = Image::make(public_path("storage/{$imagefile}"))->fit(1920, 1080);
+                $img_2->save();
+                array_push($img_galeria, $imagefile);
+            }
+            $building->galeria = json_encode($img_galeria);
         }
 
         $building->nombre_hotel = $request->nombre_hotel;
@@ -52,7 +66,7 @@ class BuildingController extends Controller
         $building->descripcion = $request->descripcion;
         $building->save();
 
-        return redirect()->route('building')->with(['colecbuildingcion' => $building, 'store' => 'Building creado correctamente.', 'status' => 'success']);
+        return redirect()->route('building')->with(['building' => $building, 'store' => 'Building creado correctamente.', 'status' => 'success']);
     }
 
     /**
@@ -96,7 +110,7 @@ class BuildingController extends Controller
                 unlink($imagen_path);
             }
 
-            $imagen_destacada = $request->imagen_destacada->store('uploads/hoteles', 'public');
+            $imagen_destacada = $request->imagen_destacada->store('uploads/buildings/'.$building->slug, 'public');
             $img_1 = Image::make(public_path("storage/{$imagen_destacada}"));
             $img_1->save();
             $building->imagen_destacada = $imagen_destacada;
@@ -126,6 +140,21 @@ class BuildingController extends Controller
             if($building->imagen_destacada != null){
                 unlink($imagen_path);
             }
+        }
+
+        // Eliminar imagenes de la galeria
+        $galeria = json_decode($building->galeria);
+        foreach ($galeria as $image) {
+            $imagen_path = public_path("storage/{$image}");
+            if(File::exists($imagen_path)){
+                unlink($imagen_path);
+            }
+        }
+
+        // Eliminar la carpeta de imagenes
+        $carpeta = public_path("storage/uploads/buildings/{$building->slug}");
+        if(File::exists($carpeta)){
+            File::deleteDirectory($carpeta);
         }
 
         $building->delete();

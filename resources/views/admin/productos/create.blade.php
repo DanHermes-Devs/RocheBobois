@@ -41,26 +41,9 @@
                     <div class="mb-3">
                         <label for="mostrar_en_sales" class="form-label">Mostrar en Sales</label>
                         <select class="form-control" id="mostrar_en_sales" name="mostrar_en_sales">
-                            <option selected>-- Selecciona una opción --</option>
+                            <option>-- Selecciona una opción --</option>
                             <option value="1">Sí</option>
                             <option value="0">No</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="oportunidad_unica" class="form-label">¿Oportunidad única?</label>
-                        <select class="form-control" id="oportunidad_unica" name="oportunidad_unica">
-                            <option selected value="2">-- Selecciona una opción --</option>
-                            <option value="1">Sí</option>
-                            <option value="0">No</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="coleccion_pertenece" class="form-label">¿Ah qué colección pertenece?</label>
-                        <select class="form-control" id="coleccion_pertenece" name="coleccion_pertenece">
-                            <option selected value="0">-- Selecciona una opción --</option>
-                            @foreach ($colecciones as $coleccion)
-                                <option value="{{ $coleccion->id }}">{{ $coleccion->nombre_disenador }}</option>
-                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -71,29 +54,8 @@
                         <input type="file" name="imagen_destacada" id="imagen_destacada" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="imagen_1" class="form-label">Imagen 1</label>
-                        <input type="file" name="imagen_1" accept=".png,.jpg,.jpeg" id="imagen_1" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagen_2" class="form-label">Imagen 2</label>
-                        <input type="file" name="imagen_2" accept=".png,.jpg,.jpeg" id="imagen_2" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagen_3" class="form-label">Imagen 3</label>
-                        <input type="file" name="imagen_3" accept=".png,.jpg,.jpeg" id="imagen_3" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagen_4" class="form-label">Imagen 4</label>
-                        <input type="file" name="imagen_4" accept=".png,.jpg,.jpeg" id="imagen_4" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagen_5" class="form-label">Imagen 5</label>
-                        <input type="file" name="imagen_5" accept=".png,.jpg,.jpeg" id="imagen_5" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagen_6" class="form-label">Imagen 6</label>
-                        <input type="file" name="imagen_6" accept=".png,.jpg,.jpeg" id="imagen_6"
-                            class="form-control">
+                        <label for="galeria" class="form-label">Galería</label>
+                        <input type="file" name="galeria[]" id="galeria" class="form-control" multiple>
                     </div>
                     <div class="mb-3">
                         <button type="submit" class="btn btn-success w-100">Crear producto</button>

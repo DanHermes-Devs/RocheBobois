@@ -40,9 +40,10 @@ class ShowroomController extends Controller
     public function store(Request $request)
     {
         $showroom = new Showroom;
+        $showroom->slug = Str::slug($request->nombre_showroom);
 
         if(request('imagen_destacada')){
-            $imagen_destacada = $request->imagen_destacada->store('uploads/showroom', 'public');
+            $imagen_destacada = $request->imagen_destacada->store('uploads/showroom/'.$showroom->slug, 'public');
             $img_1 = Image::make(public_path("storage/{$imagen_destacada}"));
             $img_1->save();
             $showroom->imagen_destacada = $imagen_destacada;
@@ -57,8 +58,6 @@ class ShowroomController extends Controller
         $showroom->direccion_showroom = $request->direccion_showroom;
         $showroom->como_llegar = $request->como_llegar;
         $showroom->id_tag_manager = $request->id_tag_manager;
-        // Crear slug con funcion str::slug
-        $showroom->slug = Str::slug($request->nombre_showroom);
         $showroom->save();
 
         return redirect()->route('showrooms')->with(['showroom' => $showroom, 'store' => 'Showroom creado correctamente.', 'status' => 'success']);
@@ -104,7 +103,7 @@ class ShowroomController extends Controller
                 unlink($imagen_path);
             }
 
-            $imagen_destacada = $request->imagen_destacada->store('uploads/showroom', 'public');
+            $imagen_destacada = $request->imagen_destacada->store('uploads/showroom/'.$showroom->slug, 'public');
             $img_1 = Image::make(public_path("storage/{$imagen_destacada}"));
             $img_1->save();
             $showroom->imagen_destacada = $imagen_destacada;
@@ -142,6 +141,12 @@ class ShowroomController extends Controller
             if($showroom->imagen_destacada != null){
                 unlink($imagen_path);
             }
+        }
+
+        // Eliminar carpeta de imagenes
+        $carpeta_path = public_path("storage/uploads/showroom/{$showroom->slug}");
+        if(File::exists($carpeta_path)){
+            File::deleteDirectory($carpeta_path);
         }
 
         $showroom->delete();

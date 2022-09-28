@@ -19,6 +19,8 @@ class CreateBuildingsTable extends Migration
             $table->text('categoria')->nullable();
             $table->text('descripcion')->nullable();
             $table->text('imagen_destacada')->nullable();
+            $table->text('galeria')->nullable();
+            $table->text('slug')->nullable();
             $table->timestamps();
         });
     }

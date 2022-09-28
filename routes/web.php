@@ -111,6 +111,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/productos/{id}/edit', [ProductController::class, 'edit'])->name('edit.producto');
         Route::match(['put', 'patch'], '/productos/{id}', [ProductController::class, 'update'])->name('update.producto');
         Route::delete('/productos/{id}', [ProductController::class, 'destroy'])->name('destroy.producto');
+        
+        // Almacenamos la imagen que viene desde dropzone en la carpeta uploads/productos
+        Route::post('/productos/{id}/upload', [ProductController::class, 'storeImage'])->name('storeImage.producto');
 
         // Rutas Building
         Route::get('/building', [BuildingController::class, 'index'])->name('building');

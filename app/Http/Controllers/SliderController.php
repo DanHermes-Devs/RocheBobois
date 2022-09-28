@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Slider;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
@@ -39,9 +40,11 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $slider = new Slider;
+        // Crear slug con la libreria Str
+        $slider->slug = Str::slug($request->nombre_disenador);
 
         if(request('imagen_destacada')){
-            $imagen_destacada = $request->imagen_destacada->store('uploads/slider', 'public');
+            $imagen_destacada = $request->imagen_destacada->store('uploads/slider/'.$slider->slug, 'public');
             $img_1 = Image::make(public_path("storage/{$imagen_destacada}"));
             $img_1->save();
             $slider->imagen_destacada = $imagen_destacada;
@@ -95,7 +98,7 @@ class SliderController extends Controller
                 unlink($imagen_path);
             }
 
-            $imagen_destacada = $request->imagen_destacada->store('uploads/slider', 'public');
+            $imagen_destacada = $request->imagen_destacada->store('uploads/slider/'.$slider->slug, 'public');
             $img_1 = Image::make(public_path("storage/{$imagen_destacada}"));
             $img_1->save();
             $slider->imagen_destacada = $imagen_destacada;
@@ -124,6 +127,12 @@ class SliderController extends Controller
             if($slider->imagen_destacada != null){
                 unlink($imagen_path);
             }
+        }
+
+        // Eliminar carpeta de la imagen
+        $carpeta = public_path("storage/uploads/slider/{$slider->slug}");
+        if(File::exists($carpeta)){
+            File::deleteDirectory($carpeta);
         }
 
         $slider->delete();

@@ -45,27 +45,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="mostrar_en_sales" class="form-label">Mostrar en Sales</label>
-                        <select class="form-select" id="mostrar_en_sales" name="mostrar_en_sales">
+                        <select class="form-control" id="mostrar_en_sales" name="mostrar_en_sales">
                             <option selected>-- Selecciona una opción --</option>
                             <option value="1" {{ $producto->mostrar_en_sales == 1 ? 'selected' : '' }}>Sí</option>
                             <option value="0" {{ $producto->mostrar_en_sales == 0 ? 'selected' : '' }}>No</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="oportunidad_unica" class="form-label">¿Oportunidad única?</label>
-                        <select class="form-select" id="oportunidad_unica" name="oportunidad_unica">
-                            <option selected value="2">-- Selecciona una opción --</option>
-                            <option value="1" {{ $producto->oportunidad_unica == 1 ? 'selected' : '' }}>Sí</option>
-                            <option value="0" {{ $producto->oportunidad_unica == 0 ? 'selected' : '' }}>No</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="coleccion_pertenece" class="form-label">¿Ah qué colección pertenece?</label>
-                        <select class="form-select" id="coleccion_pertenece" name="coleccion_pertenece">
-                            <option selected value="0">-- Selecciona una opción --</option>
-                            @foreach ($colecciones as $coleccion)
-                                <option value="{{ $coleccion->id }}" {{ $producto->coleccion_pertenece == $coleccion->id ? 'selected' : '' }}>{{ $coleccion->nombre_coleccion }}</option>
-                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -80,57 +63,20 @@
                         @endif
                     </div>
                     <div class="mb-3">
-                        <label for="imagen_1" class="form-label">Imagen 1</label>
-                        <input type="file" name="imagen_1" accept=".png,.jpg,.jpeg" id="imagen_1" class="form-control">
-                        @if (File::exists(public_path('storage/' . $producto->imagen_1)) && $producto->imagen_1 != null)
-                            <div class="mt-2">
-                                <img src="{{ asset('storage/' . $producto->imagen_1) }}" alt="" class="img-fluid mt-3">
+                        <label for="galeria" class="form-label">Galería</label>
+                        <input type="file" name="galeria[]" multiple accept=".png,.jpg,.jpeg" id="galeria" class="form-control">
+                        @if ($producto->galeria != null)
+                            <div class="mt-2 d-flex flex-wrap">
+                                @php
+                                    $galeria = json_decode($producto->galeria);
+                                @endphp
+                                <div class="d-flex flex-wrap" style="row-gap: 10px;">
+                                    @foreach ($galeria as $galeria_img)
+                                        <img src="{{ asset('storage/'.$galeria_img) }}" alt="{{ $producto->nombre_producto }}" class="img-fluid w-50" style="object-fit: cover;">
+                                    @endforeach
+                                </div>
                             </div>
-                        @endif
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagen_2" class="form-label">Imagen 2</label>
-                        <input type="file" name="imagen_2" accept=".png,.jpg,.jpeg" id="imagen_2" class="form-control">
-                        @if (File::exists(public_path('storage/' . $producto->imagen_2)) && $producto->imagen_2 != null)
-                            <div class="mt-2">
-                                <img src="{{ asset('storage/' . $producto->imagen_2) }}" alt="" class="img-fluid mt-3">
-                            </div>
-                        @endif
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagen_3" class="form-label">Imagen 3</label>
-                        <input type="file" name="imagen_3" accept=".png,.jpg,.jpeg" id="imagen_3" class="form-control">
-                        @if (File::exists(public_path('storage/' . $producto->imagen_3)) && $producto->imagen_3 != null)
-                            <div class="mt-2">
-                                <img src="{{ asset('storage/' . $producto->imagen_3) }}" alt="" class="img-fluid mt-3">
-                            </div>
-                        @endif
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagen_4" class="form-label">Imagen 4</label>
-                        <input type="file" name="imagen_4" accept=".png,.jpg,.jpeg" id="imagen_4" class="form-control">
-                        @if (File::exists(public_path('storage/' . $producto->imagen_4)) && $producto->imagen_4 != null)
-                            <div class="mt-2">
-                                <img src="{{ asset('storage/' . $producto->imagen_4) }}" alt="" class="img-fluid mt-3">
-                            </div>
-                        @endif
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagen_5" class="form-label">Imagen 5</label>
-                        <input type="file" name="imagen_5" accept=".png,.jpg,.jpeg" id="imagen_5" class="form-control">
-                        @if (File::exists(public_path('storage/' . $producto->imagen_5)) && $producto->imagen_5 != null)
-                            <div class="mt-2">
-                                <img src="{{ asset('storage/' . $producto->imagen_5) }}" alt="" class="img-fluid mt-3">
-                            </div>
-                        @endif
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagen_6" class="form-label">Imagen 6</label>
-                        <input type="file" name="imagen_6" accept=".png,.jpg,.jpeg" id="imagen_6" class="form-control">
-                        @if (File::exists(public_path('storage/' . $producto->imagen_6)) && $producto->imagen_6 != null)
-                            <div class="mt-2">
-                                <img src="{{ asset('storage/' . $producto->imagen_6) }}" alt="" class="img-fluid mt-3">
-                            </div>
+                            
                         @endif
                     </div>
                     <div class="mb-3">

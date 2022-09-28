@@ -1,5 +1,11 @@
 @extends('admin.layouts.app')
-
+<style>
+    trix-editor{
+        min-height: 200px;
+        height: 200px;
+        max-height: 200px;
+    }
+</style>
 @section('content')
     <div class="container-fluid">
         <div class="row card p-4">
@@ -23,23 +29,43 @@
                 <div class="col-12 col-md-8">
                     <div class="mb-3">
                         <label for="nombre_disenador" class="form-label">Nombre del diseñador</label>
-                        <input type="text" class="form-control" id="nombre_disenador" name="nombre_disenador" value="{{ $coleccion->nombre_disenador }}">
+                        <input type="text" class="form-control @error('nombre_disenador') is-invalid @enderror" id="nombre_disenador" name="nombre_disenador" value="{{ $coleccion->nombre_disenador }}">
+                        @error('nombre_disenador')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="descripcion" class="form-label">Descripción</label>
-                        <input id="descripcion" type="hidden" name="descripcion" value="{{ $coleccion->descripcion }}">
+                        <input id="descripcion" type="hidden" class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" value="{{ $coleccion->descripcion }}">
                         <trix-editor input="descripcion"></trix-editor>
+                        @error('descripcion')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="nombre_coleccion" class="form-label">Nombre de la colección</label>
-                        <input type="text" class="form-control" id="nombre_coleccion" name="nombre_coleccion" value="{{ $coleccion->nombre_coleccion }}">
+                        <input type="text" class="form-control @error('nombre_coleccion') is-invalid @enderror" id="nombre_coleccion" name="nombre_coleccion" value="{{ $coleccion->nombre_coleccion }}">
+                        @error('nombre_coleccion')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4">
                     <div class="mb-3">
                         <label for="imagen_destacada" class="form-label">Imagen destacada</label>
-                        <input type="file" name="imagen_destacada" accept=".png,.jpg,.jpeg" id="imagen_destacada" class="form-control">
+                        <input type="file" name="imagen_destacada" accept=".png,.jpg,.jpeg" id="imagen_destacada" class="form-control @error('imagen_destacada') is-invalid @enderror">
+                        @error('imagen_destacada')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                         @if (File::exists(public_path('storage/' . $coleccion->imagen_destacada)) && $coleccion->imagen_destacada != null)
                             <div class="mt-2">
                                 <img src="{{ asset('storage/'.$coleccion->imagen_destacada) }}" alt="{{ $coleccion->nombre_disenador }}" class="img-fluid w-50">
@@ -48,7 +74,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="foto_disenador" class="form-label">Foto diseñador</label>
-                        <input type="file" name="foto_disenador" accept=".png,.jpg,.jpeg" id="foto_disenador" class="form-control">
+                        <input type="file" name="foto_disenador" accept=".png,.jpg,.jpeg" id="foto_disenador" class="form-control @error('foto_disenador') is-invalid @enderror">
+                        @error('foto_disenador')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                         @if (File::exists(public_path('storage/' . $coleccion->foto_disenador)) && $coleccion->foto_disenador != null)
                             <div class="mt-2">
                                 <img src="{{ asset('storage/'.$coleccion->foto_disenador) }}" alt="{{ $coleccion->nombre_disenador }}" class="img-fluid w-50">
@@ -58,7 +89,12 @@
                     
                     <div class="mb-3">
                         <label for="galeria" class="form-label">Galería</label>
-                        <input type="file" name="galeria[]" multiple accept=".png,.jpg,.jpeg" id="galeria" class="form-control">
+                        <input type="file" name="galeria[]" multiple accept=".png,.jpg,.jpeg" id="galeria" class="form-control @error('galeria') is-invalid @enderror">
+                        @error('galeria')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                         @if ($coleccion->img_galeria != null)
                             <div class="mt-2 d-flex flex-wrap">
                                 @php

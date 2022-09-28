@@ -49,6 +49,23 @@
                         @endif
                     </div>
                     <div class="mb-3">
+                        <label for="galeria" class="form-label">Galería</label>
+                        <input type="file" name="galeria[]" multiple accept=".png,.jpg,.jpeg" id="galeria" class="form-control">
+                        @if ($building->galeria != null)
+                            <div class="mt-2 d-flex flex-wrap">
+                                @php
+                                    $galeria = json_decode($building->galeria);
+                                @endphp
+                                <div class="d-flex flex-wrap" style="row-gap: 10px;">
+                                    @foreach ($galeria as $galeria_img)
+                                        <img src="{{ asset('storage/'.$galeria_img) }}" alt="{{ $building->nombre_hotel }}" class="img-fluid w-50" style="object-fit: cover;">
+                                    @endforeach
+                                </div>
+                            </div>
+                            
+                        @endif
+                    </div>
+                    <div class="mb-3">
                         <button type="submit" class="btn btn-success w-100 btn-editar">Actualizar building</button>
                     </div>
                 </div>
