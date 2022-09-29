@@ -73,10 +73,9 @@ class ProductController extends Controller
         $producto->precio = $request->precio;
         $producto->precio_descuento = $request->precio_descuento;
         $producto->mostrar_en_sales = $request->mostrar_en_sales;
-
-        // Guardamos el array de subcategorias
-        $subcategorias = $request->subcategorias;
-        $producto->subcategory_id = json_encode($subcategorias);
+        $producto->oportunidad_unica = $request->oportunidad_unica;
+        $producto->coleccion_pertenece = $request->coleccion_pertenece;
+        $producto->subcategory_id = $request->subcategory_id ?? null;
         $producto->save();
 
         return redirect()->route('productos')->with(['producto' => $producto, 'store' => 'Producto creado correctamente.', 'status' => 'success']);
@@ -155,6 +154,9 @@ class ProductController extends Controller
         $producto->precio = $request->precio;
         $producto->precio_descuento = $request->precio_descuento;
         $producto->mostrar_en_sales = $request->mostrar_en_sales;
+        $producto->oportunidad_unica = $request->oportunidad_unica;
+        $producto->coleccion_pertenece = $request->coleccion_pertenece;
+        $producto->subcategory_id = $request->subcategory_id ?? null;
         $producto->save();
 
         return redirect()->route('edit.producto', $producto->id)->with(['producto' => $producto, 'store' => 'Producto actualizado correctamente.', 'status' => 'success']);

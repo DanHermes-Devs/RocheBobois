@@ -21,6 +21,8 @@ class CreateProductsTable extends Migration
             $table->float('precio')->nullable();
             $table->float('precio_descuento')->nullable();
             $table->integer('mostrar_en_sales')->nullable();
+            $table->integer('oportunidad_unica')->nullable();
+            $table->unsignedBigInteger('coleccion_pertenece')->nullable();
             $table->text('imagen_destacada')->nullable();
             $table->text('galeria')->nullable();
             $table->text('slug')->nullable();
