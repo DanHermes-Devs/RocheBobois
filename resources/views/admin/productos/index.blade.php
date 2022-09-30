@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row card p-4">
+    <div class="container">
+        <div class="card p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0 fw-bold">Productos</h2>
                 <a href="{{ route('create.producto') }}" class="btn btn-success">
@@ -15,7 +15,9 @@
             @if (session('store'))
                 <div class="alert alert-success alert-block d-flex justify-content-between">
                     <strong>{{ session('store') }}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
             
@@ -24,8 +26,8 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">Nombre del producto</th>
-                                <th scope="col">Descripción Corta</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Descripción</th>
                                 <th scope="col">Precio</th>
                                 <th scope="col">Acciones</th>
                             </tr>
@@ -34,8 +36,8 @@
                             @foreach ($productos as $producto)
                                 <tr>
                                     <td>{{ $producto->nombre_producto }}</td>
-                                    <td>{!! $producto->descripcion_corta !!}</td>
-                                    <td>{{ $producto->precio }}</td>
+                                    <td>{!! $producto->descripcion !!}</td>
+                                    <td>${{ $producto->precio }}</td>
                                     <td>
                                         <a href="{{ route('edit.producto', $producto->id) }}" class="btn btn-primary">
                                             <i class="fa-solid fa-edit"></i>

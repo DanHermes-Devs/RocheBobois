@@ -15,8 +15,8 @@ class CreateBuildingsTable extends Migration
     {
         Schema::create('buildings', function (Blueprint $table) {
             $table->id();
+            $table->integer('categoria_id')->nullable();
             $table->text('nombre_hotel')->nullable();
-            $table->text('categoria')->nullable();
             $table->text('descripcion')->nullable();
             $table->text('imagen_destacada')->nullable();
             $table->text('galeria')->nullable();

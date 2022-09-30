@@ -81,7 +81,7 @@ class CollectionController extends Controller
             $img_galeria = array();
             foreach ($galerias as $imagefile) {
                 $imagefile = $imagefile->store('uploads/coleccion/'.$collection->slug, 'public');
-                $img_2 = Image::make(public_path("storage/{$imagefile}"))->fit(1920, 1080);
+                $img_2 = Image::make(public_path("storage/{$imagefile}"));
                 $img_2->save();
                 array_push($img_galeria, $imagefile);
             }
@@ -136,18 +136,10 @@ class CollectionController extends Controller
             'nombre_disenador' => 'required',
             'descripcion' => 'required',
             'nombre_coleccion' => 'required',
-            'imagen_destacada' => 'required|image',
-            'foto_disenador' => 'required|image',
-            'galeria' => 'required',
         ], [
             'nombre_disenador.required' => 'El campo nombre del diseñador es obligatorio',
             'descripcion.required' => 'El campo descripción es obligatorio',
             'nombre_coleccion.required' => 'El campo nombre de la colección es obligatorio',
-            'imagen_destacada.required' => 'El campo imagen destacada es obligatorio',
-            'imagen_destacada.image' => 'El campo imagen destacada debe ser una imagen',
-            'foto_disenador.required' => 'El campo foto del diseñador es obligatorio',
-            'foto_disenador.image' => 'El campo foto del diseñador debe ser una imagen',
-            'galeria.required' => 'El campo galería es obligatorio',
         ]);
 
         $coleccion = Collection::findOrFail($request->id);

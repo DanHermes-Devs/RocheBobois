@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Building;
+use App\Models\BuildingCategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -28,7 +29,8 @@ class BuildingController extends Controller
      */
     public function create()
     {
-        return view('admin.building.create');
+        $buildingCategorias = BuildingCategory::all();
+        return view('admin.building.create', compact('buildingCategorias'));
     }
 
     /**
@@ -39,6 +41,22 @@ class BuildingController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'nombre_hotel' => 'required',
+            'categoria_id' => 'required|integer',
+            'descripcion' => 'required',
+            'imagen_destacada' => 'required|image|mimes:jpeg,png,jpg',
+        ], [
+            'nombre_hotel.required' => 'El nombre del hotel es requerido',
+            'categoria_id.required' => 'La categoría del hotel es requerida',
+            'categoria_id.integer' => 'La categoría del hotel debe ser un número entero',
+            'descripcion.required' => 'La descripción del hotel es requerida',
+            'imagen_destacada.required' => 'La imagen del hotel es requerida',
+            'imagen_destacada.image' => 'El archivo debe ser una imagen',
+            'imagen_destacada.mimes' => 'El archivo debe ser una imagen en formato jpeg, png o jpg',
+        ]);
+
         $building = new Building;
         $building->slug = Str::slug($request->nombre_hotel);
 
@@ -54,7 +72,7 @@ class BuildingController extends Controller
             $img_galeria = array();
             foreach ($galerias as $imagefile) {
                 $imagefile = $imagefile->store('uploads/buildings/'.$building->slug, 'public');
-                $img_2 = Image::make(public_path("storage/{$imagefile}"))->fit(1920, 1080);
+                $img_2 = Image::make(public_path("storage/{$imagefile}"));
                 $img_2->save();
                 array_push($img_galeria, $imagefile);
             }
@@ -62,8 +80,8 @@ class BuildingController extends Controller
         }
 
         $building->nombre_hotel = $request->nombre_hotel;
-        $building->categoria = $request->categoria;
         $building->descripcion = $request->descripcion;
+        $building->categoria_id = $request->categoria_id;
         $building->save();
 
         return redirect()->route('building')->with(['building' => $building, 'store' => 'Building creado correctamente.', 'status' => 'success']);
@@ -89,7 +107,8 @@ class BuildingController extends Controller
     public function edit(Building $building, $id)
     {
         $building = Building::findOrFail($id);
-        return view('admin.building.edit', compact('building'));
+        $buildingCategorias = BuildingCategory::all();
+        return view('admin.building.edit', compact('building', 'buildingCategorias'));
     }
 
     /**
@@ -101,6 +120,17 @@ class BuildingController extends Controller
      */
     public function update(Request $request, Building $building)
     {
+        $request->validate([
+            'nombre_hotel' => 'required',
+            'categoria_id' => 'required|integer',
+            'descripcion' => 'required',
+        ], [
+            'nombre_hotel.required' => 'El nombre del hotel es requerido',
+            'categoria_id.required' => 'La categoría del hotel es requerida',
+            'categoria_id.integer' => 'La categoría del hotel debe ser un número entero',
+            'descripcion.required' => 'La descripción del hotel es requerida',
+        ]);
+
         $building = Building::findOrFail($request->id);
 
         if(request('imagen_destacada')){
@@ -117,8 +147,8 @@ class BuildingController extends Controller
         }
 
         $building->nombre_hotel = $request->nombre_hotel;
-        $building->categoria = $request->categoria;
         $building->descripcion = $request->descripcion;
+        $building->categoria_id = $request->categoria_id;
         $building->save();
 
         return redirect()->route('edit.building', $building->id)->with(['colecbuildingcion' => $building, 'store' => 'Building actualizado correctamente.', 'status' => 'success']);

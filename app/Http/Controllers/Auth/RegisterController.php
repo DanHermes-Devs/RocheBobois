@@ -42,6 +42,10 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'pais' => ['required', 'string', 'max:255'],
+            'estado' => ['required', 'string', 'max:255'],
+            'codigo_postal' => ['required', 'string', 'max:255'],
+            'telefono' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -54,10 +58,29 @@ class RegisterController extends Controller
      */
     protected function store(Request $request)
     {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'codigo_postal' => ['required', 'string', 'max:255'],
+            'telefono' => ['required', 'integer'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'name.required' => 'El campo nombre es obligatorio',
+            'email.required' => 'El campo correo electrónico es obligatorio',
+            'codigo_postal.required' => 'El campo código postal es obligatorio',
+            'telefono.required' => 'El campo teléfono es obligatorio',
+            'password.required' => 'El campo contraseña es obligatorio',
+        ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'empresa' => $request->empresa,
+            'cargo' => $request->cargo,
+            'pais' => $request->pais,
+            'estado' => $request->estado,
+            'codigo_postal' => $request->codigo_postal,
+            'telefono' => $request->telefono,
             'password' => Hash::make($request->password),
         ]);
 

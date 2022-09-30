@@ -7,8 +7,11 @@
     }
 </style>
 @section('content')
-    <div class="container-fluid">
-        <div class="row card p-4">
+    <div class="container">
+        <div class="card p-4">
+            <div class="d-flex mb-2">
+                <a href="{{ route('building') }}" class="text-dark"> <i class="fa-solid fa-arrow-left mr-2"></i> Volver</a>
+            </div>
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0 fw-bold">Agregar building</h2>
             </div>
@@ -17,38 +20,56 @@
                 @csrf
                 <div class="col-12 col-md-8">
                     <div class="mb-3">
-                        <label for="nombre_hotel" class="form-label">Nombre del hotel</label>
-                        <input type="text" class="form-control" id="nombre_hotel" name="nombre_hotel">
+                        <label for="nombre_hotel" class="form-label">Nombre del building</label>
+                        <input type="text" class="form-control @error('nombre_hotel') is-invalid @enderror" id="nombre_hotel" name="nombre_hotel" value="{{ old('nombre_hotel') }}">
+                        @error('nombre_hotel')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="categoria" class="form-label">Categoría</label>
-                        <select name="categoria" id="categoria" class="form-control">
-                            <option value="0" selected>-- Selecciona una opcion --</option>
-                            <option value="lifestyle">Lifestyle</option>
-                            <option value="hoteles">Hoteles</option>
-                            <option value="boutiques">Boutiques</option>
-                            <option value="restaurantes">Restaurantes</option>
-                            <option value="residencial">Residencial</option>
+                        <label for="categoria_id" class="form-label">Categoría</label>
+                        <select name="categoria_id" id="categoria_id" class="form-control @error('categoria_id') is-invalid @enderror">
+                            <option value="" selected>-- Selecciona una opcion --</option>
+                            @foreach ($buildingCategorias as $buildingCategoria)
+                                <option value="{{ $buildingCategoria->id }}">{{ $buildingCategoria->nombre }}</option>
+                            @endforeach
                         </select>
+                        @error('categoria_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="descripcion" class="form-label">Descripción</label>
-                        <input id="descripcion" type="hidden" name="descripcion">
+                        <input id="descripcion" type="hidden" name="descripcion" class="@error('descripcion') is-invalid @enderror" value="{{ old('descripcion') }}">
                         <trix-editor input="descripcion"></trix-editor>
+                        @error('descripcion')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4">
                     <div class="mb-3">
-                        <label for="imagen_destacada" class="form-label">Imagen destacada</label>
-                        <input type="file" name="imagen_destacada" id="imagen_destacada" class="form-control">
+                        <label for="imagen_destacada" class="form-label">Imagen Destacada</label>
+                        <input type="file" name="imagen_destacada" accept=".png,.jpg,.jpeg" id="imagen_destacada" class="form-control @error('imagen_destacada') is-invalid @enderror">
+                        @error('imagen_destacada')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="galeria" class="form-label">Galería</label>
                         <input type="file" name="galeria[]" multiple accept=".png,.jpg,.jpeg" id="galeria" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-success w-100">Crear building</button>
+                        <button type="submit" class="btn btn-success w-100 btn_crear">Crear building</button>
                     </div>
                 </div>
             </form>

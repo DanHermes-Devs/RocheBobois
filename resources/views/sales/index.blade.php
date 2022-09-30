@@ -13,7 +13,7 @@
                     {{-- Grid de productos --}}
                     <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
                         <div class="card text-center">
-                            <img src="{{ asset('storage/' . $product->imagen_destacada) }}" class="card-img-top" alt="...">
+                            <img src="{{ asset('storage/' . $product->imagen_destacada) }}" class="card-img-top" style="height: 190px; width: 100%; object-fit: contain;">
                             <div class="card-body">
                                 <h5 class="card-title">
                                     {{ $product->nombre_producto }}

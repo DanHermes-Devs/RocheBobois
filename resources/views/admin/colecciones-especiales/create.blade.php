@@ -1,14 +1,15 @@
 @extends('admin.layouts.app')
 <style>
     trix-editor{
-        min-height: 200px;
-        height: 200px;
+        min-height: 300px!important;
+        height: 100%;
         max-height: 200px;
+        overflow: hidden;
     }
 </style>
 @section('content')
-    <div class="container-fluid">
-        <div class="row card p-4">
+    <div class="container">
+        <div class="card p-4">
             <div class="d-flex mb-2">
                 <a href="{{ route('colecciones-especiales') }}" class="text-dark"> <i class="fa-solid fa-arrow-left mr-2"></i> Volver</a>
             </div>
@@ -46,7 +47,7 @@
 
                 <div class="col-12 col-md-4">
                     <div class="mb-3">
-                        <label for="imagen_destacada" class="form-label">Imagen destacada</label>
+                        <label for="imagen_destacada" class="form-label">Imagen Destacada</label>
                         <input type="file" name="imagen_destacada" accept=".png,.jpg,.jpeg" id="imagen_destacada" class="form-control">
                         @error('imagen_destacada')
                             <div class="text-danger">{{ $message }}</div>
@@ -67,7 +68,7 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-success w-100">Crear colección</button>
+                        <button type="submit" class="btn btn-success w-100 btn_crear">Crear colección</button>
                     </div>
                 </div>
             </form>

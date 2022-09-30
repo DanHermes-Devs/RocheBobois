@@ -152,4 +152,12 @@ class SubcategoryController extends Controller
 
         return response()->json(['status' => 'success', 'message' => 'Subcategoría eliminada correctamente']);
     }
+
+    // subcategorias.fetch
+    public function fetch(Request $request, $id)
+    {
+        $subcategorias = Subcategory::where('category_id', $id)->get();
+        return response()->json(['subcategorias' => $subcategorias]);
+    }
+
 }

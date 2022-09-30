@@ -45,12 +45,38 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+        // dd($request->all());
+
+        $request->validate([
+            'nombre_producto' => 'required',
+            'descripcion' => 'required',
+            'precio' => 'required',
+            'mostrar_en_sales' => 'required|integer',
+            'category_id' => 'required|integer',
+            'imagen_destacada' => 'required|image|mimes:jpeg,png,jpg',
+        ], [
+            'nombre_producto.required' => 'El campo nombre del producto es obligatorio.',
+            'descripcion.required' => 'El campo descripción es obligatorio.',
+            'precio.required' => 'El campo precio es obligatorio.',
+            'mostrar_en_sales.required' => 'El campo mostrar en sales es obligatorio.',
+            'mostrar_en_sales.integer' => 'El campo mostrar en sales es obligatorio.',
+            'category_id.required' => 'El campo categoría es obligatorio.',
+            'category_id.integer' => 'El campo categoría es obligatorio.',
+            'imagen_destacada.required' => 'El campo imagen destacada es obligatorio.',
+            'imagen_destacada.image' => 'El archivo debe ser una imagen.',
+            'imagen_destacada.mimes' => 'El archivo debe ser una imagen con formato jpeg, png o jpg.',
+        ]);
+
         $producto = new Product;
         $producto->slug = Str::slug($request->nombre_producto);
 
         if(request('imagen_destacada')){
             $imagen_destacada = $request->imagen_destacada->store('uploads/productos/'.$producto->slug, 'public');
-            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"));
+            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"))->resize(800, 800, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
             $img_destacada->save();
             $producto->imagen_destacada = $imagen_destacada;
         }
@@ -60,7 +86,10 @@ class ProductController extends Controller
             $img_galeria = array();
             foreach ($galerias as $imagefile) {
                 $imagefile = $imagefile->store('uploads/productos/'.$producto->slug, 'public');
-                $img_2 = Image::make(public_path("storage/{$imagefile}"))->fit(1920, 1080);
+                $img_2 = Image::make(public_path("storage/{$imagefile}"))->resize(800, 800, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
                 $img_2->save();
                 array_push($img_galeria, $imagefile);
             }
@@ -69,12 +98,14 @@ class ProductController extends Controller
         
         $producto->nombre_producto = $request->nombre_producto;
         $producto->descripcion = $request->descripcion;
-        $producto->descripcion_corta = $request->descripcion_corta;
         $producto->precio = $request->precio;
         $producto->precio_descuento = $request->precio_descuento;
         $producto->mostrar_en_sales = $request->mostrar_en_sales;
-        $producto->oportunidad_unica = $request->oportunidad_unica;
-        $producto->coleccion_pertenece = $request->coleccion_pertenece;
+        $producto->best_seller = $request->best_seller ?? null;
+        $producto->oportunidad_unica = $request->oportunidad_unica ?? null;
+        // Si viene vacia la colección, se le asigna el valor null
+        $producto->coleccion_pertenece = $request->coleccion_pertenece ?? null;
+        $producto->category_id = $request->category_id ?? null;
         $producto->subcategory_id = $request->subcategory_id ?? null;
         $producto->save();
 
@@ -100,8 +131,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product, $id)
     {
+        $colecciones = Collection::all();
         $producto = Product::find($id);
-        return view('admin.productos.edit', compact('producto'));
+        $categoria = Category::where('id', $producto->category_id)->get();
+        $subcategoria = Subcategory::where('id', $producto->subcategory_id)->get();
+        return view('admin.productos.edit', compact('producto', 'categoria', 'subcategoria', 'colecciones'));
         
     }
 
@@ -114,6 +148,23 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+
+        $request->validate([
+            'nombre_producto' => 'required',
+            'descripcion' => 'required',
+            'precio' => 'required',
+            'mostrar_en_sales' => 'required|integer',
+            'category_id' => 'required|integer',
+        ], [
+            'nombre_producto.required' => 'El campo nombre del producto es obligatorio.',
+            'descripcion.required' => 'El campo descripción es obligatorio.',
+            'precio.required' => 'El campo precio es obligatorio.',
+            'mostrar_en_sales.required' => 'El campo mostrar en sales es obligatorio.',
+            'mostrar_en_sales.integer' => 'El campo mostrar en sales es obligatorio.',
+            'category_id.required' => 'El campo categoría es obligatorio.',
+            'category_id.integer' => 'El campo categoría es obligatorio.',
+        ]);
+
         $producto = Product::find($request->id);
         $producto->slug = Str::slug($request->nombre_producto);
 
@@ -125,7 +176,11 @@ class ProductController extends Controller
             }
 
             $imagen_destacada = $request->imagen_destacada->store('uploads/productos/'.$producto->slug, 'public');
-            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"));
+            // Recortar imagen a 800x800 con object-fit: contain
+            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"))->resize(800, 800, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
             $img_destacada->save();
             $producto->imagen_destacada = $imagen_destacada;
         }
@@ -141,7 +196,10 @@ class ProductController extends Controller
                 }
 
                 $imagefile = $imagefile->store('uploads/productos/'.$producto->slug, 'public');
-                $img_2 = Image::make(public_path("storage/{$imagefile}"));
+                $img_2 = Image::make(public_path("storage/{$imagefile}"))->resize(800, 800, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
                 $img_2->save();
                 array_push($img_galeria, $imagefile);
             }
@@ -150,12 +208,13 @@ class ProductController extends Controller
 
         $producto->nombre_producto = $request->nombre_producto;
         $producto->descripcion = $request->descripcion;
-        $producto->descripcion_corta = $request->descripcion_corta;
         $producto->precio = $request->precio;
         $producto->precio_descuento = $request->precio_descuento;
         $producto->mostrar_en_sales = $request->mostrar_en_sales;
-        $producto->oportunidad_unica = $request->oportunidad_unica;
-        $producto->coleccion_pertenece = $request->coleccion_pertenece;
+        $producto->best_seller = $request->best_seller ?? null;
+        $producto->oportunidad_unica = $request->oportunidad_unica ?? null;
+        $producto->coleccion_pertenece = $request->coleccion_pertenece ?? null;
+        $producto->category_id = $request->category_id ?? null;
         $producto->subcategory_id = $request->subcategory_id ?? null;
         $producto->save();
 

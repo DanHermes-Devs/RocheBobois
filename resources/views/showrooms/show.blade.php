@@ -39,16 +39,6 @@
         align-items: center;
         justify-content: center;
     }
-
-    .info_showroom a {
-        background: transparent;
-        border: 1px solid #000;
-        padding: 1rem 5rem;
-        color: #000;
-        text-decoration: none;
-        width: 300px;
-        text-align: center;
-    }
 </style>
 
 @section('content')
@@ -62,11 +52,11 @@
     <div class="row">
         <div class="col-12 col-md-6 p-0 m-0">
             <div class="info_showroom">
-                <a href="{{ $showroom->como_llegar }}" target="_blank" class="text-uppercase">¿Cómo llegar?</a>
+                <a href="{{ $showroom->como_llegar }}" target="_blank" class="text-uppercase btn_outline_dark">¿Cómo llegar?</a>
 
-                <a href="https://api.whatsapp.com/send?phone={{ $showroom->numero_llamadas }}&text={{ $showroom->mensaje_predeterminado_wp }}" target="_blank" class="text-uppercase {{ $showroom->id_para_google_tag_manager }}">Whatsapp <i class="ml-2 fa-brands fa-whatsapp"></i></a>
+                <a href="https://api.whatsapp.com/send?phone={{ $showroom->numero_llamadas }}&text={{ $showroom->mensaje_predeterminado_wp }}" target="_blank" class="text-uppercase btn_outline_dark {{ $showroom->id_para_google_tag_manager }}">Whatsapp <i class="ml-2 fa-brands fa-whatsapp"></i></a>
                 
-                <a href="tel:+{{ $showroom->numero_llamadas }}" target="_blank" class="text-uppercase">¡Llámanos!</a>
+                <a href="tel:+{{ $showroom->numero_llamadas }}" target="_blank" class="text-uppercase btn_outline_dark">¡Llámanos!</a>
 
                 <p>{{ $showroom->direccion_showroom }} </p>
                 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\EventCategory;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
@@ -28,7 +29,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('admin.eventos.create');
+        $categorias = EventCategory::all();
+        return view('admin.eventos.create', compact('categorias'));
     }
 
     /**
@@ -39,6 +41,25 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nombre_evento' => 'required',
+            'descripcion' => 'required',
+            'fecha' => 'required',
+            'hora' => 'required',
+            'imagen_destacada' => 'required|image|mimes:jpeg,png,jpg',
+            'categoria_id' => 'required|integer',
+        ], [
+            'nombre_evento.required' => 'El nombre del evento es requerido',
+            'descripcion.required' => 'La descripción del evento es requerida',
+            'fecha.required' => 'La fecha del evento es requerida',
+            'hora.required' => 'La hora del evento es requerida',
+            'imagen_destacada.required' => 'La imagen del evento es requerida',
+            'imagen_destacada.image' => 'El archivo debe ser una imagen',
+            'imagen_destacada.mimes' => 'El archivo debe ser una imagen en formato jpeg, png o jpg',
+            'categoria_id.required' => 'La categoría del evento es requerida',
+            'categoria_id.integer' => 'La categoría del evento debe ser un número entero',
+        ]);
+
         $evento = new Event;
 
         $evento->slug = Str::slug($request->nombre_evento);
@@ -54,6 +75,7 @@ class EventController extends Controller
         $evento->descripcion = $request->descripcion;
         $evento->fecha = $request->fecha;
         $evento->hora = $request->hora;
+        $evento->categoria_id = $request->categoria_id ?? null;
         $evento->save();
 
         return redirect()->route('eventos')->with(['evento' => $evento, 'store' => 'Evento creado correctamente.', 'status' => 'success']);
@@ -79,7 +101,8 @@ class EventController extends Controller
     public function edit(Event $event, $id)
     {
         $evento = Event::find($id);
-        return view('admin.eventos.edit', compact('evento'));
+        $categorias = EventCategory::all();
+        return view('admin.eventos.edit', compact('evento', 'categorias'));
     }
 
     /**
@@ -91,6 +114,20 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
+        $request->validate([
+            'nombre_evento' => 'required',
+            'descripcion' => 'required',
+            'fecha' => 'required',
+            'hora' => 'required',
+            'categoria_id' => 'required|integer',
+        ], [
+            'nombre_evento.required' => 'El nombre del evento es requerido',
+            'descripcion.required' => 'La descripción del evento es requerida',
+            'fecha.required' => 'La fecha del evento es requerida',
+            'hora.required' => 'La hora del evento es requerida',
+            'categoria_id.required' => 'La categoría del evento es requerida',
+        ]);
+
         $evento = Event::find($request->id);
         $evento->slug = Str::slug($request->nombre_evento);
 
@@ -110,6 +147,7 @@ class EventController extends Controller
         $evento->descripcion = $request->descripcion;
         $evento->fecha = $request->fecha;
         $evento->hora = $request->hora;
+        $evento->categoria_id = $request->categoria_id ?? null;
         $evento->save();
 
         return redirect()->route('edit.evento', $evento->id)->with(['evento' => $evento, 'store' => 'Evento actualizado correctamente.', 'status' => 'success']);

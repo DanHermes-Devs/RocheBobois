@@ -39,6 +39,18 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nombre_disenador' => 'required',
+            'nombre_producto' => 'required',
+            'imagen_destacada' => 'required|image|mimes:jpeg,png,jpg',
+        ], [
+            'nombre_disenador.required' => 'El campo nombre del diseñador es obligatorio',
+            'nombre_producto.required' => 'El campo ciudad del showroom es obligatorio',
+            'imagen_destacada.required' => 'El campo imagen destacada es obligatorio',
+            'imagen_destacada.image' => 'El campo imagen destacada debe ser una imagen',
+            'imagen_destacada.mimes' => 'El campo imagen destacada debe ser un archivo de tipo: jpeg, png, jpg',
+        ]);
+
         $slider = new Slider;
         // Crear slug con la libreria Str
         $slider->slug = Str::slug($request->nombre_disenador);
@@ -89,6 +101,14 @@ class SliderController extends Controller
      */
     public function update(Request $request, Slider $slider)
     {
+        $request->validate([
+            'nombre_disenador' => 'required',
+            'nombre_producto' => 'required',
+        ], [
+            'nombre_disenador.required' => 'El campo nombre del diseñador es obligatorio',
+            'nombre_producto.required' => 'El campo ciudad del showroom es obligatorio',
+        ]);
+
         $slider = Slider::findOrFail($request->id);
 
         if(request('imagen_destacada')){

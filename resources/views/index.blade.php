@@ -11,6 +11,22 @@
         right: 0;
     }
 
+    .grid_images {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid_images .card_img_gallery:nth-child(1) {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+
+    img.photothumb {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+    }
+
     .swiper-button-prev {
         background: #000;
         color: #fff !important;
@@ -681,10 +697,10 @@
     <div class="container-fluid pb-5">
         <div id="conoce_coleccion">
             <div class="row align-items-center bg_dark_1">
-                <div class="col-12 col-md-6 p-0">
-                    <img src="{{ asset('image/TEMPS-CALME-Outdoor-1.jpg') }}" class="img_cards_section">
+                <div class="col-12 col-md-6 m-0 p-0 order-2 order-md-1">
+                    <img src="{{ asset('image/2022_1_PRESAGE_Canape__amb_pdf_ht-1-scaled.jpg') }}" class="img_cards_section">
                 </div>
-                <div class="col-12 col-md-6 text-center text-white px-5">
+                <div class="col-12 col-md-6 text-center px-5 order-1 order-md-2">
                     <h3>Conoce la nueva colección.</h3>
                     <p>
                         "Vive el French Art de Vivre de Roche Bobois"
@@ -699,29 +715,44 @@
 
         <div id="concierge">
             <div class="row align-items-center bg_white_1">
-                <div class="col-12 col-md-6 text-center text-dark p-5">
-                    <a href="{{ route('login') }}">
-                        <img src="{{ asset('image/logo_concierge.svg') }}" class="img-fluid w-50 mb-5">
-                    </a>
-                    <p class="mb-0">Embajador de servicio</p>
-                    <h3 class="fw-bold">
-                        EXCLUSIVO
-                    </h3>
+                <div class="col-12 col-md-6 text-center p-0 concierge-back">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <img src="{{ asset('image/logo_concierge-1.svg') }}" class="img-fluid imagenc_concierge">
+                    </div>
                 </div>
-                <div class="col-12 col-md-6 p-0 d-none d-md-block">
-                    <img src="https://rocheboboismexico.com/wp-content/uploads/2022/05/Domino_compo_naturelle_focus5.jpg"
-                        class="img_cards_section">
+                <div class="col-12 col-md-6 p-0">
+                    <div class="grid_images">
+                        <a class="card_img_gallery" href="https://rocheboboismexico.com/wp-content/uploads/2022/09/SCENARIO_2_Canapes_modulables_amb_2022.jpg" data-fancybox="gallery">
+                            <img loading="lazy" class="photothumb" src="https://rocheboboismexico.com/wp-content/uploads/2022/09/SCENARIO_2_Canapes_modulables_amb_2022.jpg">
+                        </a>
+
+                        <a class="card_img_gallery" href="https://rocheboboismexico.com/wp-content/uploads/2022/09/Galet.png" data-fancybox="gallery">
+                            <img loading="lazy" class="photothumb" src="https://rocheboboismexico.com/wp-content/uploads/2022/09/Galet.png">
+                        </a>
+
+                        <a class="card_img_gallery" href="https://rocheboboismexico.com/wp-content/uploads/2022/09/Bubble.png" data-fancybox="gallery">
+                            <img loading="lazy" class="photothumb" src="https://rocheboboismexico.com/wp-content/uploads/2022/09/Bubble.png">
+                        </a>
+
+                        <a class="card_img_gallery" href="https://rocheboboismexico.com/wp-content/uploads/2022/09/Originel.png" data-fancybox="gallery">
+                            <img loading="lazy" class="photothumb" src="https://rocheboboismexico.com/wp-content/uploads/2022/09/Originel.png">
+                        </a>
+
+                        <a class="card_img_gallery" href="https://rocheboboismexico.com/wp-content/uploads/2022/09/2022_2_IMPROVISTE_Canapes__amb_pdf_ht-1-scaled.jpg" data-fancybox="gallery">
+                            <img loading="lazy" class="photothumb" src="https://rocheboboismexico.com/wp-content/uploads/2022/09/2022_2_IMPROVISTE_Canapes__amb_pdf_ht-1-scaled.jpg">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="roche">
             <div class="row align-items-center bg_dark_1">
-                <div class="col-12 col-md-6 p-0">
-                    <img src="{{ asset('image/Carrousel_Sense-Tissu_02_Flavien-Carlod_BLQ.jpg') }}"
+                <div class="col-12 col-md-6 p-0 order-2 order-md-1">
+                    <img src="{{ asset('image/scenario_2022-1.jpg') }}"
                         class="img_cards_section">
                 </div>
-                <div class="col-12 col-md-6 text-center text-white px-5">
+                <div class="col-12 col-md-6 text-center text-white px-5 order-1 order-md-2">
                     <img src="{{ asset('image/rochebobois_white_logo.svg') }}" class="w-50 mb-5">
                     <p class="font-normal"><strong>Creamos muebles y objetos funcionales,</strong> que responden a una idea
                         del diseño: el diseño que debe vivirse</p>

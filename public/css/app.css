@@ -10852,7 +10852,7 @@ textarea.form-control-lg {
 }
 body {
   font-family: "Helvetica";
-  font-size: 17px;
+  font-size: 18px;
   background-color: #fff !important;
 }
 
@@ -10898,6 +10898,14 @@ body {
   margin: 0 auto;
 }
 
+nav.navbar.navbar-expand-md.bg-dark.navbar-dark.shadow-sm.position-fixed.w-100 {
+  top: 0;
+}
+
+.stretcher-wrapper .stretcher .stretcher-item figure {
+  margin: 0 !important;
+}
+
 ul.dropdown-menu.show {
   background: #000;
   border-radius: 0;
@@ -10920,6 +10928,48 @@ a.dropdown-item {
   background: #000 !important;
 }
 
+ul.dropdown-menu.show {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 18px;
+}
+
+ul.dropdown-menu {
+  background: #000;
+}
+
+.dropdown-menu.dropdown-menu-end.show {
+  background: #000;
+  border: 0;
+  border-radius: 0;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.imagenc_concierge {
+  width: 75%;
+}
+
+a.nav-link {
+  font-size: 18px;
+}
+
+.btn_outline_dark {
+  background: transparent;
+  border: 1px solid #000;
+  padding: 0;
+  color: #000;
+  text-decoration: none;
+  width: 180px;
+  text-align: center;
+  display: flex;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+}
+
 /*============================================= 
 TABLET HORIZONTAL (LG revisamos en 1024px) 
 =============================================*/
@@ -10933,6 +10983,33 @@ MÓVIL HORIZONTAL (SM revisamos en 576px)
   a.navbar-brand {
     width: 60% !important;
   }
+  .col-12.col-md-6.text-center.px-5 {
+    padding: 4rem;
+  }
+  .concierge-back {
+    height: 300px;
+  }
+  .imagenc_concierge {
+    width: 100%;
+    padding: 1rem;
+  }
+  .grid_images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .box {
+    width: 100% !important;
+  }
+  .logo_brand {
+    width: 100% !important;
+  }
+  iframe {
+    height: 500px;
+  }
+  .titulo_sucursal.text-white {
+    width: 100%;
+    text-align: center;
+  }
 }
 /*============================================= 
 MOVIL VERTICAL (revisamos en 320px) 
@@ -10940,5 +11017,32 @@ MOVIL VERTICAL (revisamos en 320px)
 @media (max-width: 575px) {
   a.navbar-brand {
     width: 60% !important;
+  }
+  .col-12.col-md-6.text-center.px-5 {
+    padding: 4rem;
+  }
+  .concierge-back {
+    height: 300px;
+  }
+  .imagenc_concierge {
+    width: 100%;
+    padding: 1rem;
+  }
+  .grid_images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .box {
+    width: 100% !important;
+  }
+  .logo_brand {
+    width: 100% !important;
+  }
+  iframe {
+    height: 500px;
+  }
+  .titulo_sucursal.text-white {
+    width: 100%;
+    text-align: center;
   }
 }

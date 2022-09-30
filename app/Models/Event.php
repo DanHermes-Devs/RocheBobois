@@ -12,9 +12,11 @@ class Event extends Model
     protected $table = "events";
     protected $fillable = [
         'nombre_evento',
+        'categoria',
         'descripcion',
         'fecha',
         'hora',
         'imagen_destacada',
+        'categoria_id',
     ];
 }

@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row card p-4">
+    <div class="container">
+        <div class="card p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0 fw-bold">Sliders</h2>
                 <a href="{{ route('create.slider') }}" class="btn btn-success">
@@ -15,7 +15,9 @@
             @if (session('store'))
                 <div class="alert alert-success alert-block d-flex justify-content-between">
                     <strong>{{ session('store') }}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
 
@@ -23,8 +25,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre del diseñador</th>
+                            <th scope="col">Nombre</th>
                             <th scope="col">Imagen destacada</th>
                             <th scope="col">Acciones</th>
                         </tr>
@@ -32,7 +33,6 @@
                     <tbody>
                         @foreach ($sliders as $slider)
                             <tr>
-                                <th scope="row">{{ $slider->id }}</th>
                                 <td>{{ $slider->nombre_disenador }}</td>
                                 <td>
                                     <img src="{{ asset('storage/' . $slider->imagen_destacada) }}" alt="" width="100">

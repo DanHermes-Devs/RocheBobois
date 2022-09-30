@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row card p-4">
+    <div class="container">
+        <div class="card p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0 fw-bold">Roche Bobois Building</h2>
                 <a href="{{ route('create.building') }}" class="btn btn-success">
@@ -15,7 +15,9 @@
             @if (session('store'))
                 <div class="alert alert-success alert-block d-flex justify-content-between">
                     <strong>{{ session('store') }}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
 
@@ -24,17 +26,15 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre del hotel</th>
+                            <th scope="col">Nombre</th>
                             <th scope="col">Descripción</th>
-                            <th scope="col">Imagen destacada</th>
+                            <th scope="col" width="50%">Imagen destacada</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($buildings as $building)
                             <tr>
-                                <th scope="row">{{ $building->id }}</th>
                                 <td>{{ $building->nombre_hotel }}</td>
                                 <td>{!! $building->descripcion !!}</td>
                                 <td>

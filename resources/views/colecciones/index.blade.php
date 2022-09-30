@@ -44,7 +44,7 @@
             </div>
             <div class="row">
                 @foreach ($colecciones as $coleccion)
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-4 mb-4 mb-md-0">
                         <a href="{{ route('front.colecciones.show', $coleccion->slug) }}" class="card__colection">
                             <div class="card__colection gradient">
                                 <img src="{{ asset('storage/' . $coleccion->imagen_destacada) }}" class="card__colection-img img-fluid" alt="...">

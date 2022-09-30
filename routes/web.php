@@ -1,7 +1,10 @@
 <?php
 
 use App\Mail\Contacto;
+use App\Models\Subcategory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\InicioController;
@@ -13,14 +16,15 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ShowroomController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\EventCategoryController;
 use App\Http\Controllers\frontend\SalesController;
 use App\Http\Controllers\frontend\EventoController;
 use App\Http\Controllers\frontend\BuildingHController;
 use App\Http\Controllers\frontend\ColeccionController;
 use App\Http\Controllers\frontend\ShowroomController as FrontendShowroomController;
-use App\Http\Controllers\SubcategoryController;
-use App\Models\Subcategory;
+use App\Http\Controllers\BuildingCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +87,7 @@ Route::get('/coleccion-especial/{slug}', [ColeccionController::class, 'show'])->
 
 // Eventos
 Route::get('/eventos', [EventoController::class, 'index'])->name('front.eventos');
+Route::get('/evento/{slug}', [EventoController::class, 'show'])->name('front.eventos.show');
 
 // Building
 Route::get('/building', [BuildingHController::class, 'index'])->name('front.building');
@@ -107,6 +112,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::match(['put', 'patch'], '/eventos/{id}', [EventController::class, 'update'])->name('update.evento');
         Route::delete('/eventos/{id}', [EventController::class, 'destroy'])->name('destroy.evento');
 
+        // Rutas Category Eventos
+        Route::get('/event-categories', [EventCategoryController::class, 'index'])->name('event-categories');
+        Route::get('/event-categories/nueva-categoria', [EventCategoryController::class, 'create'])->name('create.event-category');
+        Route::post('/event-categories', [EventCategoryController::class, 'store'])->name('store.event-category');
+        Route::get('/event-categories/{id}/edit', [EventCategoryController::class, 'edit'])->name('edit.event-category');
+        Route::match(['put', 'patch'], '/event-categories/{id}', [EventCategoryController::class, 'update'])->name('update.event-category');
+        Route::delete('/event-categories/{id}', [EventCategoryController::class, 'destroy'])->name('destroy.event-category');
+
         // Rutas Productos
         Route::get('/productos', [ProductController::class, 'index'])->name('productos');
         Route::get('/productos/nuevo-producto', [ProductController::class, 'create'])->name('create.producto');
@@ -130,6 +143,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/subcategorias-productos/{id}/edit', [SubcategoryController::class, 'edit'])->name('edit.subcategoria');
         Route::match(['put', 'patch'], '/subcategorias-productos/{id}', [SubcategoryController::class, 'update'])->name('update.subcategoria');
         Route::delete('/subcategorias-productos/{id}', [SubcategoryController::class, 'destroy'])->name('destroy.subcategoria');
+        // Obtener las subcategorias de una categoria por ajax subcategorias.fetch
+        Route::get('/subcategorias-productos/fetch/{id}', [SubcategoryController::class, 'fetch'])->name('subcategorias.fetch');
 
         // Rutas Building
         Route::get('/building', [BuildingController::class, 'index'])->name('building');
@@ -138,6 +153,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/building/{id}/edit', [BuildingController::class, 'edit'])->name('edit.building');
         Route::match(['put', 'patch'], '/building/{id}', [BuildingController::class, 'update'])->name('update.building');
         Route::delete('/building/{id}', [BuildingController::class, 'destroy'])->name('destroy.building');
+
+        // Rutas Category Building
+        Route::get('/building-categories', [BuildingCategoryController::class, 'index'])->name('building-categories');
+        Route::get('/building-categories/nueva-categoria', [BuildingCategoryController::class, 'create'])->name('create.building-category');
+        Route::post('/building-categories', [BuildingCategoryController::class, 'store'])->name('store.building-category');
+        Route::get('/building-categories/{id}/edit', [BuildingCategoryController::class, 'edit'])->name('edit.building-category');
+        Route::match(['put', 'patch'], '/building-categories/{id}', [BuildingCategoryController::class, 'update'])->name('update.building-category');
+        Route::delete('/building-categories/{id}', [BuildingCategoryController::class, 'destroy'])->name('destroy.building-category');
 
         // Rutas Showrooms
         Route::get('/showrooms', [ShowroomController::class, 'index'])->name('showrooms');

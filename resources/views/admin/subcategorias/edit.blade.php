@@ -7,11 +7,23 @@
     }
 </style>
 @section('content')
-    <div class="container-fluid">
-        <div class="row card p-4">
+    <div class="container">
+        <div class="card p-4">
+            <div class="d-flex mb-2">
+                <a href="{{ route('subcategorias') }}" class="text-dark"> <i class="fa-solid fa-arrow-left mr-2"></i> Volver</a>
+            </div>
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0 fw-bold">Editar subcategoría</h2>
             </div>
+
+            @if (session('store'))
+                <div class="alert alert-success alert-block d-flex justify-content-between">
+                    <strong>{{ session('store') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
 
             <form action="{{ route('update.subcategoria', $subcategoria->id) }}" method="POST" enctype="multipart/form-data" class="row">
                 @csrf
@@ -54,12 +66,12 @@
                         @enderror
                         @if (File::exists(public_path('storage/' . $subcategoria->imagen_destacada)) && $subcategoria->imagen_destacada != null)
                             <div class="mt-2">
-                                <img src="{{ asset('storage/' . $subcategoria->imagen_destacada) }}" alt="" class="img-fluid mt-2">
+                                <img src="{{ asset('storage/' . $subcategoria->imagen_destacada) }}" alt="" class="img-fluid mt-3" style="height: 190px;object-fit: contain; width: 100%;">
                             </div>
                         @endif
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-success w-100">Crear subcategoría</button>
+                        <button type="submit" class="btn btn-success w-100">Actualizar subcategoría</button>
                     </div>
                 </div>
             </form>

@@ -15,22 +15,21 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            // Relacionar con la tabla categories
+            $table->integer('category_id')->nullable();
+            // Relacion con la tabla subcategories
+            $table->integer('subcategory_id')->nullable();
             $table->text('nombre_producto')->nullable();
             $table->text('descripcion')->nullable();
-            $table->text('descripcion_corta')->nullable();
-            $table->float('precio')->nullable();
-            $table->float('precio_descuento')->nullable();
+            $table->text('precio')->nullable();
+            $table->text('precio_descuento')->nullable();
             $table->integer('mostrar_en_sales')->nullable();
+            $table->integer('best_seller')->nullable();
             $table->integer('oportunidad_unica')->nullable();
-            $table->unsignedBigInteger('coleccion_pertenece')->nullable();
+            $table->integer('coleccion_pertenece')->nullable();
             $table->text('imagen_destacada')->nullable();
             $table->text('galeria')->nullable();
             $table->text('slug')->nullable();
-
-            // Relacion con la tabla subcategories
-            $table->unsignedBigInteger('subcategory_id')->nullable();
-            $table->foreign('subcategory_id')->references('id')->on('subcategories')->onDelete('cascade');
-            
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\EventCategory;
 
 class EventoController extends Controller
 {
@@ -16,7 +17,8 @@ class EventoController extends Controller
     public function index()
     {
         $eventos = Event::paginate(10);
-        return view('eventos.index', compact('eventos'));
+        $categoryEventos = EventCategory::all();
+        return view('eventos.index', compact('eventos', 'categoryEventos'));
     }
 
     /**
@@ -46,9 +48,11 @@ class EventoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $eventoCategory = EventCategory::where('slug', $slug)->first();
+        $eventos = Event::where('categoria_id', $eventoCategory->id)->paginate(10);
+        return view('eventos.show', compact('eventoCategory', 'eventos'));
     }
 
     /**

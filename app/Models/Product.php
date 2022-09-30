@@ -16,13 +16,16 @@ class Product extends Model
     protected $fillable = [
         'nombre_producto',
         'descripcion',
-        'descripcion_corta',
         'precio',
         'precio_descuento',
         'mostrar_en_sales',
+        'best_seller',
+        'oportunidad_unica',
+        'coleccion_pertenece',
         'imagen_destacada',
         'galeria',
         'slug',
+        'category_id',
         'subcategory_id'
     ];
 

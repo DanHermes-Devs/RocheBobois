@@ -64,6 +64,13 @@
     .trix-button-group--file-tools {
         display: none !important;
     }
+
+    .d-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 1rem;
+        row-gap: 1rem;
+    }
 </style>
 <body class="hold-transition sidebar-mini">
 
@@ -239,25 +246,93 @@
 
                         <li class="nav-item">
 
-                            <a href="{{ route('eventos') }}" class="nav-link">
+                            <a href="#" class="nav-link">
 
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="nav-icon fas fa-cog"></i>
 
-                                <p>Eventos</p>
+                                <p>
+
+                                    Eventos
+
+                                    <i class="right fas fa-angle-left"></i>
+
+                                </p>
 
                             </a>
+
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+
+                                    <a href="{{ route('eventos') }}" class="nav-link">
+
+                                        <i class="far fa-circle nav-icon"></i>
+
+                                        <p>Todos los Eventos</p>
+
+                                    </a>
+
+                                </li>
+                                
+                                <li class="nav-item">
+
+                                    <a href="{{ route('event-categories') }}" class="nav-link">
+
+                                        <i class="far fa-circle nav-icon"></i>
+
+                                        <p>Categorias</p>
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
 
                         </li>
 
                         <li class="nav-item">
 
-                            <a href="{{ route('building') }}" class="nav-link">
+                            <a href="#" class="nav-link">
 
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="nav-icon fas fa-cog"></i>
 
-                                <p>Buildings</p>
+                                <p>
+
+                                    Buildings
+
+                                    <i class="right fas fa-angle-left"></i>
+
+                                </p>
 
                             </a>
+
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+
+                                    <a href="{{ route('building') }}" class="nav-link">
+
+                                        <i class="far fa-circle nav-icon"></i>
+
+                                        <p>Todos los Buildings</p>
+
+                                    </a>
+
+                                </li>
+                                
+                                <li class="nav-item">
+
+                                    <a href="{{ route('building-categories') }}" class="nav-link">
+
+                                        <i class="far fa-circle nav-icon"></i>
+
+                                        <p>Categorias</p>
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
 
                         </li>
 
@@ -416,11 +491,14 @@
 
     @yield('scripts')
 
-    {{-- <script>
-        $("trix-file-accept", (e) => {
-            e.preventDefault()
+    <script>
+        // Cargar Document con jQuery
+        $(document).ready(function () {
+            $('.btn_crear').click(function (e) {
+                $(this).waitMe();
+            });
         });
-    </script> --}}
+    </script>
 
 </body>
 

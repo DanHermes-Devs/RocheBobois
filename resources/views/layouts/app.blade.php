@@ -24,15 +24,22 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
+    {{-- Owl Carousel --}}
+    <link rel="stylesheet" href="{{ asset('css/owl.carousel.css') }}" />
 
     {{-- Linearicons --}}
     <link rel="stylesheet" href="{{ asset('css/linearicons.css') }}" />
 
-    {{-- Owl Carousel --}}
-    <link rel="stylesheet" href="{{ asset('css/owl.carousel.css') }}" />
+    {{-- Fancybox CSS --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css">
 
     {{-- BxSlider --}}
     <link rel="stylesheet" href="{{ asset('css/bxslider.css') }}" />
+
+    {{-- Select2 CSS --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
 
     {{-- Estilos --}}
     @yield('styles')
@@ -42,7 +49,7 @@
         <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-sm position-fixed w-100" style="z-index: 9">
             <div class="container">
                 <a class="navbar-brand text-white" href="{{ url('/') }}">
-                    <img src="{{ asset('image/rochebobois_white_logo.svg') }}" alt="logo" style="width:50%;">
+                    <img src="{{ asset('image/rochebobois_white_logo.svg') }}" alt="logo" class="logo_brand" style="width:50%;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -94,7 +101,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item text-uppercase" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -111,7 +118,7 @@
             </div>
         </nav>
 
-        <main class="pt-5">
+        <main class="pb-5">
             @yield('content')
         </main>
 
@@ -128,6 +135,12 @@
 
     {{-- BxSlider --}}
     <script src="{{ asset('js/bxslider.js') }}"></script>
+
+    {{-- FancyBox JS --}}
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    {{-- Select2 JS --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
     
     {{-- Swiper --}}
     <script src="{{ asset('js/swiper.min.js') }}"></script>

@@ -15,7 +15,9 @@
         @if (session('store'))
             <div class="alert alert-success alert-block d-flex justify-content-between">
                 <strong>{{ session('store') }}</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @endif
 
@@ -25,7 +27,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Nombre del diseñador</th>
+                            <th scope="col">Nombre</th>
                             <th scope="col">Nombre de la colección</th>
                             <th scope="col">Acciones</th>
                         </tr>

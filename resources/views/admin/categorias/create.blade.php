@@ -7,8 +7,11 @@
     }
 </style>
 @section('content')
-    <div class="container-fluid">
-        <div class="row card p-4">
+    <div class="container">
+        <div class="card p-4">
+            <div class="d-flex mb-2">
+                <a href="{{ route('categorias') }}" class="text-dark"> <i class="fa-solid fa-arrow-left mr-2"></i> Volver</a>
+            </div>
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0 fw-bold">Agregar categoría</h2>
             </div>
@@ -29,8 +32,8 @@
 
                 <div class="col-12 col-md-4">
                     <div class="mb-3">
-                        <label for="imagen_destacada" class="form-label">Imagen destacada</label>
-                        <input type="file" name="imagen_destacada" id="imagen_destacada" class="form-control @error('imagen_destacada') is-invalid @enderror">
+                        <label for="imagen_destacada" class="form-label">Imagen Destacada</label>
+                        <input type="file" name="imagen_destacada" accept=".png,.jpg,.jpeg" id="imagen_destacada" class="form-control @error('imagen_destacada') is-invalid @enderror">
                         @error('imagen_destacada')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -38,7 +41,7 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-success w-100">Crear categoría</button>
+                        <button type="submit" class="btn btn-success w-100 btn_crear">Crear categoría</button>
                     </div>
                 </div>
             </form>

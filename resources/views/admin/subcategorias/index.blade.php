@@ -1,10 +1,10 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row card p-4">
+    <div class="container">
+        <div class="card p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="mb-0 fw-bold">Subcategorías</h2>
+                <h2 class="mb-0 fw-bold">Subcategorías del producto</h2>
                 <a href="{{ route('create.subcategoria') }}" class="btn btn-success">
                     <i class="fa-solid fa-plus"></i>
                     Nueva subcategoría
@@ -15,7 +15,9 @@
             @if (session('store'))
                 <div class="alert alert-success alert-block d-flex justify-content-between">
                     <strong>{{ session('store') }}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
 
@@ -24,8 +26,8 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">Nombre de la subcategoría</th>
-                                <th scope="col">Nombre de la categoría padre</th>
+                                <th scope="col">Nombre de subcategoría</th>
+                                <th scope="col">Nombre de categoría</th>
                                 <th scope="col">Imagen Destacada</th>
                                 <th scope="col">Acciones</th>
                             </tr>

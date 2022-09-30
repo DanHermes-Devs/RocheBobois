@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row card p-4">
+    <div class="container">
+        <div class="card p-4">
             <div class="d-flex mb-2">
                 <a href="{{ route('categorias') }}" class="text-dark"> <i class="fa-solid fa-arrow-left mr-2"></i> Volver</a>
             </div>
@@ -13,7 +13,9 @@
             @if (session('store'))
                 <div class="alert alert-success alert-block d-flex justify-content-between">
                     <strong>{{ session('store') }}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
 
@@ -34,7 +36,7 @@
 
                 <div class="col-12 col-md-4">
                     <div class="mb-3">
-                        <label for="imagen_destacada" class="form-label">Imagen destacada</label>
+                        <label for="imagen_destacada" class="form-label">Imagen Destacada</label>
                         <input type="file" name="imagen_destacada" accept=".png, .jpg, .jpeg" class="form-control @error('imagen_destacada') is-invalid @enderror">
                         @error('imagen_destacada')
                             <div class="invalid-feedback">
@@ -44,12 +46,12 @@
                         {{-- Mostramos la imagen actual --}}
                         @if (File::exists(public_path('storage/' . $categoria->imagen_destacada)) && $categoria->imagen_destacada != null)
                             <div class="mt-2">
-                                <img src="{{ asset('storage/' . $categoria->imagen_destacada) }}" alt="" class="img-fluid mt-2">
+                                <img src="{{ asset('storage/' . $categoria->imagen_destacada) }}" alt="" class="img-fluid mt-3" style="height: 190px;object-fit: contain; width: 100%;">
                             </div>
                         @endif
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-success w-100 btn-editar">Editar categoría</button>
+                        <button type="submit" class="btn btn-success w-100 btn-editar">Actualizar categoría</button>
                     </div>
                 </div>
             </form>

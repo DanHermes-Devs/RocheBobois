@@ -39,6 +39,33 @@ class ShowroomController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'nombre_showroom' => 'required',
+            'ciudad_showroom' => 'required',
+            'numero_whatsapp' => 'required',
+            'direccion_showroom' => 'required',
+            'mensaje_predeterminado_wp' => 'required',
+            'numero_llamadas' => 'required',
+            'iframe_google_maps' => 'required',
+            'como_llegar' => 'required',
+            'id_tag_manager' => 'required',
+            'imagen_destacada' => 'required|image|mimes:jpeg,png,jpg',
+        ], [
+            'nombre_showroom.required' => 'El nombre del showroom es requerido',
+            'ciudad_showroom.required' => 'La ciudad del showroom es requerida',
+            'numero_whatsapp.required' => 'El número de whatsapp es requerido',
+            'direccion_showroom.required' => 'La dirección del showroom es requerida',
+            'mensaje_predeterminado_wp.required' => 'El mensaje predeterminado de whatsapp es requerido',
+            'numero_llamadas.required' => 'El número de llamadas es requerido',
+            'iframe_google_maps.required' => 'El iframe de google maps es requerido',
+            'como_llegar.required' => 'El campo como llegar es requerido',
+            'id_tag_manager.required' => 'El id de tag manager es requerido',
+            'imagen_destacada.required' => 'La imagen destacada es requerida',
+            'imagen_destacada.image' => 'El archivo debe ser una imagen',
+            'imagen_destacada.mimes' => 'El archivo debe ser una imagen con formato jpeg, png o jpg',
+        ]);
+
         $showroom = new Showroom;
         $showroom->slug = Str::slug($request->nombre_showroom);
 
@@ -94,6 +121,28 @@ class ShowroomController extends Controller
      */
     public function update(Request $request, Showroom $showroom)
     {
+        $request->validate([
+            'nombre_showroom' => 'required',
+            'ciudad_showroom' => 'required',
+            'numero_whatsapp' => 'required',
+            'direccion_showroom' => 'required',
+            'mensaje_predeterminado_wp' => 'required',
+            'numero_llamadas' => 'required',
+            'iframe_google_maps' => 'required',
+            'como_llegar' => 'required',
+            'id_tag_manager' => 'required',
+        ], [
+            'nombre_showroom.required' => 'El nombre del showroom es requerido',
+            'ciudad_showroom.required' => 'La ciudad del showroom es requerida',
+            'numero_whatsapp.required' => 'El número de whatsapp es requerido',
+            'direccion_showroom.required' => 'La dirección del showroom es requerida',
+            'mensaje_predeterminado_wp.required' => 'El mensaje predeterminado de whatsapp es requerido',
+            'numero_llamadas.required' => 'El número de llamadas es requerido',
+            'iframe_google_maps.required' => 'El iframe de google maps es requerido',
+            'como_llegar.required' => 'El campo como llegar es requerido',
+            'id_tag_manager.required' => 'El id de tag manager es requerido',
+        ]);
+        
         $showroom = Showroom::findOrFail($request->id);
 
         if(request('imagen_destacada')){
