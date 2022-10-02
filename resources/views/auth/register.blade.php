@@ -48,7 +48,7 @@
                         <div class="mb-3">
                             <label for="pais" class="form-label">{{ __('País') }}</label>
 
-                            <select class="form-select" id="pais" class="form-control @error('pais') is-invalid @enderror" name="pais" value="{{ old('pais') }}" autocomplete="pais">
+                            <select class="js-example-basic-single form-select" id="pais" class="form-control @error('pais') is-invalid @enderror" name="pais" value="{{ old('pais') }}" autocomplete="pais">
                               <option value="">-- Selecciona una opción -- </option>
                             </select>
 
@@ -62,7 +62,7 @@
                         <div class="mb-3">
                             <label for="estado" class="form-label">{{ __('Estado') }}</label>
 
-                            <select class="form-select" id="estado" class="form-control @error('estado') is-invalid @enderror" name="estado" value="{{ old('estado') }}" autocomplete="estado">
+                            <select class="js-example-basic-single form-select" id="estado" class="form-control @error('estado') is-invalid @enderror" name="estado" value="{{ old('estado') }}" autocomplete="estado">
                                 <option value="">-- Selecciona una opción -- </option>
                               </select>
 

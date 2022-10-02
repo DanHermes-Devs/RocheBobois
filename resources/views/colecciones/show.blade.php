@@ -35,17 +35,20 @@
                 @foreach ($productos as $producto)
                     {{-- Grid de productoos --}}
                     <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
-                        <div class="card text-center">
-                            <img src="{{ asset('storage/' . $producto->imagen_1) }}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $producto->nombre_productoo }}</h5>
-                                <p class="card-text">
-                                    <span class="text-decoration-line-through">${{ $producto->precio }}</span>
-                                    ${{ $producto->precio_descuento }}
-                                </p>
-                                <a href="#" class="btn_roche_outline_dark">Ver más</a>
+                        <a href="{{ route('front.sales.show', $producto->slug) }}" class="text-reset text-decoration-none">
+                            <div class="card text-center">
+                                <img src="{{ asset('storage/' . $producto->imagen_destacada) }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $producto->nombre_producto }}</h5>
+                                    <p class="card-text mb-3">
+                                        <span class="">${{ $producto->precio }}</span>
+                                        @if ($producto->precio_descuento)
+                                            <span class="fw-bold">${{ $producto->precio_descuento }}</span>
+                                        @endif
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 @endforeach
                 {{ $productos->links('pagination::bootstrap-4') }}

@@ -86,6 +86,8 @@ class RegisterController extends Controller
 
         $user->assignRole(2);
 
+        $user->createAsStripeCustomer();
+
         return redirect()->route('login');
     }
 }

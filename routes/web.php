@@ -2,6 +2,7 @@
 
 use App\Mail\Contacto;
 use App\Models\Subcategory;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -14,6 +15,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ShowroomController;
+use App\Http\Controllers\AddToCartController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\SubcategoryController;
@@ -21,10 +23,12 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EventCategoryController;
 use App\Http\Controllers\frontend\SalesController;
 use App\Http\Controllers\frontend\EventoController;
+use App\Http\Controllers\BuildingCategoryController;
 use App\Http\Controllers\frontend\BuildingHController;
 use App\Http\Controllers\frontend\ColeccionController;
+use App\Http\Controllers\frontend\BestSellerController;
+use App\Http\Controllers\frontend\OportunidadController;
 use App\Http\Controllers\frontend\ShowroomController as FrontendShowroomController;
-use App\Http\Controllers\BuildingCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +50,6 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->name('store.register');
 
-
 // Rutas publicas
 Route::get('/', [InicioController::class, 'index'])->name('inicio');
 
@@ -63,9 +66,23 @@ Route::get('/mailable/contact', function(){
 
 // Sales
 Route::get('/sales', [SalesController::class, 'index'])->name('front.sales');
+Route::get('/sale/{slug}', [SalesController::class, 'show'])->name('front.sales.show');
 
-// Oportunidades únicas
-Route::get('/oportunidades-unicas', [SalesController::class, 'oportunidadesUnicas'])->name('front.oportunidadesUnicas');
+// Rutas Best Seller
+Route::get('/best-seller', [BestSellerController::class, 'index'])->name('front.best-seller');
+
+// Rutas Oportunidades Unicas
+Route::get('/oportunidades-unicas', [OportunidadController::class, 'index'])->name('front.oportunidadesUnicas');
+
+Route::get('/destruir-carrito', function(){
+    Cart::destroy();
+});
+
+// Ruta para añadir al carrito
+Route::post('/add-to-cart', [AddToCartController::class, 'addToCart'])->name('addToCart');
+Route::get('/carrito', [AddToCartController::class, 'index'])->name('cart.index');
+Route::match(['put', 'patch'], '/carrito/{rowId}', [AddToCartController::class, 'update'])->name('cart.update');
+Route::delete('/carrito/{rowId}', [AddToCartController::class, 'destroy'])->name('cart.destroy');
 
 // Hacer publica la ruta de almacenamiento
 Route::get('/storage_link', function() {

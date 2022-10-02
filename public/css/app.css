@@ -10968,6 +10968,41 @@ a.nav-link {
   height: 48px;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
+}
+
+.dropdown-cart.dropdown-menu.dropdown-menu-end.show {
+  border-radius: 0;
+  background: #fff;
+  font-size: 18px;
+  flex-direction: column;
+  padding: 1rem;
+  width: 400px;
+  right: 0;
+  border: 1px solid #000 !important;
+}
+
+#cart_dropdown.dropdown-toggle::after {
+  display: none;
+}
+
+.badge_cart {
+  top: -17px;
+  left: 13px;
+  font-size: 12px !important;
+  background: #000;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  padding: 2px 5px 0px 5px;
+  text-align: center;
+}
+
+.alert.alert-success.alert-block.d-flex.justify-content-between {
+  background-color: transparent !important;
+  color: #08672f !important;
+  font-weight: bold !important;
+  border: 2px solid #08672f !important;
+  border-radius: 0;
 }
 
 /*============================================= 

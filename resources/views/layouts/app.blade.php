@@ -37,6 +37,12 @@
     {{-- BxSlider --}}
     <link rel="stylesheet" href="{{ asset('css/bxslider.css') }}" />
 
+    {{-- FlexSlider CSS --}}
+    <link rel="stylesheet" href="{{ asset('FlexSlider/flexslider.css') }}" />
+
+    {{-- Font Awesome --}}
+    <link rel="stylesheet" href="{{ asset('css/all.min.css') }}" />
+
     {{-- Select2 CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
@@ -67,11 +73,12 @@
                                 Concierge
                                 </a>
                                 <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('front.colecciones')}} ">COLECCIONES ESPECIALES</a></li>
-                                <li><a class="dropdown-item" href="{{ route('front.eventos') }}">EVENTOS</a></li>
-                                <li><a class="dropdown-item" href="{{ route('front.building') }}">ROCHE BOBOIS BUILDING</a></li>
-                                <li><a class="dropdown-item" href="{{ route('front.oportunidadesUnicas') }}">OPORTUNIDADES ÚNICAS</a></li>
-                                <li><a class="dropdown-item" href="{{ route('front.sales') }}">SALES</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('front.best-seller')}} ">BEST SELLER</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('front.colecciones')}} ">COLECCIONES ESPECIALES</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('front.eventos') }}">EVENTOS</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('front.building') }}">ROCHE BOBOIS BUILDING</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('front.oportunidadesUnicas') }}">OPORTUNIDADES ÚNICAS</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('front.sales') }}">SALES</a></li>
                                 </ul>
                             </li>
                         @endif
@@ -113,6 +120,50 @@
                                 </div>
                             </li>
                         @endguest
+
+                        @if (Auth::user() && Cart::count() > 0)
+                            {{-- Menu desplegable con la vista de los productos del carrito de compras --}}
+                            <li class="nav-item dropdown d-flex align-items-center">
+                                <a id="cart_dropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <div class="position-relative">
+                                        <i class="fa-regular fa-cart-shopping"></i>
+                                        <span class="position-absolute badge_cart">
+                                            {{ Cart::count() }}
+                                        </span>
+                                    </div>
+                                </a>
+                                <div class="dropdown-cart dropdown-menu dropdown-menu-end" aria-labelledby="cart_dropdown">
+                                    @forelse (Cart::content() as $item)
+                                        <div class="row align-items-center py-2 border-bottom">
+                                            <div class="col-12 col-md-4">
+                                                <img src="{{ asset('storage/'.$item->options->image) }}" alt="" class="img-fluid">
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <p class="mb-0"><b>Producto</b>: {{ $item->name }}</p>
+                                                <p class="mb-0"><b>Cantidad</b>: {{ $item->qty }}</p>
+                                                <p class="mb-0"><b>Precio</b>: ${{ $item->price }}</p>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <p class="mb-0 p-5 text-center">
+                                            No hay productos en el carrito
+                                        </p>
+                                    @endforelse
+
+                                    @if (Cart::count() > 0)
+                                        {{-- Mostrar el total de la compra --}}
+                                        <div class="row align-items-center pt-2">
+                                            <div class="col-12 col-md-6">
+                                                <p class="mb-0"><b>Total</b>: ${{ Cart::subtotal() }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <a href="{{ route('cart.index') }}" class="btn_outline_dark">Ver carrito</a>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -141,9 +192,22 @@
 
     {{-- Select2 JS --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
+
+    {{-- FlexSlider JS --}}
+    <script src="{{ asset('FlexSlider/jquery.flexslider.js') }}"></script>
+
+    {{-- Font Awesome --}}
+    <script src="{{ asset('js/all.min.js') }}"></script>
     
     {{-- Swiper --}}
     <script src="{{ asset('js/swiper.min.js') }}"></script>
+    
     @yield('scripts')
+
+    <script>
+        $('.dropdown-menu').click(function(e) {
+            e.stopPropagation();
+        });
+    </script>
 </body>
 </html>

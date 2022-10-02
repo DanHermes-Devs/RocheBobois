@@ -73,10 +73,7 @@ class ProductController extends Controller
 
         if(request('imagen_destacada')){
             $imagen_destacada = $request->imagen_destacada->store('uploads/productos/'.$producto->slug, 'public');
-            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"))->resize(800, 800, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
+            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"))->fit(800, 800);
             $img_destacada->save();
             $producto->imagen_destacada = $imagen_destacada;
         }
@@ -86,10 +83,7 @@ class ProductController extends Controller
             $img_galeria = array();
             foreach ($galerias as $imagefile) {
                 $imagefile = $imagefile->store('uploads/productos/'.$producto->slug, 'public');
-                $img_2 = Image::make(public_path("storage/{$imagefile}"))->resize(800, 800, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
+                $img_2 = Image::make(public_path("storage/{$imagefile}"))->fit(800, 800);
                 $img_2->save();
                 array_push($img_galeria, $imagefile);
             }
@@ -177,10 +171,7 @@ class ProductController extends Controller
 
             $imagen_destacada = $request->imagen_destacada->store('uploads/productos/'.$producto->slug, 'public');
             // Recortar imagen a 800x800 con object-fit: contain
-            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"))->resize(800, 800, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
+            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"))->fit(800, 800);
             $img_destacada->save();
             $producto->imagen_destacada = $imagen_destacada;
         }
@@ -196,10 +187,7 @@ class ProductController extends Controller
                 }
 
                 $imagefile = $imagefile->store('uploads/productos/'.$producto->slug, 'public');
-                $img_2 = Image::make(public_path("storage/{$imagefile}"))->resize(800, 800, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                });
+                $img_2 = Image::make(public_path("storage/{$imagefile}"))->fit(800, 800);
                 $img_2->save();
                 array_push($img_galeria, $imagefile);
             }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 
 class SalesController extends Controller
 {
@@ -17,12 +18,6 @@ class SalesController extends Controller
     {
         $products = Product::where('mostrar_en_sales', 1)->paginate(8);
         return view('sales.index', compact('products'));
-    }
-
-    public function oportunidadesUnicas()
-    {
-        // $op_unicas = Product::where('oportunidad_unica', 1)->paginate(8);
-        return view('oportunidades.index');
     }
 
     /**
@@ -52,9 +47,10 @@ class SalesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $product = Product::where('slug', $slug)->firstOrFail();
+        return view('sales.show', compact('product'));
     }
 
     /**
