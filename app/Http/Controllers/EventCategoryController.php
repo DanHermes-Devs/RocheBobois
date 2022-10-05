@@ -108,6 +108,12 @@ class EventCategoryController extends Controller
         $categoria->slug = Str::slug($request->nombre);
 
         if(request('imagen_destacada')){
+            // Eliminar primero imagen anterior
+            $imagen_path = public_path("storage/{$categoria->imagen_destacada}");
+            if(File::exists($imagen_path) && $categoria->imagen_destacada != null){
+                unlink($imagen_path);
+            }
+
             $imagen_destacada = $request->imagen_destacada->store('uploads/categorias-eventos/'.$categoria->slug, 'public');
             $img_1 = Image::make(public_path("storage/{$imagen_destacada}"));
             $img_1->save();
