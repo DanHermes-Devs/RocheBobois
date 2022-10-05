@@ -29,4 +29,9 @@ class InicioController extends Controller
     {
         return view('contacto');
     }
+
+    public function bienvenida()
+    {
+        return view('bienvenida');
+    }
 }

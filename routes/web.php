@@ -2,12 +2,12 @@
 
 use App\Mail\Contacto;
 use App\Models\Subcategory;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\ContactController;
@@ -18,9 +18,12 @@ use App\Http\Controllers\ShowroomController;
 use App\Http\Controllers\AddToCartController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\HomeOfficeController;
+use App\Http\Controllers\SellerBestController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EventCategoryController;
+use App\Http\Controllers\frontend\CobroController;
 use App\Http\Controllers\frontend\SalesController;
 use App\Http\Controllers\frontend\EventoController;
 use App\Http\Controllers\BuildingCategoryController;
@@ -29,6 +32,7 @@ use App\Http\Controllers\frontend\ColeccionController;
 use App\Http\Controllers\frontend\BestSellerController;
 use App\Http\Controllers\frontend\OportunidadController;
 use App\Http\Controllers\frontend\ShowroomController as FrontendShowroomController;
+use App\Http\Controllers\frontend\HomeOfficeController as FrontendHomeOfficeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +57,9 @@ Route::post('/register', [RegisterController::class, 'store'])->name('store.regi
 // Rutas publicas
 Route::get('/', [InicioController::class, 'index'])->name('inicio');
 
+// Ruta Bienvenida
+Route::get('/bienvenida', [InicioController::class, 'bienvenida'])->name('bienvenida');
+
 // Showrooms
 Route::get('/showrooms', [FrontendShowroomController::class, 'index'])->name('front.showrooms');
 Route::get('/showroom/{slug}', [FrontendShowroomController::class, 'show'])->name('front.showrooms.show');
@@ -70,6 +77,7 @@ Route::get('/sale/{slug}', [SalesController::class, 'show'])->name('front.sales.
 
 // Rutas Best Seller
 Route::get('/best-seller', [BestSellerController::class, 'index'])->name('front.best-seller');
+Route::get('/best-seller/{slug}', [BestSellerController::class, 'show'])->name('front.best-seller.show');
 
 // Rutas Oportunidades Unicas
 Route::get('/oportunidades-unicas', [OportunidadController::class, 'index'])->name('front.oportunidadesUnicas');
@@ -83,6 +91,9 @@ Route::post('/add-to-cart', [AddToCartController::class, 'addToCart'])->name('ad
 Route::get('/carrito', [AddToCartController::class, 'index'])->name('cart.index');
 Route::match(['put', 'patch'], '/carrito/{rowId}', [AddToCartController::class, 'update'])->name('cart.update');
 Route::delete('/carrito/{rowId}', [AddToCartController::class, 'destroy'])->name('cart.destroy');
+
+// Rutas para el checkout
+Route::get('/checkout', [CobroController::class, 'index'])->name('checkout');
 
 // Hacer publica la ruta de almacenamiento
 Route::get('/storage_link', function() {
@@ -108,6 +119,11 @@ Route::get('/evento/{slug}', [EventoController::class, 'show'])->name('front.eve
 
 // Building
 Route::get('/building', [BuildingHController::class, 'index'])->name('front.building');
+Route::get('/building/{slug}', [BuildingHController::class, 'show'])->name('building.show');
+
+// Home Office
+Route::get('/home-office', [FrontendHomeOfficeController::class, 'index'])->name('front.home-office');
+Route::get('/home-office/{slug}', [FrontendHomeOfficeController::class, 'show'])->name('home-office.show');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'admin', 'prefix' => 'dashboard'], function() {
@@ -197,6 +213,22 @@ Route::group(['middleware' => 'auth'], function () {
 
         // Rutas Contacto
         Route::get('/contacto', [ContactController::class, 'index'])->name('contacto');
+
+        // Rutas Home Office
+        Route::get('/home-office', [HomeOfficeController::class, 'index'])->name('home-office');
+        Route::get('/home-office/nueva-categoría', [HomeOfficeController::class, 'create'])->name('create.home-office');
+        Route::post('/home-office', [HomeOfficeController::class, 'store'])->name('store.home-office');
+        Route::get('/home-office/{id}/edit', [HomeOfficeController::class, 'edit'])->name('edit.home-office');
+        Route::match(['put', 'patch'], '/home-office/{id}', [HomeOfficeController::class, 'update'])->name('update.home-office');
+        Route::delete('/home-office/{id}', [HomeOfficeController::class, 'destroy'])->name('destroy.home-office');
+
+        // Rutas Best Seller
+        Route::get('/best-seller', [SellerBestController::class, 'index'])->name('back.best-seller');
+        Route::get('/best-seller/nueva-categoría', [SellerBestController::class, 'create'])->name('create.back.best-seller');
+        Route::post('/best-seller', [SellerBestController::class, 'store'])->name('store.back.best-seller');
+        Route::get('/best-seller/{id}/edit', [SellerBestController::class, 'edit'])->name('edit.back.best-seller');
+        Route::match(['put', 'patch'], '/best-seller/{id}', [SellerBestController::class, 'update'])->name('update.back.best-seller');
+        Route::delete('/best-seller/{id}', [SellerBestController::class, 'destroy'])->name('destroy.back.best-seller');
     });
 });
 

@@ -289,6 +289,77 @@
                             </ul>
 
                         </li>
+                        {{-- Fin Categorias --}}
+
+                        <li class="nav-item">
+
+                            <a href="#" class="nav-link">
+
+                                <i class="nav-icon fas fa-cog"></i>
+
+                                <p>
+
+                                    Home Office
+
+                                    <i class="right fas fa-angle-left"></i>
+
+                                </p>
+
+                            </a>
+
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+
+                                    <a href="{{ route('home-office') }}" class="nav-link">
+
+                                        <i class="far fa-circle nav-icon"></i>
+
+                                        <p>Categorías</p>
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+                        {{-- Fin Home Office --}}
+
+                        <li class="nav-item">
+
+                            <a href="#" class="nav-link">
+
+                                <i class="nav-icon fas fa-cog"></i>
+
+                                <p>
+
+                                    Best Seller
+
+                                    <i class="right fas fa-angle-left"></i>
+
+                                </p>
+
+                            </a>
+
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+
+                                    <a href="{{ route('back.best-seller') }}" class="nav-link">
+
+                                        <i class="far fa-circle nav-icon"></i>
+
+                                        <p>Categorías</p>
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+                        {{-- Best Seller --}}
 
                         <li class="nav-item">
 
