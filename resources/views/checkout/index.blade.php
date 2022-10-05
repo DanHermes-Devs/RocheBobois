@@ -1,226 +1,239 @@
 @extends('layouts.app')
+<style>
+    .form-control.StripeElement.StripeElement--empty .__privateStripeElement {
+        padding: 0.375rem 0.75rem!important;
+    }
 
+    .__privateStripeElement {
+        padding: 0.375rem 0.75rem!important;
+    }
+</style>
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid py-5 mt-5">
         <div class="container">
+            <div class="row mb-3">
+                <div class="col-12">
+                    <h1 class="text-center">Detalle de la venta</h1>
+                </div>
+            </div>
             <div class="row">
-                <div class="col-md-4 order-md-2 mb-4">
+                <div class="col-12 col-md-5 order-md-2 mb-4">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="text-muted">Your cart</span>
-                        <span class="badge badge-secondary badge-pill">3</span>
+                        <span class="text-muted">Tu carrito</span>
+                        <span class="badge badge-secondary badge-pill">{{ Cart::count() }}</span>
                     </h4>
                     <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 class="my-0">Product name</h6>
-                                <small class="text-muted">Brief description</small>
-                            </div>
-                            <span class="text-muted">$12</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 class="my-0">Second product</h6>
-                                <small class="text-muted">Brief description</small>
-                            </div>
-                            <span class="text-muted">$8</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 class="my-0">Third item</h6>
-                                <small class="text-muted">Brief description</small>
-                            </div>
-                            <span class="text-muted">$5</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between bg-light">
-                            <div class="text-success">
-                                <h6 class="my-0">Promo code</h6>
-                                <small>EXAMPLECODE</small>
-                            </div>
-                            <span class="text-success">-$5</span>
-                        </li>
+                        @foreach (Cart::content() as $item)
+                            <li class="list-group-item d-flex justify-content-between lh-condensed align-items-center">
+                                <div class="d-flex gap-2 align-items-center">
+                                    <img src="{{ asset('storage/' . $item->options->image) }}" alt="{{ $item->name }}"
+                                        class="img-fluid" width="100">
+                                    <div>
+                                        <h6 class="my-0">{{ $item->name }}</h6>
+                                        <small class="text-muted">Cantidad: {{ $item->qty }}</small>
+                                    </div>
+                                </div>
+                                <span class="text-muted">${{ $item->price }}</span>
+                            </li>
+                        @endforeach
+
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total (USD)</span>
-                            <strong>$20</strong>
+                            <strong>${{ Cart::subtotal() }}</strong>
                         </li>
                     </ul>
 
-                    <form class="card p-2">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Promo code">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-secondary">Redeem</button>
-                            </div>
+                    <h4 class="mb-3">Método de pago</h4>
+
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked
+                                required>
+                            <label class="custom-control-label" for="credit">Tarjeta de Crédito o Débito</label>
                         </div>
-                    </form>
+                    </div>
+
+                    <hr class="mb-4">
+
+                    <div class="row">
+                        <form action="">
+                            <div class="mb-3">
+                                <label for="card-holder-name" class="form-label">Nombre de la tarjeta</label>
+                                <input id="card-holder-name" type="text" class="form-control">
+                            </div>
+
+                            <!-- Stripe Elements Placeholder -->
+                            <div class="mb-3">
+                                <label for="card-element" class="form-label">Número de la tarjeta</label>
+                                <div id="card-element" class="form-control"></div>
+                            </div>
+
+                            <button id="card-button" class="btn_outline_dark">
+                                Realizar Pedido
+                            </button>
+                            {{-- <button class="btn_outline_dark" type="submit">Realizar Pedido</button> --}}
+                        </form>
+                    </div>
                 </div>
-                <div class="col-md-8 order-md-1">
-                    <h4 class="mb-3">Billing address</h4>
-                    <form class="needs-validation" novalidate>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="firstName">First name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="" value=""
-                                    required>
-                                <div class="invalid-feedback">
-                                    Valid first name is required.
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="lastName">Last name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="" value=""
-                                    required>
-                                <div class="invalid-feedback">
-                                    Valid last name is required.
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="mb-3">
-                            <label for="username">Username</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">@</span>
-                                </div>
-                                <input type="text" class="form-control" id="username" placeholder="Username" required>
-                                <div class="invalid-feedback" style="width: 100%;">
-                                    Your username is required.
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-12 col-md-7 order-md-1">
+                    <h4 class="mb-3">Detalles de Facturación</h4>
 
-                        <div class="mb-3">
-                            <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                            <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                            <div class="invalid-feedback">
-                                Please enter a valid email address for shipping updates.
-                            </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="nombre_completo">Nombre completo</label>
+                            <input type="text" class="form-control" id="nombre_completo"
+                                value="{{ Auth::user()->name }}">
                         </div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="address">Address</label>
-                            <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-                            <div class="invalid-feedback">
-                                Please enter your shipping address.
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" value="{{ Auth::user()->email }}">
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                            <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                        </div>
+                    <div class="mb-3">
+                        <label for="direccion_principal">Dirección</label>
+                        <input type="text" class="form-control" id="direccion_principal" placeholder="">
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-5 mb-3">
-                                <label for="country">Country</label>
-                                <select class="custom-select d-block w-100" id="country" required>
-                                    <option value="">Choose...</option>
-                                    <option>United States</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    Please select a valid country.
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="state">State</label>
-                                <select class="custom-select d-block w-100" id="state" required>
-                                    <option value="">Choose...</option>
-                                    <option>California</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    Please provide a valid state.
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="zip">Zip</label>
-                                <input type="text" class="form-control" id="zip" placeholder="" required>
-                                <div class="invalid-feedback">
-                                    Zip code required.
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="mb-4">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="same-address">
-                            <label class="custom-control-label" for="same-address">Shipping address is the same as my
-                                billing address</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="save-info">
-                            <label class="custom-control-label" for="save-info">Save this information for next
-                                time</label>
-                        </div>
-                        <hr class="mb-4">
+                    <div class="mb-3">
+                        <label for="direccion_opcional">Dirección 2 <span class="text-muted">(Optional)</span></label>
+                        <input type="text" class="form-control" id="direccion_opcional">
+                    </div>
 
-                        <h4 class="mb-3">Payment</h4>
-
-                        <div class="d-block my-3">
-                            <div class="custom-control custom-radio">
-                                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input"
-                                    checked required>
-                                <label class="custom-control-label" for="credit">Credit card</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input id="debit" name="paymentMethod" type="radio" class="custom-control-input"
-                                    required>
-                                <label class="custom-control-label" for="debit">Debit card</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input"
-                                    required>
-                                <label class="custom-control-label" for="paypal">PayPal</label>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="pais">País</label>
+                            <select class="select-country-state form-select" id="pais" class="form-control"
+                                name="pais" autocomplete="pais">
+                                <option value="{{ Auth::user()->pais }}">{{ Auth::user()->pais }}</option>
+                            </select>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="cc-name">Name on card</label>
-                                <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                                <small class="text-muted">Full name as displayed on card</small>
-                                <div class="invalid-feedback">
-                                    Name on card is required
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="cc-number">Credit card number</label>
-                                <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                                <div class="invalid-feedback">
-                                    Credit card number is required
-                                </div>
-                            </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="state">Estado</label>
+                            <select class="select-country-state form-select" id="estado" class="form-control"
+                                name="estado" autocomplete="estado">
+                                {{-- mostrar el select con el pais que esta en la base de datos --}}
+                                <option value="{{ Auth::user()->estado }}">{{ Auth::user()->estado }}</option>
+                            </select>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3 mb-3">
-                                <label for="cc-expiration">Expiration</label>
-                                <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                                <div class="invalid-feedback">
-                                    Expiration date required
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="cc-cvv">CVV</label>
-                                <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                                <div class="invalid-feedback">
-                                    Security code required
-                                </div>
-                            </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="codigo_postal">Código Postal</label>
+                            <input type="text" class="form-control" id="codigo_postal"
+                                value="{{ Auth::user()->codigo_postal }}">
                         </div>
-                        <hr class="mb-4">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                    </div>
+                    <input type="hidden" name="token_bearer" id="token_bearer">
+                    <hr class="mb-4">
+                    {{-- Informacion adicional --}}
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="nombre_completo">Información adicional</label>
+                            <textarea name="informacion_adicional" id="informacion_adicional" cols="30" rows="5"
+                                class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <hr class="mb-4">
                     </form>
                 </div>
             </div>
-
-            <footer class="my-5 pt-5 text-muted text-center text-small">
-                <p class="mb-1">&copy; 2017-2018 Company Name</p>
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="#">Privacy</a></li>
-                    <li class="list-inline-item"><a href="#">Terms</a></li>
-                    <li class="list-inline-item"><a href="#">Support</a></li>
-                </ul>
-            </footer>
         </div>
     </div>
 @endsection
 
 @section('scripts')
+    <script src="https://js.stripe.com/v3/"></script>
 
+    <script>
+        const stripe = Stripe('{{ env('STRIPE_KEY') }}');
+        const elements = stripe.elements();
+        const cardElement = elements.create('card');
+
+        cardElement.mount('#card-element');
+
+        </script>
+    {{-- Consumir api Univeral Tutorial --}}
+    <script>
+        $(document).ready(function() {
+            // Añadimos un id al boton
+            $('.__privateStripeElement').attr('id', 'form-stripe-input');
+            $('.__privateStripeElement').removeAttr('style');
+            $('#form-stripe-input').removeAttr('style');
+
+            $('input[name="cardnumber"]').on('change', function() {
+                $('.__privateStripeElement').removeAttr('style');
+            });
+            // Select 2
+            $('.select-country-state').select2({
+                theme: 'bootstrap-5',
+            });
+
+
+            // Consultamos la API de paises y en cuanto cambie el valor del select de paises se cambiaran los estados
+            let url_paises = 'https://www.universal-tutorial.com/api/countries';
+            let url_estados = 'https://www.universal-tutorial.com/api/states/';
+
+            $.ajax({
+                type: "GET",
+                url: "https://www.universal-tutorial.com/api/getaccesstoken",
+                headers: {
+                    "Accept": "application/json",
+                    "api-token": "pkEhMBnkFKdZpMv61f7OmPXsUamyGOa50kn6MEFxJghfhZJcIcP_iWG2jHhASUyIyto",
+                    "user-email": "danhermes2019@outlook.com"
+                },
+                success: function(response) {
+                    $('#token_bearer').val(response.auth_token);
+                    $.ajax({
+                        type: "GET",
+                        url: url_paises,
+                        headers: {
+                            "Accept": "application/json",
+                            "Authorization": "Bearer " + response.auth_token
+                        },
+                        success: function(response) {
+                            // Enlistar los Paises en el select con el id pais
+                            $.each(response, function(i, item) {
+                                $('#pais').append($('<option>', {
+                                    value: item.country_name,
+                                    text: item.country_name
+                                }));
+                            });
+
+                        }
+                    });
+                }
+            });
+
+            // Enlistar los estados de acuerdo al pais seleccionado
+            $('#pais').change(function() {
+                var pais = $(this).val();
+                var token_bearer = $('#token_bearer').val();
+                $.ajax({
+                    type: "GET",
+                    url: url_estados + pais,
+                    headers: {
+                        "Accept": "application/json",
+                        "Authorization": "Bearer " + token_bearer
+                    },
+                    success: function(response) {
+                        // Limpiar el select de estados para que no se repitan los estados al cambiar de pais
+                        $('#estado').empty();
+                        $('#estado').append($('<option>', {
+                            value: '',
+                            text: '-- Selecciona una opción --'
+                        }));
+                        // Enlistar los estados en el select con el id estado
+                        $.each(response, function(i, item) {
+                            $('#estado').append($('<option>', {
+                                value: item.state_name,
+                                text: item.state_name
+                            }));
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
 @endsection

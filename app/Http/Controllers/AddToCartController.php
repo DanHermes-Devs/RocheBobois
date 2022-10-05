@@ -23,6 +23,7 @@ class AddToCartController extends Controller
             'weight' => 0,
             'options' => [
                 'image' => $request->imagen_destacada,
+                'description' => $request->descripcion,
             ]
         ]);
 

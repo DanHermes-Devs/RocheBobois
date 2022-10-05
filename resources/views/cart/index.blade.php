@@ -112,7 +112,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <a href="#" class="btn_outline_dark">Continuar al pago</a>
+                        <a href="{{ route('checkout') }}" class="btn_outline_dark">Continuar al pago</a>
                     </div>
                 </div>
             @else
