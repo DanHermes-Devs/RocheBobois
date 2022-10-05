@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Models\Building;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\BuildingCategory;
 
 class BuildingHController extends Controller
 {
@@ -15,8 +16,8 @@ class BuildingHController extends Controller
      */
     public function index()
     {
-        $buildings = Building::all();
-        return view('buildings.index', compact('buildings'));
+        $buildings_category = BuildingCategory::all();
+        return view('buildings.index', compact('buildings_category'));
     }
 
     /**
@@ -37,7 +38,6 @@ class BuildingHController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -46,9 +46,11 @@ class BuildingHController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $categoria_building = BuildingCategory::where('slug', $slug)->first();
+        $building = Building::where('categoria_id', $categoria_building->id)->paginate(10);
+        return view('buildings.show', compact('building', 'categoria_building')); 
     }
 
     /**
