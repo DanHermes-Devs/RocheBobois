@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Collection;
+use App\Models\HomeOffice;
+use App\Models\SellerBest;
 use App\Models\Subcategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -34,7 +36,9 @@ class ProductController extends Controller
         $colecciones = Collection::all();
         $categorias = Category::all();
         $subcategorias = Subcategory::all();
-        return view('admin.productos.create', compact('colecciones', 'categorias', 'subcategorias'));
+        $homeOffices = HomeOffice::all();
+        $sellerBest = SellerBest::all();
+        return view('admin.productos.create', compact('colecciones', 'categorias', 'subcategorias', 'homeOffices', 'sellerBest'));
     }
 
     /**
@@ -97,6 +101,7 @@ class ProductController extends Controller
         $producto->mostrar_en_sales = $request->mostrar_en_sales;
         $producto->best_seller = $request->best_seller ?? null;
         $producto->oportunidad_unica = $request->oportunidad_unica ?? null;
+        $producto->home_office = $request->home_office ?? null;
         // Si viene vacia la colección, se le asigna el valor null
         $producto->coleccion_pertenece = $request->coleccion_pertenece ?? null;
         $producto->category_id = $request->category_id ?? null;
@@ -129,7 +134,8 @@ class ProductController extends Controller
         $producto = Product::find($id);
         $categoria = Category::where('id', $producto->category_id)->get();
         $subcategoria = Subcategory::where('id', $producto->subcategory_id)->get();
-        return view('admin.productos.edit', compact('producto', 'categoria', 'subcategoria', 'colecciones'));
+        $homeOffices = HomeOffice::where('id', $producto->home_office)->get();
+        return view('admin.productos.edit', compact('producto', 'categoria', 'subcategoria', 'colecciones', 'homeOffices'));
         
     }
 
@@ -201,6 +207,7 @@ class ProductController extends Controller
         $producto->mostrar_en_sales = $request->mostrar_en_sales;
         $producto->best_seller = $request->best_seller ?? null;
         $producto->oportunidad_unica = $request->oportunidad_unica ?? null;
+        $producto->home_office = $request->home_office ?? null;
         $producto->coleccion_pertenece = $request->coleccion_pertenece ?? null;
         $producto->category_id = $request->category_id ?? null;
         $producto->subcategory_id = $request->subcategory_id ?? null;
