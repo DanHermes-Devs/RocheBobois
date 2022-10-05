@@ -41,7 +41,7 @@ class LoginController extends Controller
             }
             
             if(Auth::user()->hasRole(2)){
-                return redirect()->route('inicio');
+                return redirect()->route('bienvenida');
             }
 
         }

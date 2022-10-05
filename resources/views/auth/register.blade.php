@@ -64,7 +64,7 @@
 
                             <select class="js-example-basic-single form-select" id="estado" class="form-control @error('estado') is-invalid @enderror" name="estado" value="{{ old('estado') }}" autocomplete="estado">
                                 <option value="">-- Selecciona una opción -- </option>
-                              </select>
+                            </select>
 
                             @error('estado')
                                 <span class="invalid-feedback" role="alert">
