@@ -51,6 +51,7 @@
                         <label for="precio_descuento" class="form-label">Precio con descuento</label>
                         <input type="text" class="form-control" id="precio_descuento" name="precio_descuento" value="{{ old('precio_descuento') }}">
                     </div>
+                    <hr class="my-4">
                     <div class="mb-3">
                         <label for="mostrar_en_sales" class="form-label">Mostrar en Sales</label>
                         <select class="form-control @error('mostrar_en_sales') is-invalid @enderror" id="mostrar_en_sales" name="mostrar_en_sales">
@@ -65,15 +66,26 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="best_seller" class="form-label">¿Es Best Seller?</label>
+                        <label for="best_seller" class="form-label">¿Es Best Seller? (Si aplica)</label>
                         <select class="form-control" id="best_seller" name="best_seller">
                             <option value="">-- Selecciona una opción --</option>
-                            <option value="1">Sí</option>
-                            <option value="0">No</option>
+                            @foreach ($sellerBest as $bestSeller)
+                                <option value="{{ $bestSeller->id }}">{{ $bestSeller->nombre }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="oportunidad_unica" class="form-label">¿Oportunidad única?</label>
+                        <label for="home_office" class="form-label">¿Es home office? (Si aplica)</label>
+                        <select class="form-control" id="home_office" name="home_office">
+                            <option value="">-- Selecciona una opción --</option>
+                            @foreach ($homeOffices as $homeOffice)
+                            {{$homeOffice->id }}
+                                <option value="{{ $homeOffice->id }}">{{ $homeOffice->nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="oportunidad_unica" class="form-label">¿Es oportunidad única? (Si aplica)</label>
                         <select class="form-control" id="oportunidad_unica" name="oportunidad_unica">
                             <option value="">-- Selecciona una opción --</option>
                             <option value="1">Sí</option>
@@ -81,7 +93,7 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="coleccion_pertenece" class="form-label">¿Ah qué colección pertenece?</label>
+                        <label for="coleccion_pertenece" class="form-label">¿Ah qué colección pertenece? (Si aplica)</label>
                         <select class="form-control" id="coleccion_pertenece" name="coleccion_pertenece">
                             <option value="">-- Selecciona una opción --</option>
                             @foreach ($colecciones as $coleccion)

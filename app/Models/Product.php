@@ -21,6 +21,7 @@ class Product extends Model
         'mostrar_en_sales',
         'best_seller',
         'oportunidad_unica',
+        'home_office',
         'coleccion_pertenece',
         'imagen_destacada',
         'galeria',

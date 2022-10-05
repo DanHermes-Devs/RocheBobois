@@ -26,6 +26,7 @@ class CreateProductsTable extends Migration
             $table->integer('mostrar_en_sales')->nullable();
             $table->integer('best_seller')->nullable();
             $table->integer('oportunidad_unica')->nullable();
+            $table->integer('home_office')->nullable();
             $table->integer('coleccion_pertenece')->nullable();
             $table->text('imagen_destacada')->nullable();
             $table->text('galeria')->nullable();

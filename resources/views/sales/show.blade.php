@@ -81,6 +81,7 @@
                             @csrf
                             <input type="hidden" name="id" value="{{ $product->id }}">
                             <input type="hidden" name="nombre_producto" value="{{ $product->nombre_producto }}">
+                            <input type="hidden" name="descripcion" value="{{ $product->descripcion }}">
                             <input type="hidden" name="precio" value="{{ $product->precio }}">
                             <input type="hidden" name="imagen_destacada" value="{{ $product->imagen_destacada }}">
                             {{-- Botones de cantidad --}}
