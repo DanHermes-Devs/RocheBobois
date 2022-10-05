@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\SellerBest;
 
 class BestSellerController extends Controller
 {
@@ -15,8 +16,8 @@ class BestSellerController extends Controller
      */
     public function index()
     {
-        $productos_seller = Product::where('best_seller', 1)->paginate(12);
-        return view('best-seller.index', compact('productos_seller'));
+        $sellerBests = SellerBest::all();
+        return view('best-seller.index', compact('sellerBests'));
     }
 
     /**
@@ -46,9 +47,11 @@ class BestSellerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $sellerBest = SellerBest::where('slug', $slug)->first();
+        $products = Product::where('best_seller', $sellerBest->id)->paginate(12);
+        return view('best-seller.show', compact('sellerBest', 'products'));
     }
 
     /**
