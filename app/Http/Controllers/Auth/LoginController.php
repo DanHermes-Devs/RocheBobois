@@ -28,11 +28,7 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-    {        
-        // if(Auth::user()->attempt(['email' => $request->email, 'password' => $request->password]))
-        // {
-        //     return redirect()->route('/dashboard');
-        // }
+    {  
         
         if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]))
         {
