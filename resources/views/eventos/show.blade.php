@@ -197,34 +197,37 @@ MOVIL VERTICAL (revisamos en 320px)
                                     </div>
                                     <div class="modal-body">
                                         <form id="reservar_evento" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
+                                            <input type="hidden" name="id_event" value="{{ $evento->id }}">
                                             <input type="hidden" name="nombre_evento" value="{{ $evento->nombre_evento }}">
-                                            <input type="hidden" name="id" value="{{ $evento->id }}">
-                                            <input type="hidden" name="codigo_unico" value="">
+                                            {{-- Generar un codigo unico con el tiempo --}}
+                                            <input type="hidden" name="codigo_reserva" value="{{ time() }}">
                                             <div class="mb-3">
-                                                <label for="nombre_completo" class="col-form-label">Nombre:</label>
+                                                <label for="nombre_usuario" class="col-form-label">Nombre:</label>
                                                 {{-- Obtener el nombre del usuario autenticado --}}
-                                                <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" value="{{ Auth::user()->name }}">
+                                                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" value="{{ Auth::user()->name }}">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="email" class="col-form-label">Email:</label>
+                                                <label for="email_usuario" class="col-form-label">Email:</label>
                                                 {{-- Obtener el email del usuario autenticado --}}
-                                                <input type="text" class="form-control" id="email" name="email" value="{{ Auth::user()->email }}">
+                                                <input type="text" class="form-control" id="email_usuario" name="email_usuario" value="{{ Auth::user()->email }}">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="telefono" class="col-form-label">Teléfono:</label>
-                                                <input type="text" class="form-control" id="telefono" name="telefono" value="">
+                                                <label for="telefono_usuario" class="col-form-label">Teléfono:</label>
+                                                <input type="text" class="form-control" id="telefono_usuario" name="telefono_usuario" value="{{ Auth::user()->telefono }}">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="fecha" class="col-form-label">Fecha:</label>
-                                                <input type="text" class="form-control" name="fecha" id="fecha" disabled readonly value="{{ $evento->fecha }}">
+                                                <input type="text" class="form-control" name="fecha" id="fecha" readonly value="{{ $evento->fecha }}">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="hora" class="col-form-label">Hora:</label>
-                                                <input type="text" class="form-control" id="hora" name="hora" disabled readonly value="{{ $evento->hora }}">
+                                                <input type="text" class="form-control" id="hora" name="hora" readonly value="{{ $evento->hora }}">
                                             </div>
                                             <div class="d-flex gap-3">
+                                                <button type="submit" class="ml-3 btn_generico btn_reservar_ahora">Reservar</button>
                                                 <button type="button" class="btn_generico_close" data-bs-dismiss="modal">Cerrar</button>
-                                                <button type="submit" name="enviar_reserva" class="ml-3 btn_generico btn_reservar_ahora">Reservar</button>
                                             </div>
                                         </form>
                                     </div>
@@ -254,12 +257,10 @@ MOVIL VERTICAL (revisamos en 320px)
 
             // Fecha
             var fecha = $(this).data('fecha');
-            console.log(fecha);
             $('#reservar').find('input[name="fecha"]').val(fecha);
 
             // Hora
             var hora = $(this).data('hora');
-            console.log(hora);
             $('#reservar').find('input[name="hora"]').val(hora);
 
             // reservar_title_modal
@@ -271,9 +272,9 @@ MOVIL VERTICAL (revisamos en 320px)
         });
 
         // Detectar cambio en el nombre
-        $('#nombre_completo').on('input', function() {
+        $('#nombre_usuario').on('input', function() {
             var nombre = $(this).val();
-            $('#reservar').find('input[name="nombre_completo"]').val(nombre);
+            $('#reservar').find('input[name="nombre_usuario"]').val(nombre);
         });
 
         // Detectar cambio en el email
@@ -283,9 +284,61 @@ MOVIL VERTICAL (revisamos en 320px)
         });
 
         // Detectar cambio inmediato en el input telefono al escribir algo nuevo
-        $('#telefono').on('input', function() {
+        $('#telefono_usuario').on('input', function() {
             var telefono = $(this).val();
-            $('#reservar').find('input[name="telefono"]').val(telefono);
+            $('#reservar').find('input[name="telefono_usuario"]').val(telefono);
+        });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+
+        $('.btn_reservar_ahora').click(function(e) {
+            e.preventDefault();
+            $(this).waitMe();
+
+            // Enviar todo el formulario serializado
+            var form = $('#reservar_evento').serialize();
+
+            $.ajax({
+                url: "{{ route('bookings.store') }}",
+                type: "POST",
+                data: form,
+                success: function(data) {
+                    if (data.status == 'success') {
+                        $('#reservar').modal('hide');
+                        $('.btn_reservar_ahora').waitMe('hide');
+
+                        Swal.fire({
+                            title: 'Reserva realizada con éxito',
+                            text: 'Se ha enviado un correo electrónico con los datos de la reserva',
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        });
+
+                    } else {
+                        $('.btn_reservar_ahora').waitMe('hide');
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Ha ocurrido un error al realizar la reserva',
+                            icon: 'error',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    }
+                },
+                error: function(data) {
+                    $('.btn_reservar_ahora').waitMe('hide');
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Ha ocurrido un error al realizar la reserva',
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            });
         });
     });
 </script>

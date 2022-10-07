@@ -206,6 +206,18 @@
 
                         <li class="nav-item">
 
+                            <a href="{{ route('bookings') }}" class="nav-link">
+
+                                <i class="nav-icon fas fa-id-card"></i>
+
+                                <p>Reservas</p>
+
+                            </a>
+
+                        </li>
+
+                        <li class="nav-item">
+
                             <a href="{{ route('colecciones-especiales') }}" class="nav-link">
 
                                 <i class="nav-icon fas fa-id-card"></i>
