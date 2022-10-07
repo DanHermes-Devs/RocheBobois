@@ -40,6 +40,10 @@
     {{-- FlexSlider CSS --}}
     <link rel="stylesheet" href="{{ asset('FlexSlider/flexslider.css') }}" />
 
+    {{-- waitme --}}
+    <link rel="stylesheet" href="{{ asset('css/waitMe.min.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" />
+
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}" />
 
@@ -49,6 +53,28 @@
 
     {{-- Estilos --}}
     @yield('styles')
+
+    <style>
+        .contacto_whatsapp {
+            position: fixed;
+            bottom: 5%;
+            right: 9%;
+            z-index: 999;
+            background: #4caf50;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 3rem;
+            font-size: 16px;
+        }
+
+        .ico_whats {
+            width: 4%;
+            position: fixed;
+            bottom: 4%;
+            right: 4%;
+            z-index: 999;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -177,6 +203,39 @@
         <footer class="bg-dark">
             <p class="mb-0 text-white py-3 text-center">© 2022 Roche Bobois México</p>
         </footer>
+
+        <a href="#" data-bs-toggle="modal" data-bs-target="#whatsappIcono" class="btn_whats_float">
+            <div class="contacto_whatsapp">
+                <span>¡Contáctanos por whatsapp!</span>
+            </div>
+            <img src="https://rocheboboismexico.com/wp-content/uploads/2022/05/whatsapp.png" class="img-fluid ico_whats">
+        </a>
+        @php
+            $showrooms = App\Models\Showroom::all();
+        @endphp
+        <div class="btn_whatsapp">
+            <div class="modal fade" id="whatsappIcono" tabindex="-1" aria-labelledby="whatsappIconoLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="whatsappIconoLabel">Por favor seleccione la sucursal deseada</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <select class="form-select" onChange=nav(this.value)>
+                            <option value="">-- Seleccione una sucursal --</option>
+                            @foreach ($showrooms as $showroom)
+                                <option value="https://api.whatsapp.com/send?phone={{ $showroom->numero_whatsapp }}">{{ $showroom->nombre_showroom }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
     </div>
 
     {{-- jQuery --}}
@@ -199,6 +258,12 @@
 
     {{-- Font Awesome --}}
     <script src="{{ asset('js/all.min.js') }}"></script>
+
+    {{-- Waitme JS --}}
+    <script src="{{ asset('js/waitme.min.js') }}"></script>
+
+    {{-- Sweet Alert 2 --}}
+    <script src="{{ asset('js/sweetalert.min.js') }}"></script>
     
     {{-- Swiper --}}
     <script src="{{ asset('js/swiper.min.js') }}"></script>
@@ -209,6 +274,12 @@
         $('.dropdown-menu').click(function(e) {
             e.stopPropagation();
         });
+
+        function nav(value) {
+			if (value != "") {
+				location.href = value;
+			}
+		}
     </script>
 </body>
 </html>
