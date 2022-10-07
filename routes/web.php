@@ -10,6 +10,7 @@ use App\Http\Controllers\EventController;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BuildingController;
@@ -33,6 +34,8 @@ use App\Http\Controllers\frontend\BestSellerController;
 use App\Http\Controllers\frontend\OportunidadController;
 use App\Http\Controllers\frontend\ShowroomController as FrontendShowroomController;
 use App\Http\Controllers\frontend\HomeOfficeController as FrontendHomeOfficeController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,7 +117,7 @@ Route::get('/colecciones-especiales', [ColeccionController::class, 'index'])->na
 Route::get('/coleccion-especial/{slug}', [ColeccionController::class, 'show'])->name('front.colecciones.show');
 
 // Eventos
-Route::get('/eventos', [EventoController::class, 'index'])->name('front.eventos');
+Route::get('/eventos', [EventoController::class, 'index'])->name('front.eventos')->middleware(['auth', 'verified']);
 Route::get('/evento/{slug}', [EventoController::class, 'show'])->name('front.eventos.show');
 
 // Building
@@ -124,6 +127,29 @@ Route::get('/building/{slug}', [BuildingHController::class, 'show'])->name('buil
 // Home Office
 Route::get('/home-office', [FrontendHomeOfficeController::class, 'index'])->name('front.home-office');
 Route::get('/home-office/{slug}', [FrontendHomeOfficeController::class, 'show'])->name('home-office.show');
+
+// Bookings
+Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+
+Route::get('/prueba_rul', function() {
+    return "hola";
+})->middleware(['auth', 'verified']);
+
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+ 
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+ 
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'admin', 'prefix' => 'dashboard'], function() {
@@ -229,6 +255,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/best-seller/{id}/edit', [SellerBestController::class, 'edit'])->name('edit.back.best-seller');
         Route::match(['put', 'patch'], '/best-seller/{id}', [SellerBestController::class, 'update'])->name('update.back.best-seller');
         Route::delete('/best-seller/{id}', [SellerBestController::class, 'destroy'])->name('destroy.back.best-seller');
+
+        // Bookings
+        Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
+        Route::get('/bookings/{id}', [BookingController::class, 'show'])->name('show.booking');
+        Route::delete('/bookings/{id}', [BookingController::class, 'destroy'])->name('destroy.booking');
+        Route::match(['put', 'patch'], '/bookings/actualizar-check-in/{id}', [BookingController::class, 'checkin'])->name('checkin.booking');
+
+        // Checkin de la reserva en el lobby
+        Route::get('/reserva/{codigo_reserva}', [BookingController::class, 'checkin_page'])->name('checkin.page');
     });
 });
 
