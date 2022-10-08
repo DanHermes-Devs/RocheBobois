@@ -16,6 +16,7 @@ class RoleSeeder extends Seeder
     {
         // Creamos los roles, pueden ser cuantos se requieran
         $admin = Role::create(['name' => 'admin']);
+        $concierge = Role::create(['name' => 'concierge']);
         $cliente = Role::create(['name' => 'cliente']);
     }
 }

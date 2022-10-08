@@ -22,5 +22,14 @@ class DatabaseSeeder extends Seeder
         $this->call(ShowroomsTableSeeder::class);
         $this->call(EventCategoriesTableSeeder::class);
         $this->call(BuildingCategoriesTableSeeder::class);
+        $this->call(BookingsTableSeeder::class);
+        $this->call(SellerBestsTableSeeder::class);
+        $this->call(HomeOfficesTableSeeder::class);
+        $this->call(ShippingsTableSeeder::class);
+        $this->call(ProductsTableSeeder::class);
+        $this->call(SubcategoriesTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(BuildingsTableSeeder::class);
+        $this->call(ContactsTableSeeder::class);
     }
 }

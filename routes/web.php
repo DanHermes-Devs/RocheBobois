@@ -1,5 +1,7 @@
 <?php
 
+defined('STDIN') or define('STDIN', fopen('php://stdin', 'r'));
+
 use App\Mail\Contacto;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Auth;
@@ -111,6 +113,30 @@ Route::get('/storage_link', function() {
 Route::get('/fresh_db', function() {
 
     Artisan::call('migrate:fresh --seed');
+
+});
+
+// Arreglamos el error Udefined constant 'STDIN'
+Route::get('/fix', function() {
+
+    Artisan::call('config:clear');
+
+});
+
+// Iseed para las tablas que ya tienen datos
+Route::get('/table_iseed', function() { 
+    // Validamos si ya existe el seeder
+    Artisan::call('iseed bookings');
+    Artisan::call('iseed seller_bests');
+    Artisan::call('iseed home_offices');
+    Artisan::call('iseed shippings');
+    Artisan::call('iseed building_categories');
+    Artisan::call('iseed event_categories');
+    Artisan::call('iseed products');
+    Artisan::call('iseed subcategories');
+    Artisan::call('iseed categories');
+    Artisan::call('iseed buildings');
+    Artisan::call('iseed contacts');
 
 });
 
