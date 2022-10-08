@@ -87,7 +87,7 @@
                     <div class="mb-3">
                         <label for="oportunidad_unica" class="form-label">¿Es oportunidad única? (Si aplica)</label>
                         <select class="form-control" id="oportunidad_unica" name="oportunidad_unica">
-                            <option value="">-- Selecciona una opción --</option>
+                            <option value="2">-- Selecciona una opción --</option>
                             <option value="1">Sí</option>
                             <option value="0">No</option>
                         </select>

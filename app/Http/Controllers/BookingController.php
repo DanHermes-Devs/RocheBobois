@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -138,10 +139,18 @@ class BookingController extends Controller
         if(!auth()->check()) {
             return redirect()->route('login');
         }else{
-            $booking = Booking::where('codigo_reserva', $codigo_reserva)->first();
-            $booking->status = "Confirmado";
-            $booking->save();
-            return view('admin.bookings.checkin', compact('booking'));
+            // Si el usuario registrado es administrador 
+            if(Auth::user()->hasRole(1)) {
+                $booking = Booking::where('codigo_reserva', $codigo_reserva)->first();
+                $booking->status = "Confirmado";
+                $booking->save();
+                return view('admin.bookings.checkin', compact('booking'));
+            }else{
+                return response()->json([
+                    'message' => 'No tienes permisos para acceder a esta página',
+                    'status' => 'error',
+                ]);
+            }
         }
     }
 

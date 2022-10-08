@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create([
+        $user1 = User::create([
             'name' => 'Dan Hermes',
             'email' => 'danhermes@mgail.com',
             'empresa' => 'Fussion México',
@@ -27,6 +27,20 @@ class UserSeeder extends Seeder
             'password' => Hash::make('123456789'),
         ]);
 
-        $user->assignRole(1);
+        $user1->assignRole(1);
+       
+        $user2 = User::create([
+            'name' => 'Dinorah',
+            'email' => 'dtobias@fussionmexico.com',
+            'empresa' => 'Fussion México',
+            'cargo' => 'Investigación',
+            'pais' => 'México',
+            'estado' => 'Ciudad de México',
+            'codigo_postal' => '54485',
+            'telefono' => '5576636448',
+            'password' => Hash::make('123456789'),
+        ]);
+
+        $user2->assignRole(1);
     }
 }

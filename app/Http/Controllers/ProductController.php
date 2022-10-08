@@ -38,6 +38,7 @@ class ProductController extends Controller
         $subcategorias = Subcategory::all();
         $homeOffices = HomeOffice::all();
         $sellerBest = SellerBest::all();
+
         return view('admin.productos.create', compact('colecciones', 'categorias', 'subcategorias', 'homeOffices', 'sellerBest'));
     }
 
@@ -49,9 +50,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
-        // dd($request->all());
-
         $request->validate([
             'nombre_producto' => 'required',
             'descripcion' => 'required',
@@ -135,7 +133,9 @@ class ProductController extends Controller
         $categoria = Category::where('id', $producto->category_id)->get();
         $subcategoria = Subcategory::where('id', $producto->subcategory_id)->get();
         $homeOffices = HomeOffice::where('id', $producto->home_office)->get();
-        return view('admin.productos.edit', compact('producto', 'categoria', 'subcategoria', 'colecciones', 'homeOffices'));
+        $sellerBest = SellerBest::all();
+
+        return view('admin.productos.edit', compact('producto', 'categoria', 'subcategoria', 'colecciones', 'homeOffices', 'sellerBest'));
         
     }
 

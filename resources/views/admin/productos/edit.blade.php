@@ -79,11 +79,10 @@
                         <label for="best_seller" class="form-label">¿Es Best Seller? (Si aplica)</label>
                         <select class="form-control" id="best_seller" name="best_seller">
                             <option value="">-- Selecciona una opción --</option>
+                            {{-- Si no viene nada en sellerBest --}}
                             @foreach ($sellerBest as $bestSeller)
                                 <option value="{{ $bestSeller->id }}" {{ $producto->best_seller == $bestSeller->id ? 'selected' : '' }}>{{ $bestSeller->nombre }}</option>
                             @endforeach
-                            <option value="1" {{ $producto->best_seller == 1 ? 'selected' : '' }}>Sí</option>
-                            <option value="0" {{ $producto->best_seller == 0 ? 'selected' : '' }}>No</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -98,7 +97,7 @@
                     <div class="mb-3">
                         <label for="oportunidad_unica" class="form-label">¿Es oportunidad única? (Si aplica)</label>
                         <select class="form-control" id="oportunidad_unica" name="oportunidad_unica">
-                            <option value="">-- Selecciona una opción --</option>
+                            <option value="2" {{ $producto->oportunidad_unica == 2 ? 'selected' : '' }}>-- Selecciona una opción --</option>
                             <option value="1" {{ $producto->oportunidad_unica == 1 ? 'selected' : '' }}>Sí</option>
                             <option value="0" {{ $producto->oportunidad_unica == 0 ? 'selected' : '' }}>No</option>
                         </select>

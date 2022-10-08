@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Spatie\Permission\Models\Permission;
 
 class RegisterController extends Controller
 {
@@ -69,6 +70,7 @@ class RegisterController extends Controller
             'email.required' => 'El campo correo electrónico es obligatorio',
             'codigo_postal.required' => 'El campo código postal es obligatorio',
             'telefono.required' => 'El campo teléfono es obligatorio',
+            'telefono.integer' => 'El campo teléfono debe ser un número de teléfono válido',
             'password.required' => 'El campo contraseña es obligatorio',
         ]);
 
@@ -88,6 +90,13 @@ class RegisterController extends Controller
 
         $user->createAsStripeCustomer();
 
-        return redirect()->route('login');
+        // Enviar correo de confirmación de cuenta
+        $user->sendEmailVerificationNotification();
+
+        // Loguear al usuario
+        Auth::login($user);
+
+        // Redireccionar al usuario
+        return redirect()->route('bienvenida');
     }
 }

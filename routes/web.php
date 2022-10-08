@@ -61,7 +61,7 @@ Route::post('/register', [RegisterController::class, 'store'])->name('store.regi
 Route::get('/', [InicioController::class, 'index'])->name('inicio');
 
 // Ruta Bienvenida
-Route::get('/bienvenida', [InicioController::class, 'bienvenida'])->name('bienvenida');
+Route::get('/bienvenida', [InicioController::class, 'bienvenida'])->name('bienvenida')->middleware(['auth', 'verified']);
 
 // Showrooms
 Route::get('/showrooms', [FrontendShowroomController::class, 'index'])->name('front.showrooms');
@@ -70,20 +70,22 @@ Route::get('/showroom/{slug}', [FrontendShowroomController::class, 'show'])->nam
 // Contacto
 Route::get('/contacto', [InicioController::class, 'contacto'])->name('front.contacto');
 Route::post('/contacto', [ContactController::class, 'store'])->name('store.contacto');
+
+// Visualizar el correo de contacto
 Route::get('/mailable/contact', function(){
     return new Contacto('Dan hermes', 'dan@mail.com', '654367', 'México', 'Ninguno', 'Si');
 });
 
 // Sales
-Route::get('/sales', [SalesController::class, 'index'])->name('front.sales');
-Route::get('/sale/{slug}', [SalesController::class, 'show'])->name('front.sales.show');
+Route::get('/sales', [SalesController::class, 'index'])->name('front.sales')->middleware(['auth', 'verified']);
+Route::get('/sale/{slug}', [SalesController::class, 'show'])->name('front.sales.show')->middleware(['auth', 'verified']);
 
 // Rutas Best Seller
-Route::get('/best-seller', [BestSellerController::class, 'index'])->name('front.best-seller');
-Route::get('/best-seller/{slug}', [BestSellerController::class, 'show'])->name('front.best-seller.show');
+Route::get('/best-seller', [BestSellerController::class, 'index'])->name('front.best-seller')->middleware(['auth', 'verified']);
+Route::get('/best-seller/{slug}', [BestSellerController::class, 'show'])->name('front.best-seller.show')->middleware(['auth', 'verified']);
 
 // Rutas Oportunidades Unicas
-Route::get('/oportunidades-unicas', [OportunidadController::class, 'index'])->name('front.oportunidadesUnicas');
+Route::get('/oportunidades-unicas', [OportunidadController::class, 'index'])->name('front.oportunidadesUnicas')->middleware(['auth', 'verified']);
 
 Route::get('/destruir-carrito', function(){
     Cart::destroy();
@@ -96,44 +98,40 @@ Route::match(['put', 'patch'], '/carrito/{rowId}', [AddToCartController::class, 
 Route::delete('/carrito/{rowId}', [AddToCartController::class, 'destroy'])->name('cart.destroy');
 
 // Rutas para el checkout
-Route::get('/checkout', [CobroController::class, 'index'])->name('checkout');
+Route::get('/checkout', [CobroController::class, 'index'])->name('checkout')->middleware(['auth', 'verified']);
 
 // Hacer publica la ruta de almacenamiento
 Route::get('/storage_link', function() {
 
     Artisan::call('storage:link');
 
-});
+})->middleware(['auth', 'verified']);
 
 // Fresh y almcaenamiento de la base de datos
 Route::get('/fresh_db', function() {
 
     Artisan::call('migrate:fresh --seed');
 
-});
+})->middleware(['auth', 'verified']);
 
 // Colecciones especiales
-Route::get('/colecciones-especiales', [ColeccionController::class, 'index'])->name('front.colecciones');
-Route::get('/coleccion-especial/{slug}', [ColeccionController::class, 'show'])->name('front.colecciones.show');
+Route::get('/colecciones-especiales', [ColeccionController::class, 'index'])->name('front.colecciones')->middleware(['auth', 'verified']);
+Route::get('/coleccion-especial/{slug}', [ColeccionController::class, 'show'])->name('front.colecciones.show')->middleware(['auth', 'verified']);
 
 // Eventos
 Route::get('/eventos', [EventoController::class, 'index'])->name('front.eventos')->middleware(['auth', 'verified']);
-Route::get('/evento/{slug}', [EventoController::class, 'show'])->name('front.eventos.show');
+Route::get('/evento/{slug}', [EventoController::class, 'show'])->name('front.eventos.show')->middleware(['auth', 'verified']);
 
 // Building
-Route::get('/building', [BuildingHController::class, 'index'])->name('front.building');
-Route::get('/building/{slug}', [BuildingHController::class, 'show'])->name('building.show');
+Route::get('/building', [BuildingHController::class, 'index'])->name('front.building')->middleware(['auth', 'verified']);
+Route::get('/building/{slug}', [BuildingHController::class, 'show'])->name('building.show')->middleware(['auth', 'verified']);
 
 // Home Office
-Route::get('/home-office', [FrontendHomeOfficeController::class, 'index'])->name('front.home-office');
-Route::get('/home-office/{slug}', [FrontendHomeOfficeController::class, 'show'])->name('home-office.show');
+Route::get('/home-office', [FrontendHomeOfficeController::class, 'index'])->name('front.home-office')->middleware(['auth', 'verified']);
+Route::get('/home-office/{slug}', [FrontendHomeOfficeController::class, 'show'])->name('home-office.show')->middleware(['auth', 'verified']);
 
 // Bookings
 Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
-
-Route::get('/prueba_rul', function() {
-    return "hola";
-})->middleware(['auth', 'verified']);
 
 Route::get('/email/verify', function () {
     return view('auth.verify');
@@ -142,7 +140,7 @@ Route::get('/email/verify', function () {
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
  
-    return redirect('/home');
+    return redirect('/bienvenida');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
