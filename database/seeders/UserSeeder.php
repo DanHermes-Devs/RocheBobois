@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
             'codigo_postal' => '54485',
             'telefono' => '5554709648',
             'password' => Hash::make('123456789'),
+            'email_verified_at' => now(),
         ]);
 
         $user1->assignRole(1);
@@ -39,6 +40,7 @@ class UserSeeder extends Seeder
             'codigo_postal' => '54485',
             'telefono' => '5576636448',
             'password' => Hash::make('123456789'),
+            'email_verified_at' => now(),
         ]);
 
         $user2->assignRole(1);
