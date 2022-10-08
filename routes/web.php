@@ -112,7 +112,7 @@ Route::get('/fresh_db', function() {
 
     Artisan::call('migrate:fresh --seed');
 
-})->middleware(['auth', 'verified']);
+});
 
 // Colecciones especiales
 Route::get('/colecciones-especiales', [ColeccionController::class, 'index'])->name('front.colecciones')->middleware(['auth', 'verified']);
