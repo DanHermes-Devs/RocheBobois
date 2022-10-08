@@ -17,8 +17,17 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        $colecciones = Collection::paginate(10);
-        return view('admin.colecciones-especiales.index', compact('colecciones'));
+        $colecciones = Collection::all();
+        
+        if (request()->ajax()) {
+            return DataTables()
+                ->of($colecciones)
+                ->addColumn('action', 'admin.colecciones-especiales.actions')
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+
+        return view('admin.colecciones-especiales.index')->with('colecciones', Collection::all());
     }
 
     /**

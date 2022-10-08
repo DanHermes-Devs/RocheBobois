@@ -18,7 +18,16 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = Booking::paginate(10);
+        $bookings = Booking::all();
+        
+        if (request()->ajax()) {
+            return DataTables()
+                ->of($bookings)
+                ->addColumn('action', 'admin.bookings.actions')
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+
         return view('admin.bookings.index', compact('bookings'));
     }
 
@@ -127,10 +136,13 @@ class BookingController extends Controller
     public function checkin(Request $request, $id)
     {
         $booking = Booking::where('id', $id)->first();
-        $booking->status = $request->confirmado;
+        $booking->status = "Confirmado";
         $booking->save();
 
-        return redirect()->route('bookings')->with(['store' => 'Check-in Actualizado con Éxito.', 'status' => 'success']);
+        return response()->json([
+            'message' => 'Check-in Actualizado con Éxito.',
+            'status' => 'success',
+        ]);
     }
 
     public function checkin_page(Request $request, $codigo_reserva)

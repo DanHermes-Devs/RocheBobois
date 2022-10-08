@@ -21,43 +21,17 @@
                 </div>
             @endif
 
-            @if($categorias->count() > 0)
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Imagen Destacada</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($categorias as $categoria)
-                                <tr>
-                                    <td>{{ $categoria->nombre }}</td>
-                                    <td>
-                                        <img src="{{ asset('storage/' . $categoria->imagen_destacada) }}" alt="{{ $categoria->nombre }}" class="img-fluid" style="max-width: 100px;">
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('edit.categoria', $categoria->id) }}" class="btn btn-primary">
-                                            <i class="fa-solid fa-edit"></i>
-                                        </a>
-                                        <button data-route="{{ route('destroy.categoria', $categoria->id) }}"
-                                            class="btn btn-danger delete_categoria">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                
-            @else
-                <div class="alert alert-info">
-                    No hay categorías registradas
-                </div>
-            @endif
+            <table class="table table-striped" id="table_categoryProducts">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Imagen Destacada</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection
@@ -65,46 +39,38 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('.delete_categoria').click(function() {
-                let id = $(this).val();
-                let token = $("meta[name='csrf-token']").attr("content");
-                
-                // Confirmar con Sweetalert
-                Swal.fire({
-                    title: '¿Estás seguro?',
-                    text: "¡No podrás revertir esto!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: '¡Sí, eliminalo!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: $(this).data('route'),
-                            type: 'DELETE',
-                            data: {
-                                "id": id,
-                                "_token": token,
-                            },
-                            success: function(response) {
-                                console.log(response);
-                                if(response.status == 'success') {
-                                    Swal.fire(
-                                        '¡Eliminado!',
-                                        'El registro ha sido eliminado.',
-                                        'success'
-                                    ).then((result) => {
-                                        if(result.isConfirmed) {
-                                            location.reload();
-                                        }
-                                    });
-                                }
-                            }
-                        });
-                    }
-                });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
+            let table_categoryProducts = $('#table_categoryProducts').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                bAutoWidth: false,
+                pageLength: 50,
+                ajax: {
+                    url: "{{ route('categorias') }}",
+                    type: "GET",
+                },
+                columns: [
+                    {data: 'nombre', name: 'nombre'},
+                    {data: 'imagen_destacada', name: 'imagen_destacada'},
+                    {data: 'action', name: 'action'}
+                ],
+                columnDefs: [
+                    {
+                        targets: 1,
+                        render: function(data, type, row) {
+                            return `<img src="{{ asset('storage/${data}') }}" alt="${row.nombre}" class="img-fluid" style="max-width: 100px;">`;
+                        }
+                    }
+                ],
+                language: idiomaDataTable
+            });
+
+            table_categoryProducts.draw();
         });
     </script>
 @endsection

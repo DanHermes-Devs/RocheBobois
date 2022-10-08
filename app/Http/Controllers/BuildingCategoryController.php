@@ -18,6 +18,15 @@ class BuildingCategoryController extends Controller
     public function index()
     {
         $categorias = BuildingCategory::all();
+        
+        if (request()->ajax()) {
+            return DataTables()
+                ->of($categorias)
+                ->addColumn('action', 'admin.building.building-categorias.actions')
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+
         return view('admin.building.building-categorias.index', compact('categorias'));
     }
 

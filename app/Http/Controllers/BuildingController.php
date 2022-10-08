@@ -18,7 +18,17 @@ class BuildingController extends Controller
      */
     public function index()
     {
-        $buildings = Building::paginate(10);
+        $buildings = Building::all();
+        
+        if (request()->ajax()) {
+            return DataTables()
+                ->of($buildings)
+                ->addColumn('action', 'admin.building.actions')
+                ->rawColumns(['action'])
+                ->escapeColumns([])
+                ->make();
+        }
+
         return view('admin.building.index', compact('buildings'));
     }
 

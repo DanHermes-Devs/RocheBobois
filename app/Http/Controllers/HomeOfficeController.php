@@ -17,7 +17,16 @@ class HomeOfficeController extends Controller
      */
     public function index()
     {
-        $homeOffices = HomeOffice::paginate(10);
+        $homeOffices = HomeOffice::all();
+
+        if (request()->ajax()) {
+            return DataTables()
+                ->of($homeOffices)
+                ->addColumn('action', 'admin.home-office.actions')
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+
         return view('admin.home-office.index', compact('homeOffices'));
     }
 

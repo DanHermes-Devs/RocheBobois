@@ -19,6 +19,15 @@ class CategoryController extends Controller
     public function index()
     {
         $categorias = Category::all();
+
+        if (request()->ajax()) {
+            return DataTables()
+                ->of($categorias)
+                ->addColumn('action', 'admin.categorias.actions')
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+
         return view('admin.categorias.index', compact('categorias'));
     }
 

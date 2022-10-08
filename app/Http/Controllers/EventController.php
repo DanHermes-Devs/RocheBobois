@@ -6,6 +6,7 @@ use App\Models\Event;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\EventCategory;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
@@ -18,7 +19,16 @@ class EventController extends Controller
      */
     public function index()
     {
-        $eventos = Event::paginate(10);
+        $eventos = Event::all();
+
+        if (request()->ajax()) {
+            return DataTables()
+                ->of($eventos)
+                ->addColumn('action', 'admin.eventos.actions')
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+
         return view('admin.eventos.index', compact('eventos'));
     }
 
@@ -74,7 +84,10 @@ class EventController extends Controller
         $evento->nombre_evento = $request->nombre_evento;
         $evento->descripcion = $request->descripcion;
         $evento->fecha = $request->fecha;
-        $evento->hora = $request->hora;
+
+        // Convertir hora a formato 12 horas
+        $hora = Carbon::parse($request->hora)->format('h:i A');
+        $evento->hora = $hora;
         $evento->categoria_id = $request->categoria_id ?? null;
         $evento->save();
 

@@ -17,7 +17,16 @@ class SellerBestController extends Controller
      */
     public function index()
     {
-        $sellerBests = SellerBest::paginate(10);
+        $sellerBests = SellerBest::all();
+
+        if (request()->ajax()) {
+            return DataTables()
+                ->of($sellerBests)
+                ->addColumn('action', 'admin.best-seller.actions')
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+
         return view('admin.best-seller.index', compact('sellerBests'));
     }
 

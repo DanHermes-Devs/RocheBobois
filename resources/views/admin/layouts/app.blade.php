@@ -21,14 +21,6 @@
 
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css"/>
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap4.min.css"/>
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.2.0/css/rowGroup.bootstrap4.min.css"/>
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"/>
-
     {{-- Font awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
@@ -43,6 +35,13 @@
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+
+    {{-- Datatables --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/autofill/2.4.0/css/autoFill.bootstrap4.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.2.0/css/rowGroup.bootstrap4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"/>
 
     @yield('styles')
 
@@ -208,7 +207,7 @@
 
                             <a href="{{ route('bookings') }}" class="nav-link">
 
-                                <i class="nav-icon fas fa-id-card"></i>
+                                <i class="nav-icon fa-solid fa-hotel"></i>
 
                                 <p>Reservas</p>
 
@@ -220,7 +219,7 @@
 
                             <a href="{{ route('colecciones-especiales') }}" class="nav-link">
 
-                                <i class="nav-icon fas fa-id-card"></i>
+                                <i class="nav-icon fa-sharp fa-solid fa-rectangle-vertical-history"></i>
 
                                 <p>Colecciones Especiales</p>
 
@@ -234,7 +233,7 @@
 
                             <a href="{{ route('showrooms') }}" class="nav-link">
 
-                                <i class="nav-icon fas fa-id-card"></i>
+                                <i class="nav-icon fa-regular fa-person-booth"></i>
 
                                 <p>Showrooms</p>
 
@@ -248,7 +247,7 @@
 
                             <a href="{{ route('sliders') }}" class="nav-link">
 
-                                <i class="nav-icon fas fa-id-card"></i>
+                                <i class="nav-icon fa-regular fa-images"></i>
 
                                 <p>Sliders</p>
 
@@ -260,7 +259,7 @@
 
                             <a href="#" class="nav-link">
 
-                                <i class="nav-icon fas fa-cog"></i>
+                                <i class="nav-icon fa-regular fa-calendar-days"></i>
 
                                 <p>
 
@@ -307,7 +306,7 @@
 
                             <a href="#" class="nav-link">
 
-                                <i class="nav-icon fas fa-cog"></i>
+                                <i class="nav-icon fa-solid fa-house-person-return"></i>
 
                                 <p>
 
@@ -342,7 +341,7 @@
 
                             <a href="#" class="nav-link">
 
-                                <i class="nav-icon fas fa-cog"></i>
+                                <i class="nav-icon fa-regular fa-badge-check"></i>
 
                                 <p>
 
@@ -377,7 +376,7 @@
 
                             <a href="#" class="nav-link">
 
-                                <i class="nav-icon fas fa-cog"></i>
+                                <i class="nav-icon fa-regular fa-building"></i>
 
                                 <p>
 
@@ -423,7 +422,7 @@
 
                             <a href="#" class="nav-link">
 
-                                <i class="nav-icon fas fa-cog"></i>
+                                <i class="nav-icon fa-solid fa-bed-front"></i>
 
                                 <p>
 
@@ -539,15 +538,12 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    
+    {{-- Data tables --}}
     <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-
     <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
-
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
-
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap4.js"></script>
-
     <script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.2.0/js/dataTables.rowGroup.min.js"></script>
 
     {{-- Sweet Alert 2 --}}
@@ -562,15 +558,8 @@
     {{-- FontAwesome --}}
     <script src="{{ asset('js/all.min.js')}}"></script>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap4.min.js"></script>
-
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    {{-- Spanish jS --}}
+    <script src="{{ asset('js/Spanish.js')}}"></script>
 
     @yield('scripts')
 

@@ -22,7 +22,17 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $productos = Product::paginate(10);
+        $productos = Product::all();
+        
+        if (request()->ajax()) {
+            return DataTables()
+                ->of($productos)
+                ->addColumn('action', 'admin.productos.actions')
+                ->rawColumns(['action'])
+                ->escapeColumns([])
+                ->make();
+        }
+
         return view('admin.productos.index', compact('productos'));
     }
 

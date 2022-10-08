@@ -17,8 +17,17 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::paginate(10);
-        return view('admin.sliders.index', compact('sliders'));
+        $sliders = Slider::all();
+        // dd($sliders);
+        if (request()->ajax()) {
+            return DataTables()
+                ->of($sliders)
+                ->addColumn('action', 'admin.sliders.actions')
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+
+        return view('admin.sliders.index')->with('showrooms', Slider::all());
     }
 
     /**

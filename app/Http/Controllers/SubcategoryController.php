@@ -18,9 +18,18 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        $subcategorias = Subcategory::paginate(10);
-        $categorias = Category::all();
-        return view('admin.subcategorias.index', compact('subcategorias', 'categorias'));
+        // Cargamos la relacion entre caegorias y subcategorias
+        $subcategories = Subcategory::all();
+
+        if (request()->ajax()) {
+            return DataTables()
+                ->of($subcategories)
+                ->addColumn('action', 'admin.subcategorias.actions')
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+
+        return view('admin.subcategorias.index', compact('subcategories'));
     }
 
     /**

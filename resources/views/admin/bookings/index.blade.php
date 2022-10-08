@@ -17,72 +17,22 @@
                 </div>
             @endif
 
-            {{-- Validamos que haya registros --}}
-            @if ($bookings->count())
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nombre del Usuario</th>
-                            <th scope="col">Nombre del Evento</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Hora</th>
-                            <th scope="col">Estatus</th>
-                            <th scope="col">Código QR</th>
-                            <th scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($bookings as $booking)
-                            <tr>
-                                <td>{{ $booking->nombre_usuario }}</td>
-                                <td>{{ $booking->nombre_evento }}</td>
-                                <td>{{ $booking->fecha }}</td>
-                                <td>{{ $booking->hora }}</td>
-                                <td>
-                                    @if ($booking->status == 'Confirmado')
-                                        <span class="badge badge-success">Check-in</span>
-                                    @else
-                                        <span class="badge badge-danger">Sin check-in</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <img src="{{ asset('storage/uploads/qr_codes_reservations/' . $booking->codigo_reserva . '.png') }}" alt="QR" width="100">
-                                </td>
-                                <td class="d-flex" style="column-gap: .5rem;">
-                                    @if($booking->status == 'Confirmado')
-                                        <span></span>   
-                                    @else
-                                        {{-- Actualizar Estado --}}
-                                        <form action="{{ route('checkin.booking', $booking->id) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <input type="hidden" name="confirmado" value="Confirmado">
-                                            <button type="submit" class="btn btn-success" title="Confirmar asistencia">
-                                                <i class="fa-solid fa-check"></i>
-                                            </button>
-                                        </form>
-
-                                        {{-- Eliminar --}}
-                                        <button data-route="{{ route('destroy.booking', $booking->id) }}"
-                                            class="btn btn-danger delete_producto" title="Cancelar reserva">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                    @endif
-                                    {{-- Mostrar --}}
-                                    <a href="{{ route('show.booking', $booking->id) }}" class="btn btn-info" title="Ver reserva">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                {{ $bookings->links('pagination::bootstrap-4') }}
-            @else
-                <div class="alert alert-info">
-                    No hay reservas registradas
-                </div>
-            @endif
+            <table class="table table-striped table-hover" id="table_bookings">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre del Usuario</th>
+                        <th scope="col">Nombre del Evento</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Estatus</th>
+                        <th scope="col">Código QR</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+                
         </div>
     </div>
 @endsection
@@ -90,48 +40,52 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-
-            // Eliminar Reserva
-            $('.delete_producto').click(function() {
-                let id = $(this).val();
-                let token = $("meta[name='csrf-token']").attr("content");
-                
-                // Confirmar con Sweetalert
-                Swal.fire({
-                    title: '¿Estás seguro?',
-                    text: "¡No podrás revertir esto!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: '¡Sí, eliminalo!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: $(this).data('route'),
-                            type: 'DELETE',
-                            data: {
-                                "id": id,
-                                "_token": token,
-                            },
-                            success: function(response) {
-                                console.log(response);
-                                if(response.status == 'success') {
-                                    Swal.fire(
-                                        '¡Eliminado!',
-                                        'El registro ha sido eliminado.',
-                                        'success'
-                                    ).then((result) => {
-                                        if(result.isConfirmed) {
-                                            location.reload();
-                                        }
-                                    });
-                                }
-                            }
-                        });
-                    }
-                });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
+            let table_bookings = $('#table_bookings').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                bAutoWidth: false,
+                ajax: {
+                    url: "{{ route('bookings') }}",
+                    type: "GET",
+                },
+                columns: [
+                    {data: 'nombre_usuario', name: 'nombre_usuario', width: '14.2%'},
+                    {data: 'nombre_evento', name: 'nombre_evento', width: '14.2%'},
+                    {data: 'fecha', name: 'fecha', width: '14.2%'},
+                    {data: 'hora', name: 'hora', width: '14.2%'},
+                    {data: 'status', name: 'status', width: '14.2%'},
+                    {data: 'codigo_reserva', name: 'codigo_reserva', width: '14.2%'},
+                    {data: 'action', name: 'action', width: '14.2%'},
+                ],
+                columnDefs: [
+                    {
+                        targets: 4,
+                        render: function(data, type, row) {
+                            if (data === 'Confirmado') {
+                                return '<span class="badge badge-success">Check-in</span>';
+                            } else {
+                                return '<span class="badge badge-danger">Sin Check-in</span>';
+                            }
+                        }
+                    },
+                    {
+                        targets: 5,
+                        render: function(data, type, row) {
+                            return `<img src="/storage/uploads/qr_codes_reservations/${data}.png" class="w-100 img-fluid">`;
+                        }
+                    },
+                ],
+                "language": idiomaDataTable
+            });
+
+            // Cargamos el datatable
+            table_bookings.draw();
         });
     </script>
 @endsection

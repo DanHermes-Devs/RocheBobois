@@ -18,6 +18,15 @@ class EventCategoryController extends Controller
     public function index()
     {
         $categorias = EventCategory::all();
+        
+        if (request()->ajax()) {
+            return DataTables()
+                ->of($categorias)
+                ->addColumn('action', 'admin.eventos.event-categorias.actions')
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+
         return view('admin.eventos.event-categorias.index', compact('categorias'));
     }
 

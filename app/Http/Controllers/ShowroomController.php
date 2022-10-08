@@ -17,8 +17,17 @@ class ShowroomController extends Controller
      */
     public function index()
     {
-        $showrooms = Showroom::paginate(10);
-        return view('admin.showrooms.index', compact('showrooms'));
+        $showrooms = Showroom::all();
+        
+        if (request()->ajax()) {
+            return DataTables()
+                ->of($showrooms)
+                ->addColumn('action', 'admin.showrooms.actions')
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+
+        return view('admin.showrooms.index')->with('showrooms', Showroom::all());
     }
 
     /**
