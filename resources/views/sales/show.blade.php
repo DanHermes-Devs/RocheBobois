@@ -28,6 +28,7 @@
     .input-group {
         width: 24%!important;
     }
+    
 </style>
 @section('content')
     <div class="container-fluid py-5 mt-5">
@@ -51,11 +52,14 @@
                             <li data-thumb="{{ asset('storage/' . $product->imagen_destacada) }}">
                                 <img src="{{ asset('storage/' . $product->imagen_destacada) }}" alt="{{ $product->nombre_producto }}" />
                             </li>
-                            @foreach ($imagenes_galeria as $galeria)
-                                <li data-thumb="{{ asset('storage/' . $galeria) }}">
-                                    <img src="{{ asset('storage/' . $galeria) }}" alt="{{ $product->nombre_producto }}" />
-                                </li>
-                            @endforeach
+                            {{-- Mostrar la galeria si existen imagenes --}}
+                            @if ($imagenes_galeria)
+                                @foreach ($imagenes_galeria as $galeria)
+                                    <li data-thumb="{{ asset('storage/' . $galeria) }}">
+                                        <img src="{{ asset('storage/' . $galeria) }}" alt="{{ $product->nombre_producto }}" />
+                                    </li>
+                                @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
