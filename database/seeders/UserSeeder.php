@@ -29,6 +29,8 @@ class UserSeeder extends Seeder
         ]);
 
         $user1->assignRole(1);
+
+        $user1->createAsStripeCustomer();
        
         $user2 = User::create([
             'name' => 'Dinorah',
@@ -44,5 +46,7 @@ class UserSeeder extends Seeder
         ]);
 
         $user2->assignRole(1);
+
+        $user2->createAsStripeCustomer();
     }
 }

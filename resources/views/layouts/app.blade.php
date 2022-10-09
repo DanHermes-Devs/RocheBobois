@@ -135,6 +135,25 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    {{-- Si el usuario es administrador mostrar el item Dashboard --}}
+                                    @if (Auth::user()->hasRole('admin'))
+                                        <a href="{{ route('dashboard') }}" class="dropdown-item text-uppercase">
+                                            DASHBOARD
+                                        </a>
+                                    @endif
+
+                                    @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('cliente'))
+                                        <a href="{{ route('bienvenida') }}" class="dropdown-item text-uppercase">
+                                            Bienvenida
+                                        </a>
+                                    @endif
+
+                                    {{-- Ruta del perfil --}}
+                                    <a href="{{ route('perfil') }}" class="dropdown-item text-uppercase">
+                                        PERFIL
+                                    </a>
+
+                                    {{-- Ruta de Cerrar Sesión --}}
                                     <a class="dropdown-item text-uppercase" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
