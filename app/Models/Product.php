@@ -44,4 +44,15 @@ class Product extends Model
     public function images(){
         return $this->morphMany(Image::class, 'imageable');
     }
+
+    // Relacionar con orders (1 a muchos polimorfica)
+    public function orders(){
+        return $this->morphToMany(Order::class, 'orderable');
+    }
+
+    // Relacionar con order_items (1 a muchos polimorfica)
+    public function order_items(){
+        return $this->morphToMany(OrderItem::class, 'orderable');
+    }
+
 }

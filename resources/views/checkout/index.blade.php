@@ -1,11 +1,31 @@
 @extends('layouts.app')
 <style>
     .form-control.StripeElement.StripeElement--empty .__privateStripeElement {
-        padding: 0.375rem 0.75rem!important;
+        padding: 0.6rem !important;
     }
 
     .__privateStripeElement {
-        padding: 0.375rem 0.75rem!important;
+        padding: 0.6rem !important;
+    }
+
+    .form-control {
+        border-radius: 0 !important;
+        padding: 0.6rem !important;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+    }
+
+    .form-select {
+        border-radius: 0 !important;
+        padding: 0.6rem !important;
+    }
+
+    .select2-container--bootstrap-5 .select2-selection {
+        padding: 0.6rem !important;
+        height: 44.22px !important;
+        border-radius: 0 !important;
     }
 </style>
 @section('content')
@@ -56,16 +76,19 @@
                     <hr class="mb-4">
 
                     <div class="row">
-                        <form action="">
+                        <form id="card-form">
                             <div class="mb-3">
                                 <label for="card-holder-name" class="form-label">Nombre de la tarjeta</label>
-                                <input id="card-holder-name" type="text" class="form-control">
+                                <input id="card-holder-name" type="text" class="form-control" required>
                             </div>
+
+                            <input type="hidden" name="total" id="total" value="{{ Cart::subtotal() }}">
 
                             <!-- Stripe Elements Placeholder -->
                             <div class="mb-3">
                                 <label for="card-element" class="form-label">Número de la tarjeta</label>
                                 <div id="card-element" class="form-control"></div>
+                                <span id="card-error" role="alert" class="text-danger"></span>
                             </div>
 
                             <button id="card-button" class="btn_outline_dark">
@@ -94,7 +117,7 @@
 
                     <div class="mb-3">
                         <label for="direccion_principal">Dirección</label>
-                        <input type="text" class="form-control" id="direccion_principal" placeholder="">
+                        <input type="text" class="form-control" name="direccion_principal" id="direccion_principal">
                     </div>
 
                     <div class="mb-3">
@@ -152,7 +175,78 @@
 
         cardElement.mount('#card-element');
 
-        </script>
+        // Generar el Token
+        const cardHolderName = document.getElementById('card-holder-name');
+        const cardButton = document.getElementById('card-button');
+        const cardForm = document.getElementById('card-form');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        cardForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const {
+                paymentMethod,
+                error
+            } = await stripe.createPaymentMethod(
+                'card', cardElement, {
+                    billing_details: {
+                        name: cardHolderName.value
+                    }
+                }
+            );
+
+            if (error) {
+                document.getElementById('card-error').textContent = error.message;
+            } else {
+                // Enviar por AJAX el token al controlador PaymentController
+                const token = paymentMethod.id;
+
+                const subtotal = document.getElementById('total').value;
+
+                // Quitar las comas
+                const total = subtotal.replace(/,/g, '');
+
+                // Quitar decimales y convertir a entero
+                const totalEntero = parseInt(total);
+
+                // Direccion principal
+                const direccion_principal = document.getElementById('direccion_principal').value;
+
+                // Direccion opcional
+                const direccion_opcional = document.getElementById('direccion_opcional').value;
+
+                // Informacion adicional
+                const informacion_adicional = document.getElementById('informacion_adicional').value;
+                
+                $.ajax({
+                    url: "{{ route('payments.store') }}",
+                    type: "POST",
+                    data: {
+                        total: totalEntero,
+                        token: token,
+                        user_id: {{ Auth::user()->id }},
+                        nombre_completo: "{{ Auth::user()->name }}",
+                        email: "{{ Auth::user()->email }}",
+                        telefono: "{{ Auth::user()->telefono }}",
+                        direccion_principal: direccion_principal,
+                        direccion_opcional: direccion_opcional,
+                        pais: "{{ Auth::user()->pais }}",
+                        estado: "{{ Auth::user()->estado }}",
+                        codigo_postal: "{{ Auth::user()->codigo_postal }}",
+                        informacion_adicional: informacion_adicional
+                    },
+                    success: function(response) {
+                        console.log(response);
+                    }
+                });
+            }
+        });
+    </script>
     {{-- Consumir api Univeral Tutorial --}}
     <script>
         $(document).ready(function() {

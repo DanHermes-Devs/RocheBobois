@@ -4,6 +4,7 @@ defined('STDIN') or define('STDIN', fopen('php://stdin', 'r'));
 
 use App\Mail\Contacto;
 use App\Models\Subcategory;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -11,9 +12,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CategoryController;
@@ -34,10 +37,9 @@ use App\Http\Controllers\frontend\BuildingHController;
 use App\Http\Controllers\frontend\ColeccionController;
 use App\Http\Controllers\frontend\BestSellerController;
 use App\Http\Controllers\frontend\OportunidadController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\frontend\ShowroomController as FrontendShowroomController;
 use App\Http\Controllers\frontend\HomeOfficeController as FrontendHomeOfficeController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -158,6 +160,14 @@ Route::get('/home-office/{slug}', [FrontendHomeOfficeController::class, 'show'])
 
 // Bookings
 Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+
+// Perfil
+Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil')->middleware(['auth', 'verified']);
+Route::match(['put', 'patch'], '/perfil/{id}', [PerfilController::class, 'update'])->name('perfil.update')->middleware(['auth', 'verified']);
+
+// Rutas de los Payments
+Route::get('/payments', [PaymentController::class, 'index'])->name('payments');
+Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
 
 Route::get('/email/verify', function () {
     return view('auth.verify');
