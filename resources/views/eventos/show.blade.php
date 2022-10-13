@@ -221,7 +221,7 @@ MOVIL VERTICAL (revisamos en 320px)
                                                 <label for="fecha" class="col-form-label">Fecha:</label>
                                                 <input type="text" class="form-control" name="fecha" id="fecha" readonly value="{{ $evento->fecha }}">
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="mb-5">
                                                 <label for="hora" class="col-form-label">Hora:</label>
                                                 <input type="text" class="form-control" id="hora" name="hora" readonly value="{{ $evento->hora }}">
                                             </div>

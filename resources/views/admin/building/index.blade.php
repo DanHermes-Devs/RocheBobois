@@ -50,7 +50,7 @@
                 serverSide: true,
                 responsive: true,
                 bAutoWidth: false,
-                pageLength: 50,
+                
                 ajax: {
                     url: "{{ route('building') }}",
                     type: "GET",

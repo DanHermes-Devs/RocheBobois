@@ -48,7 +48,7 @@
                 serverSide: true,
                 responsive: true,
                 bAutoWidth: false,
-                pageLength: 50,
+                
                 ajax: {
                     url: "{{ route('showrooms') }}",
                     type: "GET",

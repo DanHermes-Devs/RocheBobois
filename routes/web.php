@@ -2,7 +2,11 @@
 
 defined('STDIN') or define('STDIN', fopen('php://stdin', 'r'));
 
+use App\Models\Order;
 use App\Mail\Contacto;
+use App\Mail\OrderMail;
+use App\Models\Product;
+use App\Models\OrderItem;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\OrderController;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\PerfilController;
@@ -163,11 +168,61 @@ Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.st
 
 // Perfil
 Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil')->middleware(['auth', 'verified']);
+Route::get('/perfil/view-order/{id}', [PerfilController::class, 'viewOrder'])->name('perfil.view-order')->middleware(['auth', 'verified']);
 Route::match(['put', 'patch'], '/perfil/{id}', [PerfilController::class, 'update'])->name('perfil.update')->middleware(['auth', 'verified']);
+// Imprimir Recibo
+Route::get('/perfil/print-order/{id}', [PerfilController::class, 'printOrder'])->name('perfil.print-order')->middleware(['auth', 'verified']);
 
 // Rutas de los Payments
 Route::get('/payments', [PaymentController::class, 'index'])->name('payments');
 Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
+
+// Visualizar el correo de contacto
+Route::get('/mailable/order', function(){
+    // Enviar el correo con la información de la compra
+    $invoice = Order::findOrFail(31);
+    $itemsOrder = OrderItem::where('order_id', 31)->get();
+
+    // Buscar los productos que se compraron
+    $products = Product::whereIn('id', $itemsOrder->pluck('product_id'))->get();
+    
+    $prods = [];
+    foreach($products as $product){
+        $prods[$product->id] = $product;
+
+        // Mostrar la cantidad
+        $prods[$product->id]->quantity = $itemsOrder->where('product_id', $product->id)->first()->quantity;
+    }
+    
+    $data = [
+        'invoice' => $invoice->invoice_no,
+        'total' => $invoice->total,
+        'nombre_completo' => $invoice->nombre_completo,
+        'email' => $invoice->email,
+        'telefono' => $invoice->telefono,
+        'direccion_principal' => $invoice->direccion_principal,
+        'direccion_opcional' => $invoice->direccion_opcional,
+        'pais' => $invoice->pais,
+        'estado' => $invoice->estado,
+        'codigo_postal' => $invoice->codigo_postal,
+        'informacion_adicional' => $invoice->informacion_adicional,
+        'payment_type' => $invoice->payment_type,
+        'payment_method' => $invoice->payment_method,
+        'payment_id' => $invoice->payment_id,
+        'transaction_id' => $invoice->transaction_id,
+        'currency' => $invoice->currency,
+        'order_no' => $invoice->order_no,
+        'created_at' => $invoice->created_at,
+        'prods' => $prods,
+    ];
+
+    return new OrderMail($data);
+});
+
+// Pagina de agradecimiento
+Route::get('/success', function(){
+    return view('checkout.success');
+})->name('payments.success')->middleware(['auth', 'verified']);
 
 Route::get('/email/verify', function () {
     return view('auth.verify');
@@ -298,6 +353,12 @@ Route::group(['middleware' => 'auth'], function () {
 
         // Checkin de la reserva en el lobby
         Route::get('/reserva/{codigo_reserva}', [BookingController::class, 'checkin_page'])->name('checkin.page');
+
+        // Ordenes
+        Route::get('/orders', [OrderController::class, 'index'])->name('index.orders');
+        Route::get('/orders/{id}', [OrderController::class, 'show'])->name('show.order');
+        Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('destroy.order');
+        Route::match(['put', 'patch'], '/orders/actualizar-orden/{id}', [OrderController::class, 'update'])->name('update.order');
     });
 });
 

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Booking;
+use App\Mail\BookingMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class BookingController extends Controller
@@ -83,6 +85,8 @@ class BookingController extends Controller
 
 
                 $booking->save();
+
+                Mail::to($request->email_usuario)->send(new BookingMail($booking));
     
                 return response()->json([
                     'message' => 'Reserva realizada correctamente',

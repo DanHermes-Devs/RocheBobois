@@ -49,7 +49,7 @@
                 serverSide: true,
                 responsive: true,
                 bAutoWidth: false,
-                pageLength: 50,
+                
                 ajax: {
                     url: "{{ route('subcategorias') }}",
                     type: "GET",

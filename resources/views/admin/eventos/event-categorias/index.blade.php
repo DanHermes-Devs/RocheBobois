@@ -67,7 +67,7 @@
                 serverSide: true,
                 responsive: true,
                 bAutoWidth: false,
-                pageLength: 50,
+                
                 ajax: {
                     url: "{{ route('event-categories') }}",
                     type: "GET",

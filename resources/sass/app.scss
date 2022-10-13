@@ -163,6 +163,67 @@ a.nav-link {
     border-radius: 0;
 }
 
+/* Estilos Sweet Alert */
+.swal2-popup.swal2-modal.swal2-icon-success.swal2-show {
+    border-radius: 0!important;
+}
+
+.swal2-popup .swal2-styled.swal2-confirm {
+    border-radius: 0!important;
+    background-color: #fff!important;
+    color: #000!important;
+    border: 1.5px solid #000!important;
+}
+
+.swal2-popup .swal2-actions:not(.swal2-loading) .swal2-styled:hover {
+    background-image: none!important;
+}
+
+.form-control.StripeElement.StripeElement--empty .__privateStripeElement {
+    padding: 0.6rem !important;
+}
+
+.__privateStripeElement {
+    padding: 0.6rem !important;
+}
+
+.form-control {
+    border-radius: 0 !important;
+    padding: 0.6rem !important;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.form-select {
+    border-radius: 0 !important;
+    padding: 0.6rem !important;
+}
+
+.select2-container--bootstrap-5 .select2-selection {
+    padding: 0.6rem !important;
+    height: 44.22px !important;
+    border-radius: 0 !important;
+}
+
+.modal-content {
+    border-radius: 0!important;
+}
+
+input#fecha:read-only,
+input#hora:read-only {
+    background: #dfdfdf;
+    cursor: not-allowed;
+}
+
+select.form-control {
+    padding: 0.6rem !important;
+    height: 44.22px !important;
+    border-radius: 0 !important;
+}
+/* Estilos Sweet Alert */
+
 /*============================================= 
 TABLET HORIZONTAL (LG revisamos en 1024px) 
 =============================================*/ 

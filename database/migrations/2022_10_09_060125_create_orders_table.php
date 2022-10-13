@@ -34,6 +34,7 @@ class CreateOrdersTable extends Migration
             $table->string('currency')->nullable();
             $table->string('order_no')->nullable();
             $table->string('invoice_no')->nullable();
+            $table->string('status')->default('Pendiente');
             $table->timestamps();
         });
     }

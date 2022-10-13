@@ -474,6 +474,20 @@
 
                             </ul>
 
+                            {{-- Ordenes --}}
+                            <li class="nav-item">
+
+                                <a href="{{ route('index.orders') }}" class="nav-link">
+    
+                                    <i class="nav-icon fa-regular fa-person-booth"></i>
+    
+                                    <p>Ordenes</p>
+    
+                                </a>
+    
+                            </li>
+                            {{-- Ordenes --}}
+
                         </li>
 
                     </ul>

@@ -19,6 +19,21 @@
         height: 44.22px !important;
         border-radius: 0 !important;
     }
+
+    .btn_outline_dark {
+        background: transparent;
+        border: 1px solid #000;
+        padding: 0;
+        color: #000;
+        text-decoration: none;
+        width: 180px;
+        text-align: center;
+        display: flex;
+        height: 48px;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
 </style>
 @section('content')
     <div class="container-fluid py-5 mt-5">
@@ -35,7 +50,7 @@
                     <div class="d-flex align-items-start">
                         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
-                            <button class="text-dark btn" id="mis-compras-tab" data-bs-toggle="pill"
+                            <button class="active text-dark btn" id="mis-compras-tab" data-bs-toggle="pill"
                                 data-bs-target="#mis-compras" role="tab" aria-controls="mis-compras"
                                 aria-selected="true">
                                 Mis Compras
@@ -47,7 +62,7 @@
                                 Mis Reservas
                             </button>
 
-                            <button class="active text-dark btn" id="mis-datos-tab" data-bs-toggle="pill"
+                            <button class="text-dark btn" id="mis-datos-tab" data-bs-toggle="pill"
                                 data-bs-target="#mis-datos" role="tab" aria-controls="mis-datos" aria-selected="false">
                                 Mis Datos
                             </button>
@@ -58,15 +73,51 @@
 
                 <div class="col-12 col-md-10">
                     <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade" id="mis-compras" role="tabpanel" aria-labelledby="mis-compras-tab"
+                        <div class="tab-pane fade  show active" id="mis-compras" role="tabpanel" aria-labelledby="mis-compras-tab"
                             tabindex="0">
-                            Hola 1
+                            <h2 class="fs-1 text-uppercase text-center fw-bold mb-5">Mis Compras</h2>
+                            {{-- Mostrar tabla con las ordenes del usuario --}}
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Orden</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($orders as $order)
+                                        <tr>
+                                            <th scope="row">#{{ $order->order_no }}</th>
+                                            <td>{{ $order->created_at->format('d/m/Y') }}</td>
+                                            <td>
+                                                @if ($order->status == 'Pendiente')
+                                                    <span class="badge bg-warning text-dark p-2 rounded-0" style="font-size: 1rem;">Pendiente</span>
+                                                @elseif($order->status == 'Procesando')
+                                                    <span class="badge bg-primary text-white p-2 rounded-0" style="font-size: 1rem;">Procesando</span>
+                                                @elseif($order->status == 'Completado')
+                                                    <span class="badge bg-success text-white p-2 rounded-0" style="font-size: 1rem;">Completado</span>
+                                                @elseif($order->status == 'Declinado')
+                                                    <span class="badge bg-danger text-white p-2 rounded-0" style="font-size: 1rem;">Declinado</span>
+                                                @endif
+                                            </td>
+                                            <td>${{ $order->total }}</td>
+                                            <td>
+                                                <a href="{{ route('perfil.view-order', $order->id) }}"
+                                                    class="btn_outline_dark w-50">Ver</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                         <div class="tab-pane fade" id="mis-reservas" role="tabpanel" aria-labelledby="mis-reservas-tab"
                             tabindex="0">
                             Hola 2
                         </div>
-                        <div class="tab-pane fade show active" id="mis-datos" role="tabpanel"
+                        <div class="tab-pane fade" id="mis-datos" role="tabpanel"
                             aria-labelledby="mis-datos-tab" tabindex="0">
                             <form method="POST" class="px-5" action="{{ route('perfil.update', $usuario->id) }}">
                                 @csrf

@@ -3,7 +3,7 @@
     .form-control.StripeElement.StripeElement--empty .__privateStripeElement {
         padding: 0.6rem !important;
     }
-
+    
     .__privateStripeElement {
         padding: 0.6rem !important;
     }
@@ -189,6 +189,10 @@
         cardForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
+            // $('#card-button').waitMe();
+
+            $(this)
+
             const {
                 paymentMethod,
                 error
@@ -212,7 +216,7 @@
                 const total = subtotal.replace(/,/g, '');
 
                 // Quitar decimales y convertir a entero
-                const totalEntero = parseInt(total);
+                const totalEntero = total;
 
                 // Direccion principal
                 const direccion_principal = document.getElementById('direccion_principal').value;
@@ -242,6 +246,36 @@
                     },
                     success: function(response) {
                         console.log(response);
+                        if (response.data.status == 'succeeded') {
+                            // Mostrar un sweet alert de exito con la informacion del pago y el pedido
+                            Swal.fire({
+                                title: 'Pedido realizado con éxito',
+                                text: 'Gracias por su compra, en breve recibirá un correo con los detalles de su pedido.',
+                                icon: 'success',
+                                confirmButtonText: 'Volver al inicio'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "{{ route('perfil') }}";
+                                }
+                            });
+
+                            $('#card-button').waitMe('hide');
+                            
+                        }else{
+                            // Mostrar un sweet alert de error
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Ha ocurrido un error al procesar el pago, por favor intente nuevamente.',
+                                icon: 'error',
+                                confirmButtonText: 'Volver al inicio'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "{{ route('payments') }}";
+                                }
+                            });
+
+                            $('#card-button').waitMe('hide');
+                        }
                     }
                 });
             }
