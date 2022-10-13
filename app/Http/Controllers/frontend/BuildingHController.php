@@ -49,8 +49,9 @@ class BuildingHController extends Controller
     public function show($slug)
     {
         $categoria_building = BuildingCategory::where('slug', $slug)->first();
-        $building = Building::where('categoria_id', $categoria_building->id)->paginate(10);
-        return view('buildings.show', compact('building', 'categoria_building')); 
+        // Traer todos los buildings que pertenecen a la categoria
+        $buildings = Building::where('categoria_id', $categoria_building->id)->get();
+        return view('buildings.show', compact('buildings', 'categoria_building')); 
     }
 
     /**

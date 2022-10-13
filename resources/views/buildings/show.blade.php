@@ -121,8 +121,9 @@ MOVIL VERTICAL (revisamos en 320px)
             </div>
         </div>
 
-        @if($building->count() > 0)
+        @if($buildings->count() > 0)
             <div class="card_colecciones">
+                @foreach ($buildings as $building)
                 <div class="grid-event">
                     <div class="img d-flex gap-5 h-100">
                         <a data-src="{{ asset('storage/'.$building->imagen_destacada) }}" data-fancybox="{{ $building->nombre_hotel }}" class="img_fecha">
@@ -147,6 +148,7 @@ MOVIL VERTICAL (revisamos en 320px)
                         </p>
                     </div>
                 </div>
+                @endforeach
             </div>
         @else
             <div class="row">
