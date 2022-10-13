@@ -136,12 +136,11 @@ Route::get('/table_iseed', function() {
     Artisan::call('iseed bookings');
     Artisan::call('iseed seller_bests');
     Artisan::call('iseed home_offices');
-    Artisan::call('iseed shippings');
     Artisan::call('iseed building_categories');
     Artisan::call('iseed event_categories');
     Artisan::call('iseed products');
-    Artisan::call('iseed subcategories');
     Artisan::call('iseed categories');
+    Artisan::call('iseed subcategories');
     Artisan::call('iseed buildings');
     Artisan::call('iseed contacts');
 
