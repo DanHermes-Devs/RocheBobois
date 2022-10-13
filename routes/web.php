@@ -126,7 +126,9 @@ Route::get('/fresh_db', function() {
 // Arreglamos el error Udefined constant 'STDIN'
 Route::get('/fix', function() {
 
+    Artisan::call('cache:clear');
     Artisan::call('config:clear');
+    Artisan::call('view:clear');
 
 });
 
