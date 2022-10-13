@@ -51,11 +51,8 @@ class CategoryController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
-            'imagen_destacada' => 'required|image'
         ], [
             'nombre.required' => 'El campo nombre es obligatorio',
-            'imagen_destacada.required' => 'El campo imagen es obligatorio',
-            'imagen_destacada.image' => 'El archivo no es una imagen'
         ]);
 
         $categoria = new Category;
@@ -108,10 +105,8 @@ class CategoryController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
-            'imagen_destacada' => 'image'
         ], [
             'nombre.required' => 'El campo nombre es obligatorio',
-            'imagen_destacada.image' => 'El archivo no es una imagen'
         ]);
 
         $categoria = Category::find($request->id);

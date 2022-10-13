@@ -53,11 +53,9 @@ class SubcategoryController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
-            'imagen_destacada' => 'required',
             'category_id' => 'required'
         ], [
             'nombre.required' => 'El campo nombre es obligatorio',
-            'imagen_destacada.required' => 'El campo imagen destacada es obligatorio',
             'category_id.required' => 'El campo categoría es obligatorio'
         ]);
 
