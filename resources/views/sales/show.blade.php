@@ -28,6 +28,9 @@
     .input-group {
         width: 24%!important;
     }
+
+    
+
     
 </style>
 @section('content')
@@ -69,10 +72,13 @@
                     <div class="mb-4">
                         <h2 class="fs-1 text-uppercase">{{ $product->nombre_producto }}</h2>
                         <div class="d-flex gap-5">
+                            {{-- Mostrar precio y condicionar si hay precio con descuento --}}
                             @if ($product->precio_descuento)
-                                <span class="fw-bold">${{ $product->precio_descuento }}</span>
+                                <h3 class="fs-3 text-danger fw-bold">${{ number_format($product->precio_descuento, 2) }}</h3>
+                                <h3 class="fs-3 text-muted fw-bold"><del>${{ number_format($product->precio, 2) }}</del></h3>
+                            @else
+                                <h3 class="fs-3 text-dark fw-bold">${{ number_format($product->precio, 2) }}</h3>
                             @endif
-                            <span class="fw-bold fs-3">${{ $product->precio }}</span>
                         </div>
                     </div>
 

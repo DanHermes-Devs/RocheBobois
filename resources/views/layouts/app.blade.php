@@ -105,7 +105,7 @@
                                     <li><a class="dropdown-item" href="{{ route('front.home-office') }}">HOME OFFICE</a></li>
                                     <li><a class="dropdown-item" href="{{ route('front.building') }}">ROCHE BOBOIS BUILDING</a></li>
                                     <li><a class="dropdown-item" href="{{ route('front.oportunidadesUnicas') }}">OPORTUNIDADES ÚNICAS</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('front.sales') }}">SALES</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('front.sales', ['slug' => 'salas']) }}">SALES</a></li>
                                 </ul>
                             </li>
                         @endif
@@ -142,11 +142,9 @@
                                         </a>
                                     @endif
 
-                                    @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('cliente'))
-                                        <a href="{{ route('bienvenida') }}" class="dropdown-item text-uppercase">
-                                            Bienvenida
-                                        </a>
-                                    @endif
+                                    <a href="{{ route('bienvenida') }}" class="dropdown-item text-uppercase">
+                                        Bienvenida
+                                    </a>
 
                                     {{-- Ruta del perfil --}}
                                     <a href="{{ route('perfil') }}" class="dropdown-item text-uppercase">

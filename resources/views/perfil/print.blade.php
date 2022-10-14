@@ -10,8 +10,14 @@ $order = $order;
 
     <style type="text/css">
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+        /* importat la fuente Helvetica */
+        @font-face {
+            font-family: 'Helvetica';
+            src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        }
         * {
-            font-family: Verdana, Arial, sans-serif;
+            font-family: 'Helvetica', sans-serif;
         }
 
         table {

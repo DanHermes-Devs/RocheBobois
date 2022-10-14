@@ -85,7 +85,7 @@
 
                 <div class="col-12 col-md-10">
                     <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade" id="mis-compras" role="tabpanel" aria-labelledby="mis-compras-tab"
+                        <div class="tab-pane fade show active" id="mis-compras" role="tabpanel" aria-labelledby="mis-compras-tab"
                             tabindex="0">
                             <h2 class="fs-1 text-uppercase text-center fw-bold mb-5">Mis Compras</h2>
                             {{-- Mostrar tabla con las ordenes del usuario --}}
@@ -133,7 +133,7 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="tab-pane fade show active" id="mis-reservas" role="tabpanel" aria-labelledby="mis-reservas-tab"
+                        <div class="tab-pane fade" id="mis-reservas" role="tabpanel" aria-labelledby="mis-reservas-tab"
                             tabindex="0">
                             <h2 class="fs-1 text-uppercase text-center fw-bold mb-5">Mis Reservas</h2>
 
@@ -160,7 +160,6 @@
                                                 <td>{{ $reserva->hora }}</td>
                                                 <td>
                                                     <a href="{{ route('perfil.print-booking', $reserva->id) }}" class="btn_outline_dark">
-                                                        <i class="fa-regular fa-file-arrow-down mr-3"></i>
                                                         {{-- Mensaje de impresion del ticket --}}
                                                         Ver Boleto 
                                                     </a>
@@ -177,6 +176,7 @@
                         </div>
                         <div class="tab-pane fade" id="mis-datos" role="tabpanel"
                             aria-labelledby="mis-datos-tab" tabindex="0">
+                            <h2 class="fs-1 text-uppercase text-center fw-bold mb-5">Mis Datos</h2>
                             <form method="POST" class="px-5" action="{{ route('perfil.update', $usuario->id) }}">
                                 @csrf
                                 @method('PUT')

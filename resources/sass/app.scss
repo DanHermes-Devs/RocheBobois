@@ -222,6 +222,14 @@ select.form-control {
     height: 44.22px !important;
     border-radius: 0 !important;
 }
+
+img.card-img-top.mb-3,
+img.card-img-top {
+    width: 305px!important;
+    height: 305px!important;
+    object-fit: cover!important;
+}
+
 /* Estilos Sweet Alert */
 
 /*============================================= 

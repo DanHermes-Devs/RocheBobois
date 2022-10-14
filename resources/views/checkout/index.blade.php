@@ -189,7 +189,7 @@
         cardForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // $('#card-button').waitMe();
+            $('#card-button').waitMe();
 
             $(this)
 

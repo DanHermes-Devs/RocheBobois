@@ -148,7 +148,6 @@
                             </div>
                         @enderror
 
-                        <img src="{{ $producto->imagen_destacada }}" alt="">
                         @if (File::exists(public_path('storage/' . $producto->imagen_destacada)) && $producto->imagen_destacada != null)
                             <div class="mt-2">
                                 <img src="{{ asset('storage/' . $producto->imagen_destacada) }}" alt="" class="img-fluid mt-3" style="height: 190px;object-fit: contain; width: 100%;">

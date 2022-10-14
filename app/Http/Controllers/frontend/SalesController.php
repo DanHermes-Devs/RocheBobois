@@ -14,10 +14,13 @@ class SalesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($slug)
     {
-        $products = Product::where('mostrar_en_sales', 1)->paginate(8);
-        return view('sales.index', compact('products'));
+        $category = Category::where('slug', $slug)->first();
+        $products = Product::where('mostrar_en_sales', 1)->where('category_id', $category->id)->orderBy('id', 'ASC')->paginate(12);
+        $categorias = Category::all();
+
+        return view('sales.index', compact('products', 'categorias', 'category'));
     }
 
     /**

@@ -5,10 +5,15 @@
         <div class="card p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0 fw-bold">Productos</h2>
-                <a href="{{ route('create.producto') }}" class="btn btn-success">
-                    <i class="fa-solid fa-plus"></i>
-                    Nuevo producto
-                </a>
+                <div class="d-flex" style="gap: 1rem;">
+                    <a href="{{ route('create.producto') }}" class="btn btn-success">
+                        <i class="fa-solid fa-plus"></i>
+                        Nuevo producto
+                    </a>
+                    <a href="{{ route('import.productos') }}" class="btn btn-primary">Importar Productos</a>
+                    <a href="{{ route('export.productos') }}" class="btn btn-primary">Exportar Productos</a>
+                </div>
+
             </div>
 
 

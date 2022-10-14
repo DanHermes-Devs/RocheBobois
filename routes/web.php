@@ -86,8 +86,10 @@ Route::get('/mailable/contact', function(){
 });
 
 // Sales
-Route::get('/sales', [SalesController::class, 'index'])->name('front.sales')->middleware(['auth', 'verified']);
+// Route::get('/sales', [SalesController::class, 'index'])->name('front.sales')->middleware(['auth', 'verified']);
+Route::get('/sales/{slug}', [SalesController::class, 'index'])->name('front.sales')->middleware(['auth', 'verified']);
 Route::get('/sale/{slug}', [SalesController::class, 'show'])->name('front.sales.show')->middleware(['auth', 'verified']);
+// Mostrar categoria por defecto
 
 // Rutas Best Seller
 Route::get('/best-seller', [BestSellerController::class, 'index'])->name('front.best-seller')->middleware(['auth', 'verified']);
@@ -134,18 +136,17 @@ Route::get('/fix', function() {
 
 // Iseed para las tablas que ya tienen datos
 Route::get('/table_iseed', function() { 
-    // Validamos si ya existe el seeder
-    Artisan::call('iseed bookings');
-    Artisan::call('iseed seller_bests');
-    Artisan::call('iseed home_offices');
-    Artisan::call('iseed building_categories');
-    Artisan::call('iseed event_categories');
-    Artisan::call('iseed products');
-    Artisan::call('iseed categories');
-    Artisan::call('iseed subcategories');
-    Artisan::call('iseed buildings');
-    Artisan::call('iseed contacts');
-
+    Artisan::call('iseed bookings --force');
+    Artisan::call('iseed seller_bests --force');
+    Artisan::call('iseed home_offices --force');
+    Artisan::call('iseed building_categories --force');
+    Artisan::call('iseed event_categories --force');
+    Artisan::call('iseed products --force');
+    Artisan::call('iseed categories --force');
+    Artisan::call('iseed categories --force');
+    Artisan::call('iseed subcategories --force');
+    Artisan::call('iseed buildings --force');
+    Artisan::call('iseed contacts --force');
 });
 
 // Colecciones especiales
@@ -278,6 +279,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/productos/{id}/edit', [ProductController::class, 'edit'])->name('edit.producto');
         Route::match(['put', 'patch'], '/productos/{id}', [ProductController::class, 'update'])->name('update.producto');
         Route::delete('/productos/{id}', [ProductController::class, 'destroy'])->name('destroy.producto');
+        // Importar productos
+        Route::get('/productos/importar', function(){
+            return view('admin.productos.import');
+        })->name('import.productos');
+        Route::post('/productos/importar', [ProductController::class, 'import'])->name('import.producto');
+        // Exportar productos
+        Route::get('/productos/exportar', function(){
+            return view('admin.productos.export');
+        })->name('export.productos');
 
         // Rutas Categorias de Productos
         Route::get('/categorias-productos', [CategoryController::class, 'index'])->name('categorias');

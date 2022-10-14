@@ -174,7 +174,7 @@
                     </a>
                 </div>
                 <div class="col-12 col-md-4 mb-4 mb-md-0">
-                    <a href="{{ route('front.sales') }}">
+                    <a href="{{ route('front.sales', ['slug' => 'salas']) }}">
                         <div class="position-relative"
                             style="background-image: url(https://rocheboboismexico.com/wp-content/uploads/2022/09/scenario_2022_amb_focus_02.jpg); height: 230px;background-position: center;background-size: cover;background-repeat: no-repeat;">
                             <div class="linear_color">

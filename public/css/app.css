@@ -11070,6 +11070,14 @@ select.form-control {
   border-radius: 0 !important;
 }
 
+img.card-img-top.mb-3,
+img.card-img-top {
+  width: 305px !important;
+  height: 305px !important;
+  -o-object-fit: cover !important;
+     object-fit: cover !important;
+}
+
 /* Estilos Sweet Alert */
 /*============================================= 
 TABLET HORIZONTAL (LG revisamos en 1024px) 

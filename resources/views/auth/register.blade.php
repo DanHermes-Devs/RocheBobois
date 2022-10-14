@@ -74,7 +74,22 @@
                     
                     <div class="col">
                         <label for="cargo" class="form-label">{{ __('Cargo') }}</label>
-                        <input id="cargo" type="text" class="form-control" name="cargo" value="{{ old('cargo') }}" autocomplete="cargo">
+                        <select class="js-example-basic-single form-select" id="cargo" class="form-control @error('cargo') is-invalid @enderror" name="cargo" value="{{ old('cargo') }}" autocomplete="cargo">
+                            <option value="">-- Selecciona una opción -- </option>
+                            <option value="DIS">Diseñador</option>
+                            <option value="ARQ">Arquitecto</option>
+                            <option value="COM-FF&E">Comprador FF&E</option>
+                            <option value="DIR-FF&E">Director FF&E </option>
+                            <option value="PROP">Propietario</option>
+                            <option value="GEH">Gerente Hotel</option>
+                            <option value="OIN">Operador Inmobiliario</option>
+                          </select>
+      
+                          @error('cargo')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                          @enderror
                     </div>
                 </div>
 

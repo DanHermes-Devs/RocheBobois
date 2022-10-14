@@ -10,7 +10,9 @@ use App\Models\SellerBest;
 use App\Models\Subcategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Imports\ProductsImport;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
 use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
@@ -85,7 +87,7 @@ class ProductController extends Controller
 
         if(request('imagen_destacada')){
             $imagen_destacada = $request->imagen_destacada->store('uploads/productos/'.$producto->slug, 'public');
-            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"))->fit(800, 800);
+            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"));
             $img_destacada->save();
             $producto->imagen_destacada = $imagen_destacada;
         }
@@ -95,7 +97,7 @@ class ProductController extends Controller
             $img_galeria = array();
             foreach ($galerias as $imagefile) {
                 $imagefile = $imagefile->store('uploads/productos/'.$producto->slug, 'public');
-                $img_2 = Image::make(public_path("storage/{$imagefile}"))->fit(800, 800);
+                $img_2 = Image::make(public_path("storage/{$imagefile}"));
                 $img_2->save();
                 array_push($img_galeria, $imagefile);
             }
@@ -140,9 +142,9 @@ class ProductController extends Controller
     {
         $colecciones = Collection::all();
         $producto = Product::find($id);
-        $categoria = Category::where('id', $producto->category_id)->get();
+        $categoria = Category::all();
         $subcategoria = Subcategory::where('id', $producto->subcategory_id)->get();
-        $homeOffices = HomeOffice::where('id', $producto->home_office)->get();
+        $homeOffices = HomeOffice::all();
         $sellerBest = SellerBest::all();
 
         return view('admin.productos.edit', compact('producto', 'categoria', 'subcategoria', 'colecciones', 'homeOffices', 'sellerBest'));
@@ -187,7 +189,7 @@ class ProductController extends Controller
 
             $imagen_destacada = $request->imagen_destacada->store('uploads/productos/'.$producto->slug, 'public');
             // Recortar imagen a 800x800 con object-fit: contain
-            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"))->fit(800, 800);
+            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"));
             $img_destacada->save();
             $producto->imagen_destacada = $imagen_destacada;
         }
@@ -203,7 +205,7 @@ class ProductController extends Controller
                 }
 
                 $imagefile = $imagefile->store('uploads/productos/'.$producto->slug, 'public');
-                $img_2 = Image::make(public_path("storage/{$imagefile}"))->fit(800, 800);
+                $img_2 = Image::make(public_path("storage/{$imagefile}"));
                 $img_2->save();
                 array_push($img_galeria, $imagefile);
             }
@@ -266,5 +268,15 @@ class ProductController extends Controller
         $producto->delete();
 
         return response()->json(['status' => 'success', 'message' => 'Producto eliminado correctamente.']);
+    }
+
+    // Importar archivo 
+    public function import(Request $request)
+    {
+        $file = $request->file('file');
+        // return Excel::toCollection(new ProductsImport, $file);
+        Excel::import(new ProductsImport, $file);
+
+        return "Productos importados correctamente.";
     }
 }
