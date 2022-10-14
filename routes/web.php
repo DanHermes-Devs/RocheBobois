@@ -173,6 +173,8 @@ Route::get('/perfil/view-order/{id}', [PerfilController::class, 'viewOrder'])->n
 Route::match(['put', 'patch'], '/perfil/{id}', [PerfilController::class, 'update'])->name('perfil.update')->middleware(['auth', 'verified']);
 // Imprimir Recibo
 Route::get('/perfil/print-order/{id}', [PerfilController::class, 'printOrder'])->name('perfil.print-order')->middleware(['auth', 'verified']);
+// Imprimir reserva
+Route::get('/perfil/print-booking/{id}', [PerfilController::class, 'printBooking'])->name('perfil.print-booking')->middleware(['auth', 'verified']);
 
 // Rutas de los Payments
 Route::get('/payments', [PaymentController::class, 'index'])->name('payments');
