@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Booking;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Laravel\Cashier\Invoice;
@@ -19,14 +20,17 @@ class PerfilController extends Controller
      */
     public function index()
     {
-        $invoices = Auth::user()->invoicesIncludingPending();
+
     
         $usuario = Auth::user();
+
         // Mostrar las ordenes del usuario
         $orders = Order::with(['orderItems'])->where('user_id', $usuario->id)->get();
-        
 
-        return view('perfil.index', compact('usuario', 'orders', 'invoices'));
+        // Mostrar las reservas del usuario
+        $reservas = Booking::where('id_user', $usuario->id)->get();
+
+        return view('perfil.index', compact('usuario', 'orders', 'reservas'));
     }
 
     /**
@@ -84,6 +88,16 @@ class PerfilController extends Controller
         return $pdf->download('Orden_'.$order->order_no . '.pdf');
 
         // return view('perfil.print', compact('order', 'orderItems'));
+    }
+
+    public function printBooking($id)
+    {
+        $reserva = Booking::where('id', $id)->where('id_user', Auth::user()->id)->first();
+
+        return view('perfil.booking', compact('reserva'));
+
+        // $pdf = Pdf::loadView('perfil.booking', compact('reserva'));
+        // return $pdf->download('Reserva_'.$reserva->codigo_reserva . '.pdf');
     }
 
     /**

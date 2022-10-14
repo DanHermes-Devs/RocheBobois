@@ -34,6 +34,18 @@
         justify-content: center;
         gap: 0.5rem;
     }
+
+    a.active {
+        background: #eee;
+        padding: 1rem 1rem 1rem .4rem;
+        text-align: left;
+    }
+
+    a.text-dark {
+        padding: 1rem 1rem 1rem .4rem;
+        text-decoration: none;
+    }
+    
 </style>
 @section('content')
     <div class="container-fluid py-5 mt-5">
@@ -48,24 +60,24 @@
                 </div>
                 <div class="col-12 col-md-2">
                     <div class="d-flex align-items-start">
-                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <div class="nav flex-column nav-pills me-3 w-100" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
-                            <button class="active text-dark btn" id="mis-compras-tab" data-bs-toggle="pill"
+                            <a href="javascript:void()" class="active text-dark" id="mis-compras-tab" data-bs-toggle="pill"
                                 data-bs-target="#mis-compras" role="tab" aria-controls="mis-compras"
                                 aria-selected="true">
                                 Mis Compras
-                            </button>
+                            </a>
 
-                            <button class="text-dark btn" id="mis-reservas-tab" data-bs-toggle="pill"
+                            <a href="javascript:void()" class="text-dark" id="mis-reservas-tab" data-bs-toggle="pill"
                                 data-bs-target="#mis-reservas" role="tab" aria-controls="mis-reservas"
                                 aria-selected="false">
                                 Mis Reservas
-                            </button>
+                            </a>
 
-                            <button class="text-dark btn" id="mis-datos-tab" data-bs-toggle="pill"
+                            <a href="javascript:void()" class="text-dark" id="mis-datos-tab" data-bs-toggle="pill"
                                 data-bs-target="#mis-datos" role="tab" aria-controls="mis-datos" aria-selected="false">
                                 Mis Datos
-                            </button>
+                            </a>
 
                         </div>
                     </div>
@@ -73,49 +85,95 @@
 
                 <div class="col-12 col-md-10">
                     <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade  show active" id="mis-compras" role="tabpanel" aria-labelledby="mis-compras-tab"
+                        <div class="tab-pane fade" id="mis-compras" role="tabpanel" aria-labelledby="mis-compras-tab"
                             tabindex="0">
                             <h2 class="fs-1 text-uppercase text-center fw-bold mb-5">Mis Compras</h2>
                             {{-- Mostrar tabla con las ordenes del usuario --}}
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Orden</th>
-                                        <th scope="col">Fecha</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Total</th>
-                                        <th scope="col">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($orders as $order)
+                            @if($orders->count() > 0)
+                                <table class="table table-striped table-bordered">
+                                    <thead>
                                         <tr>
-                                            <th scope="row">#{{ $order->order_no }}</th>
-                                            <td>{{ $order->created_at->format('d/m/Y') }}</td>
-                                            <td>
-                                                @if ($order->status == 'Pendiente')
-                                                    <span class="badge bg-warning text-dark p-2 rounded-0" style="font-size: 1rem;">Pendiente</span>
-                                                @elseif($order->status == 'Procesando')
-                                                    <span class="badge bg-primary text-white p-2 rounded-0" style="font-size: 1rem;">Procesando</span>
-                                                @elseif($order->status == 'Completado')
-                                                    <span class="badge bg-success text-white p-2 rounded-0" style="font-size: 1rem;">Completado</span>
-                                                @elseif($order->status == 'Declinado')
-                                                    <span class="badge bg-danger text-white p-2 rounded-0" style="font-size: 1rem;">Declinado</span>
-                                                @endif
-                                            </td>
-                                            <td>${{ $order->total }}</td>
-                                            <td>
-                                                <a href="{{ route('perfil.view-order', $order->id) }}"
-                                                    class="btn_outline_dark w-50">Ver</a>
-                                            </td>
+                                            <th scope="col">Orden</th>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Estado</th>
+                                            <th scope="col">Total</th>
+                                            <th scope="col">Acciones</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($orders as $order)
+                                            <tr>
+                                                <th scope="row">#{{ $order->order_no }}</th>
+                                                <td>{{ $order->created_at->format('d/m/Y') }}</td>
+                                                <td>
+                                                    @if ($order->status == 'Pendiente')
+                                                        <span class="badge bg-warning text-dark p-2 rounded-0" style="font-size: 1rem;">Pendiente</span>
+                                                    @elseif($order->status == 'Procesando')
+                                                        <span class="badge bg-primary text-white p-2 rounded-0" style="font-size: 1rem;">Procesando</span>
+                                                    @elseif($order->status == 'Completado')
+                                                        <span class="badge bg-success text-white p-2 rounded-0" style="font-size: 1rem;">Completado</span>
+                                                    @elseif($order->status == 'Declinado')
+                                                        <span class="badge bg-danger text-white p-2 rounded-0" style="font-size: 1rem;">Declinado</span>
+                                                    @endif
+                                                </td>
+                                                <td>${{ $order->total }}</td>
+                                                <td>
+                                                    <a href="{{ route('perfil.print-order', $order->id) }}" class="btn_outline_dark">
+                                                        <i class="fa-regular fa-file-arrow-down mr-3"></i>
+                                                        Imprimir Recibo
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="alert alert-info" role="alert">
+                                    No tienes ninguna orden
+                                </div>
+                            @endif
                         </div>
-                        <div class="tab-pane fade" id="mis-reservas" role="tabpanel" aria-labelledby="mis-reservas-tab"
+                        <div class="tab-pane fade show active" id="mis-reservas" role="tabpanel" aria-labelledby="mis-reservas-tab"
                             tabindex="0">
-                            Hola 2
+                            <h2 class="fs-1 text-uppercase text-center fw-bold mb-5">Mis Reservas</h2>
+
+                            {{-- Mostrar tabla con las ordenes del usuario --}}
+                            @if($reservas->count() > 0)
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Reserva</th>
+                                            <th scope="col">Evento</th>
+                                            <th scope="col">Teléfono</th>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Hora</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($reservas as $reserva)
+                                            <tr>
+                                                <th scope="row">#{{ $reserva->codigo_reserva }}</th>
+                                                <td>{{ $reserva->nombre_evento }}</td>
+                                                <td>{{ $reserva->telefono_usuario }}</td>
+                                                <td>{{ $reserva->fecha }}</td>
+                                                <td>{{ $reserva->hora }}</td>
+                                                <td>
+                                                    <a href="{{ route('perfil.print-booking', $reserva->id) }}" class="btn_outline_dark">
+                                                        <i class="fa-regular fa-file-arrow-down mr-3"></i>
+                                                        {{-- Mensaje de impresion del ticket --}}
+                                                        Ver Boleto 
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="alert alert-info" role="alert">
+                                    No tienes ninguna orden
+                                </div>
+                            @endif
                         </div>
                         <div class="tab-pane fade" id="mis-datos" role="tabpanel"
                             aria-labelledby="mis-datos-tab" tabindex="0">
@@ -212,6 +270,9 @@
 
 
 @section('scripts')
+    <script>
+        
+    </script>
     <script>
         $(document).ready(function() {
             // Select 2
