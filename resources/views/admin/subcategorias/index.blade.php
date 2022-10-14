@@ -63,7 +63,12 @@
                     {
                         targets: 1,
                         render: function(data, type, row) {
-                            return `<img src="{{ asset('storage/${data}') }}" alt="${row.nombre}" class="img-fluid" style="max-width: 100px;">`;
+                            if (data == null) {
+                                return '<p>No existe una imagen</p>';
+                            } else {
+                                return `<img src="{{ asset('storage/${data}') }}" class="img-fluid w-25" alt="Imagen de la categoría">`;
+                            }
+                            // return `<img src="{{ asset('storage/${data}') }}" alt="${row.nombre}" class="img-fluid" style="max-width: 100px;">`;
                         }
                     },
                 ],

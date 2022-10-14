@@ -63,7 +63,13 @@
                     {
                         targets: 1,
                         render: function(data, type, row) {
-                            return `<img src="{{ asset('storage/${data}') }}" alt="${row.nombre}" class="img-fluid" style="max-width: 100px;">`;
+                            // Mostrar mensaje de imagen no disponible si no hay imagen
+                            if (data == null) {
+                                return '<p>No existe una imagen</p>';
+                            } else {
+                                return '<img src="{{ asset('storage/uploads/category_products') }}/'+data+'" class="img-fluid" alt="Imagen de la categoría">';
+                            }
+                            // return `<img src="{{ asset('storage/${data}') }}" alt="${row.nombre}" class="img-fluid" style="max-width: 100px;">`;
                         }
                     }
                 ],
