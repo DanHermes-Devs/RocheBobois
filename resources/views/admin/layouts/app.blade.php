@@ -581,7 +581,21 @@
         // Cargar Document con jQuery
         $(document).ready(function () {
             $('.btn_crear').click(function (e) {
-                $(this).waitMe();
+                $(this).waitMe({
+                    'effect': 'pulse',
+                });
+            });
+            
+            $('.btn_action').click(function (e) {
+                $(this).waitMe({
+                    'effect': 'pulse',
+                });
+            });
+
+            $('.btn_editar').click(function (e) {
+                $(this).waitMe({
+                    'effect': 'pulse',
+                });
             });
         });
     </script>

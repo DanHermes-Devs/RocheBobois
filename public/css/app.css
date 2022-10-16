@@ -11070,12 +11070,37 @@ select.form-control {
   border-radius: 0 !important;
 }
 
-img.card-img-top.mb-3,
-img.card-img-top {
-  width: 305px !important;
-  height: 305px !important;
-  -o-object-fit: cover !important;
-     object-fit: cover !important;
+.img_responsive {
+  height: 250px;
+  position: relative;
+  padding-top: 4px;
+  margin-top: 0 !important;
+}
+
+img.card-img-top.mb-3, img.card-img-top {
+  max-height: 250px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  -o-object-fit: cover;
+  object-fit: scale-down;
+  width: 100%;
+}
+
+img.card-img-top.mb-3.product_lampara-de-pie-cactus,
+img.card-img-top.mb-3.product_lampara-de-pie-kyudo,
+img.card-img-top.mb-3.product_lampara-de-pie-accastillage,
+img.card-img-top.mb-3.product_lampara-de-pie-fleur-de-coton,
+img.card-img-top.mb-3.product_jarrones-triade,
+img.card-img-top.mb-3.product_biblioteca-smoke,
+img.card-img-top.mb-3.product_pouf-improviste,
+img.card-img-top.mb-3.product_silla-pata-central-pulp {
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 /* Estilos Sweet Alert */

@@ -63,7 +63,7 @@
 </style>
     <div class="container mt-5 pt-5">
         <div class="row mb-5 justify-content-center">
-            <button class="btn_outline_dark" id="print_ticket">Descargar Boleto</button>
+            <button class="btn_outline_dark btn_action" id="print_ticket">Descargar Boleto</button>
         </div>
         <div id="capture_algo">
             <div class="boleto boleto--{{ $reserva->codigo_reserva }}">
@@ -90,7 +90,6 @@
         
     var node = document.getElementById('capture_algo');
     document.querySelector('#print_ticket').addEventListener('click', function() {
-        $(this).waitMe();
         domtoimage.toPng(node)
         .then(function (dataUrl) {
             // Si es success se quita el waitMe

@@ -2,7 +2,7 @@
 <style>
     .img_fecha {
         height: 100%;
-        width: 90%;
+        width: 100%;
         position: relative;
     }
 
@@ -26,7 +26,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        max-height: 230px !important;
+        max-height: 320px !important;
     }
 
     .full-width-content .container.grid-container {
@@ -35,10 +35,13 @@
 
     .grid-event {
         display: grid;
-        grid-template-columns: 40% 60%;
+        grid-template-columns: 35% 60%;
         margin-bottom: 2rem;
         background: #eeeeee;
         align-items: center;
+        height: auto;
+        column-gap: 2rem;
+        grid-row: auto;
     }
 
     .card_black_eventos {
@@ -123,10 +126,11 @@ MÓVIL HORIZONTAL (SM revisamos en 576px)
             display: grid;
             grid-template-columns: repeat(1, 1fr);
             gap: 1rem;
+            height: auto;
         }
 
         .linear_color {
-            padding: 1rem;
+            padding: 1.5rem;
         }
 
         .img_fecha {
@@ -144,10 +148,11 @@ MOVIL VERTICAL (revisamos en 320px)
             display: grid;
             grid-template-columns: repeat(1, 1fr);
             gap: 1rem;
+            height: auto;
         }
 
         .linear_color {
-            padding: 1rem;
+            padding: 1.5rem;
         }
 
         .img_fecha {
@@ -226,7 +231,7 @@ MOVIL VERTICAL (revisamos en 320px)
                                                 <input type="text" class="form-control" id="hora" name="hora" readonly value="{{ $evento->hora }}">
                                             </div>
                                             <div class="d-flex gap-3">
-                                                <button type="submit" class="ml-3 btn_generico btn_reservar_ahora">Reservar</button>
+                                                <button type="submit" class="ml-3 btn_generico btn_reservar_ahora btn_action">Reservar</button>
                                                 <button type="button" class="btn_generico_close" data-bs-dismiss="modal">Cerrar</button>
                                             </div>
                                         </form>
@@ -298,7 +303,6 @@ MOVIL VERTICAL (revisamos en 320px)
 
         $('.btn_reservar_ahora').click(function(e) {
             e.preventDefault();
-            $(this).waitMe();
 
             // Enviar todo el formulario serializado
             var form = $('#reservar_evento').serialize();

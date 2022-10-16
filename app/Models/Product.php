@@ -37,7 +37,8 @@ class Product extends Model
 
     // Relacionar con categories (1 a muchos inversa)
     public function category(){
-        return $this->belongsToThrough(Category::class, Subcategory::class);
+        // return $this->belongsToThrough(Category::class, Subcategory::class);
+        return $this->belongsTo(Category::class);
     }
 
     // Relacionar con images (1 a muchos polimorfica)

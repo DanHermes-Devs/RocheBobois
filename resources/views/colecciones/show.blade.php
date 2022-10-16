@@ -36,14 +36,18 @@
                     {{-- Grid de productoos --}}
                     <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
                         <a href="{{ route('front.sales.show', $producto->slug) }}" class="text-reset text-decoration-none">
-                            <div class="card text-center">
-                                <img src="{{ asset('storage/' . $producto->imagen_destacada) }}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $producto->nombre_producto }}</h5>
-                                    <p class="card-text mb-3">
-                                        <span class="">${{ $producto->precio }}</span>
+                            <div class="text-center">
+                                <div class="img_responsive">
+                                    <img src="{{ asset('storage/' . $producto->imagen_destacada) }}" class="card-img-top mb-3 product_{{ $producto->slug }}" alt="{{ $producto->nombre_producto }}">
+                                </div>
+                                <div class="">
+                                    <h5 class="">{{ $producto->nombre_producto }}</h5>
+                                    <p class="mb-3">
                                         @if ($producto->precio_descuento)
-                                            <span class="fw-bold">${{ $producto->precio_descuento }}</span>
+                                            <span class="text-danger fw-bold">${{ number_format($producto->precio_descuento, 2) }}</span>
+                                            <span class="text-muted fw-bold"><del>${{ number_format($producto->precio, 2) }}</del></span>
+                                        @else
+                                            <span class="text-dark fw-bold">${{ number_format($producto->precio, 2) }}</span>
                                         @endif
                                     </p>
                                 </div>
@@ -75,6 +79,6 @@
 
 @section('scripts')
 <script>
-    jQuery('.slider').bxSlider();
+    jQuery('.slider').bxSlider(); 
 </script>
 @endsection

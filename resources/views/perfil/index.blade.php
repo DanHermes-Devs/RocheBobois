@@ -170,7 +170,7 @@
                                 </table>
                             @else
                                 <div class="alert alert-info" role="alert">
-                                    No tienes ninguna orden
+                                    No tienes ninguna reserva
                                 </div>
                             @endif
                         </div>
@@ -255,7 +255,7 @@
                                 <input type="hidden" name="token_bearer" id="token_bearer">
 
                                 <div class="mb-0">
-                                    <button type="submit" class="btn_outline_dark">
+                                    <button type="submit" class="btn_outline_dark btn_action">
                                         {{ __('Actualizar') }}
                                     </button>
                                 </div>

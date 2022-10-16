@@ -112,7 +112,7 @@
                     @endif
                 </div>
                 <div class="my-3">
-                    <button type="submit" class="btn btn-success w-100 btn-editar">Actualizar colección</button>
+                    <button type="submit" class="btn btn-success w-100 btn_editar">Actualizar colección</button>
                 </div>
             </div>
         </form>
@@ -125,8 +125,8 @@
     <script>
         // Cargar Document con jQuery
         $(document).ready(function () {
-            $('.btn-editar').click(function (e) {
-                $('.btn-editar').waitMe();
+            $('.btn_editar').click(function (e) {
+                $('.btn_editar').waitMe();
             });
         });
     </script>

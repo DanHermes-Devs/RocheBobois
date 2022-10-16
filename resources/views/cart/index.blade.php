@@ -73,7 +73,7 @@
                                                         <button class="btn btn-outline-secondary button-addon1" type="button">+</button>
                                                     </div>
                                                     <input type="hidden" class="rowId" value="{{ $item->rowId }}">
-                                                    <button type="submit" class="btn_outline_dark">Actualizar cantidad</button>
+                                                    <button type="submit" class="btn_outline_dark btn_action">Actualizar cantidad</button>
                                                 </form>
                                             </td>
                                             <td>${{ $item->subtotal }}</td>
@@ -112,7 +112,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <a href="{{ route('checkout') }}" class="btn_outline_dark">Continuar al pago</a>
+                        <a href="{{ route('checkout') }}" class="btn_outline_dark btn_action">Continuar al pago</a>
                     </div>
                 </div>
             @else

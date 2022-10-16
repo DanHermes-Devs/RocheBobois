@@ -30,24 +30,6 @@ class CategoriesTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 2,
-                'nombre' => 'Decoración',
-                'slug' => 'decoracion',
-                'imagen_destacada' => NULL,
-                'created_at' => '2022-10-14 01:08:35',
-                'updated_at' => '2022-10-14 01:08:35',
-            ),
-            2 => 
-            array (
-                'id' => 3,
-                'nombre' => 'Escritorios',
-                'slug' => 'escritorios',
-                'imagen_destacada' => NULL,
-                'created_at' => '2022-10-14 01:08:40',
-                'updated_at' => '2022-10-14 01:08:40',
-            ),
-            3 => 
-            array (
                 'id' => 4,
                 'nombre' => 'Libreros',
                 'slug' => 'libreros',
@@ -55,7 +37,7 @@ class CategoriesTableSeeder extends Seeder
                 'created_at' => '2022-10-14 01:08:46',
                 'updated_at' => '2022-10-14 01:08:46',
             ),
-            4 => 
+            2 => 
             array (
                 'id' => 5,
                 'nombre' => 'Luminaria',
@@ -64,7 +46,7 @@ class CategoriesTableSeeder extends Seeder
                 'created_at' => '2022-10-14 01:08:53',
                 'updated_at' => '2022-10-14 01:08:53',
             ),
-            5 => 
+            3 => 
             array (
                 'id' => 6,
                 'nombre' => 'Pouf',
@@ -73,7 +55,7 @@ class CategoriesTableSeeder extends Seeder
                 'created_at' => '2022-10-14 01:09:00',
                 'updated_at' => '2022-10-14 01:09:00',
             ),
-            6 => 
+            4 => 
             array (
                 'id' => 7,
                 'nombre' => 'Recámaras',
@@ -82,7 +64,7 @@ class CategoriesTableSeeder extends Seeder
                 'created_at' => '2022-10-14 01:09:04',
                 'updated_at' => '2022-10-14 01:09:04',
             ),
-            7 => 
+            5 => 
             array (
                 'id' => 8,
                 'nombre' => 'Salas',
@@ -91,7 +73,7 @@ class CategoriesTableSeeder extends Seeder
                 'created_at' => '2022-10-14 01:09:09',
                 'updated_at' => '2022-10-14 01:09:09',
             ),
-            8 => 
+            6 => 
             array (
                 'id' => 9,
                 'nombre' => 'Sillones',
@@ -100,7 +82,7 @@ class CategoriesTableSeeder extends Seeder
                 'created_at' => '2022-10-14 01:09:14',
                 'updated_at' => '2022-10-14 01:09:14',
             ),
-            9 => 
+            7 => 
             array (
                 'id' => 10,
                 'nombre' => 'Tapetes',
@@ -109,25 +91,7 @@ class CategoriesTableSeeder extends Seeder
                 'created_at' => '2022-10-14 01:09:20',
                 'updated_at' => '2022-10-14 01:09:20',
             ),
-            10 => 
-            array (
-                'id' => 11,
-                'nombre' => 'Textiles',
-                'slug' => 'textiles',
-                'imagen_destacada' => NULL,
-                'created_at' => '2022-10-14 01:09:25',
-                'updated_at' => '2022-10-14 01:09:25',
-            ),
-            11 => 
-            array (
-                'id' => 12,
-                'nombre' => 'Sillas',
-                'slug' => 'sillas',
-                'imagen_destacada' => NULL,
-                'created_at' => '2022-10-14 04:05:36',
-                'updated_at' => '2022-10-14 04:05:36',
-            ),
-            12 => 
+            8 => 
             array (
                 'id' => 13,
                 'nombre' => 'Mesas de Centro',

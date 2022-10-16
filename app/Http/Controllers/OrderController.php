@@ -104,6 +104,9 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Borramos la orden
+        Order::find($id)->delete();
+
+        return response()->json(['success' => 'Orden eliminada correctamente.', 'status' => 'success']);
     }
 }

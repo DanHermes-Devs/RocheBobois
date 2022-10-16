@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +25,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
+
     {{-- Owl Carousel --}}
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.css') }}" />
 
@@ -35,7 +36,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css">
 
     {{-- BxSlider --}}
-    <link rel="stylesheet" href="{{ asset('css/bxslider.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css"
+        integrity="sha512-UBY4KATrDAEKgEEU+RAfY4yWrK0ah43NGwNr5o/xmncxsT+rv8jp7MI3a00I0Ep3NbAx05U5kw3DvyNCoz+Wcw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     {{-- FlexSlider CSS --}}
     <link rel="stylesheet" href="{{ asset('FlexSlider/flexslider.css') }}" />
@@ -49,7 +52,8 @@
 
     {{-- Select2 CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet" />
 
     {{-- Estilos --}}
     @yield('styles')
@@ -76,14 +80,18 @@
         }
     </style>
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-sm position-fixed w-100" style="z-index: 9">
             <div class="container">
                 <a class="navbar-brand text-white" href="{{ url('/') }}">
-                    <img src="{{ asset('image/rochebobois_white_logo.svg') }}" alt="logo" class="logo_brand" style="width:50%;">
+                    <img src="{{ asset('image/rochebobois_white_logo.svg') }}" alt="logo" class="logo_brand"
+                        style="width:50%;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -95,17 +103,25 @@
                         </li>
                         @if (Auth::user())
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Concierge
+                                <a class="nav-link dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Concierge
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ route('front.best-seller')}} ">BEST SELLER</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('front.colecciones')}} ">COLECCIONES ESPECIALES</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('front.best-seller') }} ">BEST
+                                            SELLER</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('front.colecciones') }} ">COLECCIONES
+                                            ESPECIALES</a></li>
                                     <li><a class="dropdown-item" href="{{ route('front.eventos') }}">EVENTOS</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('front.home-office') }}">HOME OFFICE</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('front.building') }}">ROCHE BOBOIS BUILDING</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('front.oportunidadesUnicas') }}">OPORTUNIDADES ÚNICAS</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('front.sales', ['slug' => 'salas']) }}">SALES</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('front.home-office') }}">HOME
+                                            OFFICE</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('front.building') }}">ROCHE BOBOIS
+                                            BUILDING</a></li>
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('front.oportunidadesUnicas') }}">OPORTUNIDADES ÚNICAS</a>
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('front.sales', ['slug' => 'salas']) }}">SALES</a></li>
                                 </ul>
                             </li>
                         @endif
@@ -130,7 +146,9 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#"
+                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
@@ -153,12 +171,13 @@
 
                                     {{-- Ruta de Cerrar Sesión --}}
                                     <a class="dropdown-item text-uppercase" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
                                         @csrf
                                     </form>
                                 </div>
@@ -168,7 +187,9 @@
                         @if (Auth::user() && Cart::count() > 0)
                             {{-- Menu desplegable con la vista de los productos del carrito de compras --}}
                             <li class="nav-item dropdown d-flex align-items-center">
-                                <a id="cart_dropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="cart_dropdown" class="nav-link dropdown-toggle text-white" href="#"
+                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" v-pre>
                                     <div class="position-relative">
                                         <i class="fa-regular fa-cart-shopping"></i>
                                         <span class="position-absolute badge_cart">
@@ -176,16 +197,19 @@
                                         </span>
                                     </div>
                                 </a>
-                                <div class="dropdown-cart dropdown-menu dropdown-menu-end" aria-labelledby="cart_dropdown">
+                                <div class="dropdown-cart dropdown-menu dropdown-menu-end"
+                                    aria-labelledby="cart_dropdown">
                                     @forelse (Cart::content() as $item)
                                         <div class="row align-items-center py-2 border-bottom">
                                             <div class="col-12 col-md-4">
-                                                <img src="{{ asset('storage/'.$item->options->image) }}" alt="" class="img-fluid">
+                                                <img src="{{ asset('storage/' . $item->options->image) }}"
+                                                    alt="" class="img-fluid">
                                             </div>
                                             <div class="col-12 col-md-8">
                                                 <p class="mb-0"><b>Producto</b>: {{ $item->name }}</p>
                                                 <p class="mb-0"><b>Cantidad</b>: {{ $item->qty }}</p>
-                                                <p class="mb-0"><b>Precio</b>: ${{ $item->price }}</p>
+                                                <p class="mb-0"><b>Precio</b>: ${{ number_format($item->price, 2) }}
+                                                </p>
                                             </div>
                                         </div>
                                     @empty
@@ -201,7 +225,8 @@
                                                 <p class="mb-0"><b>Total</b>: ${{ Cart::subtotal() }}</p>
                                             </div>
                                             <div class="col-12 col-md-6">
-                                                <a href="{{ route('cart.index') }}" class="btn_outline_dark">Ver carrito</a>
+                                                <a href="{{ route('cart.index') }}" class="btn_outline_dark">Ver
+                                                    carrito</a>
                                             </div>
                                         </div>
                                     @endif
@@ -225,33 +250,39 @@
             <div class="contacto_whatsapp">
                 <span>¡Contáctanos por whatsapp!</span>
             </div>
-            <img src="https://rocheboboismexico.com/wp-content/uploads/2022/05/whatsapp.png" class="img-fluid ico_whats">
+            <img src="https://rocheboboismexico.com/wp-content/uploads/2022/05/whatsapp.png"
+                class="img-fluid ico_whats">
         </a>
         @php
             $showrooms = App\Models\Showroom::all();
         @endphp
         <div class="btn_whatsapp">
-            <div class="modal fade" id="whatsappIcono" tabindex="-1" aria-labelledby="whatsappIconoLabel" aria-hidden="true">
+            <div class="modal fade" id="whatsappIcono" tabindex="-1" aria-labelledby="whatsappIconoLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="whatsappIconoLabel">Por favor seleccione la sucursal deseada</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="whatsappIconoLabel">Por favor seleccione la sucursal
+                                deseada</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <select class="form-select" onChange=nav(this.value)>
+                                <option value="">-- Seleccione una sucursal --</option>
+                                @foreach ($showrooms as $showroom)
+                                    <option
+                                        value="https://api.whatsapp.com/send?phone={{ $showroom->numero_whatsapp }}">
+                                        {{ $showroom->nombre_showroom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <select class="form-select" onChange=nav(this.value)>
-                            <option value="">-- Seleccione una sucursal --</option>
-                            @foreach ($showrooms as $showroom)
-                                <option value="https://api.whatsapp.com/send?phone={{ $showroom->numero_whatsapp }}">{{ $showroom->nombre_showroom }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                  </div>
                 </div>
-              </div>
+            </div>
         </div>
     </div>
 
@@ -281,13 +312,13 @@
 
     {{-- Sweet Alert 2 --}}
     <script src="{{ asset('js/sweetalert.min.js') }}"></script>
-    
+
     {{-- Swiper --}}
     <script src="{{ asset('js/swiper.min.js') }}"></script>
 
     {{-- Screenshot --}}
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    
+
     @yield('scripts')
 
     <script>
@@ -295,11 +326,18 @@
             e.stopPropagation();
         });
 
+        $('.btn_action').click(function (e) {
+            $(this).waitMe({
+                'effect': 'pulse',
+            });
+        });
+
         function nav(value) {
-			if (value != "") {
-				location.href = value;
-			}
-		}
+            if (value != "") {
+                location.href = value;
+            }
+        }
     </script>
 </body>
+
 </html>

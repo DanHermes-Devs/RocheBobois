@@ -66,6 +66,23 @@
                     {data: 'precio', name: 'precio'},
                     {data: 'action', name: 'action'}
                 ],
+                columnDefs: [
+                    {
+                        targets: 1,
+                        render: function(data, type, row) {
+                            return data.length > 100 ?
+                                data.substr(0, 100) + '…' :
+                                data;
+                        }
+                    },
+                    {
+                        targets: 2,
+                        render: function(data, type, row) {
+                            // Mostramos decimales
+                            return '$' + data;
+                        }
+                    }
+                ],
                 language: idiomaDataTable
             });
 

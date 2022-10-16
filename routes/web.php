@@ -141,6 +141,7 @@ Route::get('/table_iseed', function() {
     Artisan::call('iseed home_offices --force');
     Artisan::call('iseed building_categories --force');
     Artisan::call('iseed event_categories --force');
+    Artisan::call('iseed events --force');
     Artisan::call('iseed products --force');
     Artisan::call('iseed categories --force');
     Artisan::call('iseed categories --force');
@@ -285,9 +286,7 @@ Route::group(['middleware' => 'auth'], function () {
         })->name('import.productos');
         Route::post('/productos/importar', [ProductController::class, 'import'])->name('import.producto');
         // Exportar productos
-        Route::get('/productos/exportar', function(){
-            return view('admin.productos.export');
-        })->name('export.productos');
+        Route::get('/productos/exportar', [ProductController::class, 'export'])->name('export.productos');
 
         // Rutas Categorias de Productos
         Route::get('/categorias-productos', [CategoryController::class, 'index'])->name('categorias');

@@ -94,7 +94,7 @@
                         @endif
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-success w-100 btn-editar">Actualizar evento</button>
+                        <button type="submit" class="btn btn-success w-100 btn_editar">Actualizar evento</button>
                     </div>
                 </div>
             </form>
@@ -107,8 +107,8 @@
     <script>
         // Cargar Document con jQuery
         $(document).ready(function () {
-            $('.btn-editar').click(function (e) {
-                $('.btn-editar').waitMe();
+            $('.btn_editar').click(function (e) {
+                $('.btn_editar').waitMe();
             });
         });
     </script>

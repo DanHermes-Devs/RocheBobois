@@ -9,7 +9,7 @@
             <a href="{{ route('bookings') }}" class="text-dark"> <i class="fa-solid fa-arrow-left mr-2"></i> Volver</a>
         </div>
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="mb-0 fw-bold"><b>Reserva del usuario</b>: {{ $user->name }}</h2>
+            <h2 class="mb-0 fw-bold"><b>Reserva del usuario</b>: {{ $booking->nombre_usuario }}</h2>
         </div>
         <div class="row">
             <div class="col-12 col-md-8">

@@ -16,9 +16,9 @@ class SalesController extends Controller
      */
     public function index($slug)
     {
-        $category = Category::where('slug', $slug)->first();
+        $category = Category::where('slug', $slug)->orderBy('id', 'asc')->first();
         $products = Product::where('mostrar_en_sales', 1)->where('category_id', $category->id)->orderBy('id', 'ASC')->paginate(12);
-        $categorias = Category::all();
+        $categorias = Category::orderBy('nombre', 'asc')->get();
 
         return view('sales.index', compact('products', 'categorias', 'category'));
     }

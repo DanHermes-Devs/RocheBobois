@@ -27,6 +27,14 @@
         height: 44.22px !important;
         border-radius: 0 !important;
     }
+
+    .btn_outline_dark {
+        border: 2px solid #08672f!important;
+        color: #08672f!important;
+        font-weight: bold!important;
+        width: 100%!important;
+        height: 70px!important;
+    }
 </style>
 @section('content')
     <div class="container-fluid py-5 mt-5">
@@ -53,7 +61,7 @@
                                         <small class="text-muted">Cantidad: {{ $item->qty }}</small>
                                     </div>
                                 </div>
-                                <span class="text-muted">${{ $item->price }}</span>
+                                <span class="text-muted">${{ number_format($item->price, 2) }}</span>
                             </li>
                         @endforeach
 
@@ -79,7 +87,7 @@
                         <form id="card-form">
                             <div class="mb-3">
                                 <label for="card-holder-name" class="form-label">Nombre de la tarjeta</label>
-                                <input id="card-holder-name" type="text" class="form-control" required>
+                                <input id="card-holder-name" type="text" class="form-control">
                             </div>
 
                             <input type="hidden" name="total" id="total" value="{{ Cart::subtotal() }}">
@@ -91,7 +99,7 @@
                                 <span id="card-error" role="alert" class="text-danger"></span>
                             </div>
 
-                            <button id="card-button" class="btn_outline_dark">
+                            <button id="card-button" class="btn_outline_dark btn_action">
                                 Realizar Pedido
                             </button>
                             {{-- <button class="btn_outline_dark" type="submit">Realizar Pedido</button> --}}
@@ -180,6 +188,8 @@
         const cardButton = document.getElementById('card-button');
         const cardForm = document.getElementById('card-form');
 
+        cardHolderName.value = "{{ Auth::user()->name }}";
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -188,10 +198,11 @@
 
         cardForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            $('#card-button').waitMe();
 
-            $(this)
+            // Si el card-holder-name viene vacio se le asigna el nombre del usuario y se quita el waitme
+            if (cardHolderName.value == '') {
+                $('#waitme').waitMe('hide');
+            }
 
             const {
                 paymentMethod,
@@ -206,6 +217,7 @@
 
             if (error) {
                 document.getElementById('card-error').textContent = error.message;
+                $('.btn_action').waitMe('hide');
             } else {
                 // Enviar por AJAX el token al controlador PaymentController
                 const token = paymentMethod.id;

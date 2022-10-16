@@ -81,7 +81,7 @@ class BookingController extends Controller
                 $booking->codigo_reserva = $request->codigo_reserva;
 
                 // Generar un codigo QR y guardarlo en la carpeta public
-                QrCode::format('png')->margin(1)->size(500)->generate('rocheboboismexico.com/reserva/'.$request->codigo_reserva, public_path('storage/uploads/qr_codes_reservations/'.$request->codigo_reserva.'.png'));
+                QrCode::format('png')->margin(1)->size(500)->generate('rocheboboismexico.arquitectec.com/reserva/'.$request->codigo_reserva, public_path('storage/uploads/qr_codes_reservations/'.$request->codigo_reserva.'.png'));
 
 
                 $booking->save();

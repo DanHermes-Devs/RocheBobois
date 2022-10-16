@@ -10,12 +10,12 @@
             </div>
             <div class="row">
                 {{-- Crear un filtro con las categorias --}}
-                <div class="col-12 mb-4">
+                <div class="col-12 mb-5">
                     <h3>Filtrar por Categoría</h3>
                     <form id="categoria_search" method="GET">
                         @csrf
-                        <select name="categoria" id="categoria" class="form-select">
-                            <option>-- Selecciona una opción --</option>
+                        <select name="categoria" id="categoria" class="js-example-basic-single form-select">
+                            <option value="salas">-- Selecciona una opción --</option>
                             @foreach($categorias as $categoria)
                                 {{-- request()->segment(2) --}}
                                 <option value="{{ $categoria->slug }}" {{ request()->segment(2) == $categoria->slug ? 'selected' : '' }}>{{ $categoria->nombre }}</option>
@@ -28,13 +28,17 @@
                     <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
                         <a href="{{ route('front.sales.show', $product->slug) }}" class="text-reset text-decoration-none">
                             <div class="text-center">
-                                <img src="{{ asset('storage/' . $product->imagen_destacada) }}" class="card-img-top mb-3" alt="{{ $product->nombre_producto }}">
+                                <div class="img_responsive">
+                                    <img src="{{ asset('storage/' . $product->imagen_destacada) }}" class="card-img-top mb-3 product_{{ $product->slug }}" alt="{{ $product->nombre_producto }}">
+                                </div>
                                 <div class="">
                                     <h5 class="mb-0">{{ $product->nombre_producto }}</h5>
                                     <p class="mb-3">
-                                        <span class="">${{ $product->precio }}</span>
                                         @if ($product->precio_descuento)
-                                            <span class="fw-bold">${{ $product->precio_descuento }}</span>
+                                            <span class="text-danger fw-bold">${{ number_format($product->precio_descuento, 2) }}</span>
+                                            <span class="text-muted fw-bold"><del>${{ number_format($product->precio, 2) }}</del></span>
+                                        @else
+                                            <span class="text-dark fw-bold">${{ number_format($product->precio, 2) }}</span>
                                         @endif
                                     </p>
                                 </div>
@@ -55,6 +59,11 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
+    });
+
+    // Select 2
+    $('.js-example-basic-single').select2({
+        theme: 'bootstrap-5',
     });
 
     // Filtrar por categoria

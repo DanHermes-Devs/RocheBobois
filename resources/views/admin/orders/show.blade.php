@@ -53,7 +53,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn_outline_dark" id="actualizar">Actualizar</button>
+                        <button type="submit" class="btn_outline_dark btn_action actualizar">Actualizar</button>
                     </div>
                 </form>
             </div>
@@ -153,7 +153,7 @@
                 }
             });
 
-            $('#actualizar').click(function(e) {
+            $('.actualizar').click(function(e) {
                 e.preventDefault();
                 if ($('#status').val() == '-- Selecciona una opción --') {
                     // SweetAlert2
@@ -171,7 +171,6 @@
                             "status": $('#status').val()
                         },
                         success: function(response) {
-                            console.log(response);
                             if (response.status == 'success') {
                                 // SweetAlert2
                                 Swal.fire({
@@ -188,6 +187,7 @@
                                     // },
                                 }).then((result) => {
                                     if (result.isConfirmed) {
+                                        $('.btn_action').waitMe('hide');
                                         location.reload();
                                     }
                                 })
