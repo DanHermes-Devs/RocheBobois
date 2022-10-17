@@ -55,13 +55,11 @@ class BuildingController extends Controller
         $request->validate([
             'nombre_hotel' => 'required',
             'categoria_id' => 'required|integer',
-            'descripcion' => 'required',
             'imagen_destacada' => 'required|image|mimes:jpeg,png,jpg',
         ], [
             'nombre_hotel.required' => 'El nombre del hotel es requerido',
             'categoria_id.required' => 'La categoría del hotel es requerida',
             'categoria_id.integer' => 'La categoría del hotel debe ser un número entero',
-            'descripcion.required' => 'La descripción del hotel es requerida',
             'imagen_destacada.required' => 'La imagen del hotel es requerida',
             'imagen_destacada.image' => 'El archivo debe ser una imagen',
             'imagen_destacada.mimes' => 'El archivo debe ser una imagen en formato jpeg, png o jpg',
@@ -133,12 +131,10 @@ class BuildingController extends Controller
         $request->validate([
             'nombre_hotel' => 'required',
             'categoria_id' => 'required|integer',
-            'descripcion' => 'required',
         ], [
             'nombre_hotel.required' => 'El nombre del hotel es requerido',
             'categoria_id.required' => 'La categoría del hotel es requerida',
             'categoria_id.integer' => 'La categoría del hotel debe ser un número entero',
-            'descripcion.required' => 'La descripción del hotel es requerida',
         ]);
 
         $building = Building::findOrFail($request->id);

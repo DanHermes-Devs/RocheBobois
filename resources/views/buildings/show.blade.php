@@ -33,16 +33,18 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        max-height: 230px!important;
+        max-height: 320px !important;
     }
 
     .grid-event {
         display: grid;
-        grid-template-columns: 40% 60%;
+        grid-template-columns: 35% 60%;
         margin-bottom: 2rem;
         background: #eeeeee;
         align-items: center;
-        gap: 2rem;
+        height: auto;
+        column-gap: 2rem;
+        grid-row: auto;
     }
 
     .card_black_eventos {
@@ -80,10 +82,11 @@ MÓVIL HORIZONTAL (SM revisamos en 576px)
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         gap: 1rem;
+        height: auto;
     }
 
     .linear_color {
-        padding: 1rem;
+        padding: 1.5rem;
     }
 
     .img_fecha {
@@ -100,10 +103,11 @@ MOVIL VERTICAL (revisamos en 320px)
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         gap: 1rem;
+        height: auto;
     }
 
     .linear_color {
-        padding: 1rem;
+        padding: 1.5rem;
     }
 
     .img_fecha {
@@ -142,7 +146,7 @@ MOVIL VERTICAL (revisamos en 320px)
                         @endforeach
                     </div>
                     <div class="linear_color">
-                        <h3 class="font-weight-bold w-100">{{ $building->nombre_hotel }}</h3>
+                        <h3 class="fw-bold w-100">{{ $building->nombre_hotel }}</h3>
                         <p>
                             {!! $building->descripcion !!}
                         </p>

@@ -61,7 +61,7 @@
     <style>
         .contacto_whatsapp {
             position: fixed;
-            bottom: 5%;
+            bottom: 10%;
             right: 9%;
             z-index: 999;
             background: #4caf50;
@@ -74,10 +74,57 @@
         .ico_whats {
             width: 4%;
             position: fixed;
-            bottom: 4%;
+            bottom: 9%;
             right: 4%;
             z-index: 999;
         }
+
+        /* Media querys */
+    /*============================================= 
+    TABLET HORIZONTAL (LG revisamos en 1024px) 
+    =============================================*/ 
+
+    @media (max-width:1199px) and (min-width:992px){ 
+
+    } 
+
+    /*============================================= 
+    TABLET VERTICAL (MD revisamos en 768px) 
+    =============================================*/ 
+
+    @media (max-width:991px) and (min-width:768px){ 
+
+    } 
+
+    /*============================================= 
+    MÓVIL HORIZONTAL (SM revisamos en 576px) 
+    =============================================*/ 
+
+    @media (max-width:767px) and (min-width:576px){
+        .contacto_whatsapp {
+            display: none;
+        }
+
+        .ico_whats {
+            width: 10%;
+            bottom: 10%;
+        }
+    } 
+
+    /*============================================= 
+    MOVIL VERTICAL (revisamos en 320px) 
+    =============================================*/ 
+
+    @media (max-width:575px){
+        .contacto_whatsapp {
+            display: none;
+        }
+
+        .ico_whats {
+            width: 10%;
+            bottom: 10%;
+        }
+    }
     </style>
 </head>
 
@@ -242,8 +289,20 @@
             @yield('content')
         </main>
 
-        <footer class="bg-dark">
-            <p class="mb-0 text-white py-3 text-center">© 2022 Roche Bobois México</p>
+        <footer class="bg-dark py-5 py-md-3">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-6 text-center text-md-start">
+                        <p class="mb-0 text-white py-3 py-md-3">© 2022 Roche Bobois México</p>
+                    </div>
+                    <div class="col-12 col-md-6 text-center text-md-end">
+                        {{-- Aviso de privacidad --}}
+                        <a href="{{ route('front.aviso-privacidad') }}" class="text-white text-white py-3 py-md-3">Aviso de privacidad</a>
+                        {{-- Terminos y condiciones --}}
+                        <a href="{{ route('front.terminos-condiciones') }}" class="text-white text-white py-3 py-md-3">Términos y condiciones</a>
+                    </div>
+                </div>
+            </div>
         </footer>
 
         <a href="#" data-bs-toggle="modal" data-bs-target="#whatsappIcono" class="btn_whats_float">
