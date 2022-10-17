@@ -38,6 +38,7 @@ use App\Http\Controllers\frontend\CobroController;
 use App\Http\Controllers\frontend\SalesController;
 use App\Http\Controllers\frontend\EventoController;
 use App\Http\Controllers\BuildingCategoryController;
+use App\Http\Controllers\CongiruationController;
 use App\Http\Controllers\frontend\BuildingHController;
 use App\Http\Controllers\frontend\ColeccionController;
 use App\Http\Controllers\frontend\BestSellerController;
@@ -45,6 +46,7 @@ use App\Http\Controllers\frontend\OportunidadController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\frontend\ShowroomController as FrontendShowroomController;
 use App\Http\Controllers\frontend\HomeOfficeController as FrontendHomeOfficeController;
+use App\Models\Congiruation;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,7 +91,18 @@ Route::get('/mailable/contact', function(){
 // Route::get('/sales', [SalesController::class, 'index'])->name('front.sales')->middleware(['auth', 'verified']);
 Route::get('/sales/{slug}', [SalesController::class, 'index'])->name('front.sales')->middleware(['auth', 'verified']);
 Route::get('/sale/{slug}', [SalesController::class, 'show'])->name('front.sales.show')->middleware(['auth', 'verified']);
-// Mostrar categoria por defecto
+
+// Aviso de privacidad
+Route::get('/aviso-privacidad', function(){
+    $congiruation = Congiruation::first();
+    return view('configuraciones.aviso', compact('congiruation'));
+})->name('front.aviso-privacidad');
+
+// Terminos y condiciones
+Route::get('/terminos-condiciones', function(){
+    $congiruation = Congiruation::first();
+    return view('configuraciones.terminos', compact('congiruation'));
+})->name('front.terminos-condiciones');
 
 // Rutas Best Seller
 Route::get('/best-seller', [BestSellerController::class, 'index'])->name('front.best-seller')->middleware(['auth', 'verified']);
@@ -148,6 +161,7 @@ Route::get('/table_iseed', function() {
     Artisan::call('iseed subcategories --force');
     Artisan::call('iseed buildings --force');
     Artisan::call('iseed contacts --force');
+    Artisan::call('iseed congiruations --force');
 });
 
 // Colecciones especiales
@@ -371,6 +385,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/orders/{id}', [OrderController::class, 'show'])->name('show.order');
         Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('destroy.order');
         Route::match(['put', 'patch'], '/orders/actualizar-orden/{id}', [OrderController::class, 'update'])->name('update.order');
+
+        // Configuraciónes
+        Route::get('/aviso-privacidad', [CongiruationController::class, 'aviso_privacidad'])->name('aviso_privacidad');
+        Route::match(['put', 'patch'], '/aviso-privacidad/{id}', [CongiruationController::class, 'update_aviso_privacidad'])->name('update.aviso_privacidad');
+        
+        Route::get('/terminos-y-condiciones', [CongiruationController::class, 'terminos_condiciones'])->name('terminos_condiciones');
+        Route::match(['put', 'patch'], '/terminos-y-condiciones/{id}', [CongiruationController::class, 'update_terminos_condiciones'])->name('update.terminos_condiciones');
     });
 });
 

@@ -31,5 +31,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BuildingsTableSeeder::class);
         $this->call(ContactsTableSeeder::class);
         $this->call(EventsTableSeeder::class);
+        $this->call(CongiruationsTableSeeder::class);
     }
 }
