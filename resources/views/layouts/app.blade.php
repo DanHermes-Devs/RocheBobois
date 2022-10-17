@@ -44,7 +44,7 @@
     <link rel="stylesheet" href="{{ asset('FlexSlider/flexslider.css') }}" />
 
     {{-- waitme --}}
-    <link rel="stylesheet" href="{{ asset('css/waitMe.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/waitme.min.css') }}">
     <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" />
 
     {{-- Font Awesome --}}
