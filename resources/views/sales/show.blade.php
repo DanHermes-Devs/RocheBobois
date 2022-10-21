@@ -167,7 +167,7 @@
                 {{-- Info del producto --}}
                 <div class="col-12 col-md-6">
                     <div class="mb-4">
-                        <h2 class="fs-1 text-uppercase">{{ $product->nombre_producto }}</h2>
+                        <h2 class="fs-1 text-capitalize" id="name_product">{{ $product->nombre_producto }}</h2>
                         <div class="d-flex gap-5">
                             {{-- Mostrar precio y condicionar si hay precio con descuento --}}
                             @if ($product->precio_descuento)
@@ -255,5 +255,8 @@
                 swiper: swiper,
             },
         });
+
+        // Capitalizar el id name_product
+       document.getElementById('name_product').innerText =document.getElementById('name_product').innerText.toLowerCase().replace(/\b(\w)/g, x => x.toUpperCase());
     </script>
 @endsection

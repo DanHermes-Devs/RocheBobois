@@ -5,6 +5,16 @@
         <div class="card p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0 fw-bold">Ordenes</h2>
+                {{-- Crear filtro para exportar ordenes por fecha --}}
+                <div class="row align-items-center">
+                    <form action="{{ route('admin.orders.export') }}" method="POST" class="d-flex align-items-center mr-3" style="gap: .8rem;">
+                        @csrf
+                        <input type="date" name="start_date" class="form-control me-2">
+                        <input type="date" name="end_date" class="form-control me-2">
+                        <button type="submit" class="btn btn-primary w-100">Exportar Filtro</button>
+                    </form>
+                    <a href="{{ route('exportar.ordenes') }}" class="btn btn-primary">Exportar Ordenes</a>
+                </div>
             </div>
 
             {{-- Mostramos un mensaje flash de borrado con exito --}}
@@ -62,12 +72,8 @@
                     {
                         targets: 1,
                         render: function(data, type, row) {
-                            // Formatear la fecha a dd/mm/yyyy
-                            let date = new Date(row.created_at);
-                            let day = date.getDate();
-                            let month = date.getMonth() + 1;
-                            let year = date.getFullYear();
-                            return `${day}/${month}/${year}`;
+                            // Mostrar la fecha
+                            return row.created_at;
                         }
                     },
                     {

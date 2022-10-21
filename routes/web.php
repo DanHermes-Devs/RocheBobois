@@ -385,6 +385,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/orders/{id}', [OrderController::class, 'show'])->name('show.order');
         Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('destroy.order');
         Route::match(['put', 'patch'], '/orders/actualizar-orden/{id}', [OrderController::class, 'update'])->name('update.order');
+        // Exportar Ordenes
+        Route::get('/orders-export/exportar', [OrderController::class, 'exportOrders'])->name('exportar.ordenes');
+        // Crear url para exportar ordenes por fecha
+        Route::post('/orders-export/exportar-fecha', [OrderController::class, 'exportOrdersByDate'])->name('admin.orders.export');
 
         // Configuraciónes
         Route::get('/aviso-privacidad', [CongiruationController::class, 'aviso_privacidad'])->name('aviso_privacidad');

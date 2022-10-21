@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrdersDateExport;
+use App\Exports\OrdersExport;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -17,38 +20,19 @@ class OrderController extends Controller
     {
         $ordenes = Order::all();
 
-        
-
         if (request()->ajax()) {
             return datatables()->of($ordenes)
                 ->addColumn('action', 'admin.orders.actions')
+                // Formatear el created_at
+                ->editColumn('created_at', function ($data) {
+                    return $data->created_at->format('d-m-Y');
+                })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
         }
 
         return view('admin.orders.index', compact('ordenes'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -66,17 +50,6 @@ class OrderController extends Controller
         $orderItems = OrderItem::with('product')->where('order_id', $id)->first();
 
         return view('admin.orders.show', compact('order', 'orderItems'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -108,5 +81,20 @@ class OrderController extends Controller
         Order::find($id)->delete();
 
         return response()->json(['success' => 'Orden eliminada correctamente.', 'status' => 'success']);
+    }
+
+    // Exportar archivo
+    public function exportOrders()
+    {
+        return Excel::download(new OrdersExport, 'Ordenes.xlsx');   
+    }
+
+    // Exportar por fecha
+    public function exportOrdersByDate(Request $request)
+    {
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        return Excel::download(new OrdersDateExport($start_date, $end_date), 'Ordenes'.$start_date.'-'.$end_date.'.xlsx');
     }
 }
