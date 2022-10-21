@@ -100,6 +100,15 @@ class CategoriesTableSeeder extends Seeder
                 'created_at' => '2022-10-14 04:07:18',
                 'updated_at' => '2022-10-14 04:07:18',
             ),
+            9 => 
+            array (
+                'id' => 14,
+                'nombre' => 'Textiles',
+                'slug' => 'textiles',
+                'imagen_destacada' => NULL,
+                'created_at' => '2022-10-21 23:54:07',
+                'updated_at' => '2022-10-21 23:54:07',
+            ),
         ));
         
         
