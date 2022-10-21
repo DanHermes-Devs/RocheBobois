@@ -68,7 +68,6 @@ class ProductController extends Controller
             'descripcion' => 'required',
             'precio' => 'required',
             'mostrar_en_sales' => 'required|integer',
-            'category_id' => 'required|integer',
             'imagen_destacada' => 'required|image|mimes:jpeg,png,jpg',
         ], [
             'nombre_producto.required' => 'El campo nombre del producto es obligatorio.',
@@ -76,8 +75,6 @@ class ProductController extends Controller
             'precio.required' => 'El campo precio es obligatorio.',
             'mostrar_en_sales.required' => 'El campo mostrar en sales es obligatorio.',
             'mostrar_en_sales.integer' => 'El campo mostrar en sales es obligatorio.',
-            'category_id.required' => 'El campo categoría es obligatorio.',
-            'category_id.integer' => 'El campo categoría es obligatorio.',
             'imagen_destacada.required' => 'El campo imagen destacada es obligatorio.',
             'imagen_destacada.image' => 'El archivo debe ser una imagen.',
             'imagen_destacada.mimes' => 'El archivo debe ser una imagen con formato jpeg, png o jpg.',
@@ -89,7 +86,8 @@ class ProductController extends Controller
         if(request('imagen_destacada')){
             $imagen_destacada = $request->imagen_destacada->store('uploads/productos/'.$producto->slug, 'public');
             // Hacer rezise de la imagen a 800x800 y mantener la proporción
-            $imagen_destacada = Image::make(public_path("storage/{$imagen_destacada}"))->resizeCanvas(500, 200, 'center', true, 'fff');
+            // $imagen_destacada = Image::make(public_path("storage/{$imagen_destacada}"))->resizeCanvas(500, 200, 'center', true, 'fff');
+            $imagen_destacada = Image::make(public_path("storage/{$imagen_destacada}"));
             $imagen_destacada->save();
             $producto->imagen_destacada = $imagen_destacada;
         }
@@ -99,7 +97,8 @@ class ProductController extends Controller
             $img_galeria = array();
             foreach ($galerias as $imagefile) {
                 $imagefile = $imagefile->store('uploads/productos/'.$producto->slug, 'public');
-                $img_2 = Image::make(public_path("storage/{$imagefile}"))->resizeCanvas(500, 200, 'center', true, 'fff');
+                // $img_2 = Image::make(public_path("storage/{$imagefile}"))->resizeCanvas(500, 200, 'center', true, 'fff');
+                $img_2 = Image::make(public_path("storage/{$imagefile}"));
                 $img_2->save();
                 array_push($img_galeria, $imagefile);
             }
@@ -168,15 +167,12 @@ class ProductController extends Controller
             'descripcion' => 'required',
             'precio' => 'required',
             'mostrar_en_sales' => 'required|integer',
-            'category_id' => 'required|integer',
         ], [
             'nombre_producto.required' => 'El campo nombre del producto es obligatorio.',
             'descripcion.required' => 'El campo descripción es obligatorio.',
             'precio.required' => 'El campo precio es obligatorio.',
             'mostrar_en_sales.required' => 'El campo mostrar en sales es obligatorio.',
             'mostrar_en_sales.integer' => 'El campo mostrar en sales es obligatorio.',
-            'category_id.required' => 'El campo categoría es obligatorio.',
-            'category_id.integer' => 'El campo categoría es obligatorio.',
         ]);
 
         $producto = Product::find($request->id);
@@ -191,7 +187,8 @@ class ProductController extends Controller
 
             $imagen_destacada = $request->imagen_destacada->store('uploads/productos/'.$producto->slug, 'public');
             // Recortar imagen a 800x800 con object-fit: contain
-            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"))->resizeCanvas(500, 200, 'center', true, 'fff');
+            // $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"))->resizeCanvas(500, 200, 'center', true, 'fff');
+            $img_destacada = Image::make(public_path("storage/{$imagen_destacada}"));
             $img_destacada->save();
             $producto->imagen_destacada = $imagen_destacada;
         }
@@ -208,7 +205,8 @@ class ProductController extends Controller
 
                 $imagefile = $imagefile->store('uploads/productos/'.$producto->slug, 'public');
                 // Redimensionar imagen a 500x500 con object-fit: contain
-                $img_2 = Image::make(public_path("storage/{$imagefile}"))->resizeCanvas(500, 200, 'center', true, 'fff');
+                // $img_2 = Image::make(public_path("storage/{$imagefile}"))->resizeCanvas(500, 200, 'center', true, 'fff');
+                $img_2 = Image::make(public_path("storage/{$imagefile}"));
                 $img_2->save();
                 array_push($img_galeria, $imagefile);
             }

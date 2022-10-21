@@ -177,7 +177,10 @@ MOVIL VERTICAL (revisamos en 320px)
                             <img loading="lazy" class="photothumb" src="{{ asset('storage/'.$evento->imagen_destacada) }}">
                             <div class="card_black_eventos">
                                 @if ($evento->fecha)
-                                    <p class="mb-0" data-fecha="{{ $evento->fecha }}">{{ $evento->fecha }}</p>
+                                @php
+                                    $fecha = date('d-m-Y', strtotime($evento->fecha));
+                                @endphp
+                                    <p class="mb-0" data-fecha="{{ $evento->fecha }}">{{ $fecha }}</p>
                                 @endif
     
                                 @if ($evento->hora)

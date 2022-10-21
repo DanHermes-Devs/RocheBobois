@@ -116,7 +116,7 @@
                     <div class="mb-3">
                         <label for="category_id" class="form-label">Categoría</label>
                         <select class="form-control @error ('category_id') is-invalid @enderror" id="category_id" name="category_id">
-                            <option selected>-- Selecciona una opción --</option>
+                            <option selected value="0">-- Selecciona una opción --</option>
                             @foreach ($categoria as $cat)
                                 <option value="{{ $cat->id }}" {{ $producto->category_id == $cat->id ? 'selected' : '' }}>{{ $cat->nombre }}</option>
                             @endforeach
