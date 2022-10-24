@@ -147,7 +147,7 @@
                                             <th scope="col">Teléfono</th>
                                             <th scope="col">Fecha</th>
                                             <th scope="col">Hora</th>
-                                            <th scope="col">Acciones</th>
+                                            {{-- <th scope="col">Acciones</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -158,12 +158,11 @@
                                                 <td>{{ $reserva->telefono_usuario }}</td>
                                                 <td>{{ $reserva->fecha }}</td>
                                                 <td>{{ $reserva->hora }}</td>
-                                                <td>
+                                                {{-- <td>
                                                     <a href="{{ route('perfil.print-booking', $reserva->id) }}" class="btn_outline_dark">
-                                                        {{-- Mensaje de impresion del ticket --}}
                                                         Ver Boleto 
                                                     </a>
-                                                </td>
+                                                </td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
