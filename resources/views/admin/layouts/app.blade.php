@@ -488,6 +488,20 @@
                             </li>
                             {{-- Ordenes --}}
 
+                            {{-- Usuarios --}}
+                            <li class="nav-item">
+
+                                <a href="{{ route('usuarios') }}" class="nav-link">
+    
+                                    <i class="nav-icon fa-regular fa-person-booth"></i>
+    
+                                    <p>Clientes</p>
+    
+                                </a>
+    
+                            </li>
+                            {{-- Usuarios --}}
+
                             <li class="nav-item">
 
                                 <a href="#" class="nav-link">

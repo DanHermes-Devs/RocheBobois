@@ -8,11 +8,13 @@ use App\Mail\OrderMail;
 use App\Models\Product;
 use App\Models\OrderItem;
 use App\Models\Subcategory;
+use App\Models\Congiruation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrderController;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -32,13 +34,13 @@ use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\HomeOfficeController;
 use App\Http\Controllers\SellerBestController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\CongiruationController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EventCategoryController;
 use App\Http\Controllers\frontend\CobroController;
 use App\Http\Controllers\frontend\SalesController;
 use App\Http\Controllers\frontend\EventoController;
 use App\Http\Controllers\BuildingCategoryController;
-use App\Http\Controllers\CongiruationController;
 use App\Http\Controllers\frontend\BuildingHController;
 use App\Http\Controllers\frontend\ColeccionController;
 use App\Http\Controllers\frontend\BestSellerController;
@@ -46,7 +48,6 @@ use App\Http\Controllers\frontend\OportunidadController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\frontend\ShowroomController as FrontendShowroomController;
 use App\Http\Controllers\frontend\HomeOfficeController as FrontendHomeOfficeController;
-use App\Models\Congiruation;
 
 /*
 |--------------------------------------------------------------------------
@@ -396,6 +397,15 @@ Route::group(['middleware' => 'auth'], function () {
         
         Route::get('/terminos-y-condiciones', [CongiruationController::class, 'terminos_condiciones'])->name('terminos_condiciones');
         Route::match(['put', 'patch'], '/terminos-y-condiciones/{id}', [CongiruationController::class, 'update_terminos_condiciones'])->name('update.terminos_condiciones');
+
+        // Usuarios
+        Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios');
+        Route::get('/usuarios/nuevo-usuario', [UserController::class, 'create'])->name('create.usuario');
+        Route::post('/usuarios', [UserController::class, 'store'])->name('store.usuario');
+        Route::get('/usuarios/{id}/edit', [UserController::class, 'edit'])->name('edit.usuario');
+        Route::match(['put', 'patch'], '/usuarios/{id}', [UserController::class, 'update'])->name('update.usuario');
+        Route::get('/usuarios/{id}', [UserController::class, 'show'])->name('show.usuario');
+        Route::delete('/usuarios/{id}', [UserController::class, 'destroy'])->name('destroy.usuario');
     });
 });
 

@@ -86,8 +86,10 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Asignamos el rol de cliente al usuario
         $user->assignRole(2);
 
+        // Registramos el usuario a stripe
         $user->createAsStripeCustomer();
 
         // Enviar correo de confirmación de cuenta
