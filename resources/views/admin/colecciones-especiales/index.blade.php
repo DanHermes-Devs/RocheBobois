@@ -45,7 +45,10 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            let table_coleciones = $('#table_colecciones').DataTable({
+            
+            let table_coleciones = '#table_colecciones';
+
+            $(table_coleciones).DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -62,9 +65,6 @@
                 ],
                 "language": idiomaDataTable
             });
-
-            table_coleciones.draw();
-            
         });
     </script>
 @endsection

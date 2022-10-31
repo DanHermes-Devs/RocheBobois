@@ -147,7 +147,7 @@
                                             <th scope="col">Teléfono</th>
                                             <th scope="col">Fecha</th>
                                             <th scope="col">Hora</th>
-                                            {{-- <th scope="col">Acciones</th> --}}
+                                            <th scope="col">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -161,8 +161,13 @@
                                                 {{-- <td>
                                                     <a href="{{ route('perfil.print-booking', $reserva->id) }}" class="btn_outline_dark">
                                                         Ver Boleto 
+                                                    </a> --}}
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('perfil.print-booking', $reserva->id) }}" class="btn_outline_dark">
+                                                        Imprimir Recibo
                                                     </a>
-                                                </td> --}}
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -206,8 +211,15 @@
 
                                     <div class="col">
                                         <label for="cargo" class="form-label">{{ __('Cargo') }}</label>
-                                        <input id="cargo" type="text" class="form-control" name="cargo"
-                                            value="{{ $usuario->cargo }}" autocomplete="cargo">
+                                        <select name="cargo" id="cargo" class="form-select">
+                                            <option value="DIS" {{ $usuario->cargo == 'DIS' ? 'selected' : '' }}>Administrador</option>
+                                            <option value="ARQ" {{ $usuario->cargo == 'ARQ' ? 'selected' : '' }}>Arquitecto</option>
+                                            <option value="COM-FF&E" {{ $usuario->cargo == 'COM-FF&E' ? 'selected' : '' }}>Comprador FF&E</option>
+                                            <option value="DIR-FF&E" {{ $usuario->cargo == 'DIR-FF&E' ? 'selected' : '' }}>Director FF&E</option>
+                                            <option value="PROP" {{ $usuario->cargo == 'PROP' ? 'selected' : '' }}>Director Interiorismo</option>
+                                            <option value="GEH" {{ $usuario->cargo == 'GEH' ? 'selected' : '' }}>Gerente Hotel</option>
+                                            <option value="OIN" {{ $usuario->cargo == 'OIN' ? 'selected' : '' }}>Operador Inmobiliario</option>
+                                        </select>
                                     </div>
                                 </div>
 

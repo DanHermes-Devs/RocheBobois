@@ -3,13 +3,11 @@
 @section('content')
     <div class="container">
         <div class="card p-4">
+            <div class="d-flex mb-2">
+                <a href="{{ route('usuarios') }}" class="text-dark"> <i class="fa-solid fa-arrow-left mr-2"></i> Volver</a>
+            </div>
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0 fw-bold">Cliente: <b>{{ $user->name }}</b></h2>
-                {{-- Boton para eliminar usuario --}}
-                <button type="button" data-route="{{ route('destroy.usuario', $user->id) }}"
-                    class="btn btn-danger delete_cliente">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
             </div>
 
 

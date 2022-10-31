@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -93,6 +95,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Eliminamos al usuario con el id que se envia
+        $user = User::find($id);
+        $user->delete();
+        return response()->json(['success' => 'Usuario eliminado correctamente', 'status' => 'success']);
+    }
+
+    public function exportUsers()
+    {
+        // Exportamos los usuarios con rol cliente a un archivo excel
+        return Excel::download(new UsersExport, 'Usuarios'.date('d-m-Y').'.xlsx');
     }
 }

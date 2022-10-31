@@ -44,7 +44,10 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            let table_homeOffices = $('#table_homeOffices').DataTable({
+            
+            let table_homeOffices = '#table_homeOffices';
+
+            $(table_homeOffices).DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -69,8 +72,6 @@
                 ],
                 "language": idiomaDataTable
             });
-
-            table_homeOffices.draw();
         });
     </script>
 @endsection

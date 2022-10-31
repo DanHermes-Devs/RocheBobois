@@ -28,7 +28,9 @@
     {{-- waitme --}}
 
     <link rel="stylesheet" href="{{ asset('css/waitMe.min.css') }}">
-    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" />
+    
+    {{-- Favicon en formato JPG --}}
+    <link rel="icon" type="image/jpg" href="{{ asset('favicon.jpg') }}">
 
     {{-- Trix editor --}}
     <link rel="stylesheet" href="{{ asset('css/trixeditor.min.css') }}" />
@@ -492,8 +494,8 @@
                             <li class="nav-item">
 
                                 <a href="{{ route('usuarios') }}" class="nav-link">
-    
-                                    <i class="nav-icon fa-regular fa-person-booth"></i>
+
+                                    <i class="nav-icon fa-solid fa-users"></i>
     
                                     <p>Clientes</p>
     

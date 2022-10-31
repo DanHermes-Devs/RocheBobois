@@ -398,14 +398,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/terminos-y-condiciones', [CongiruationController::class, 'terminos_condiciones'])->name('terminos_condiciones');
         Route::match(['put', 'patch'], '/terminos-y-condiciones/{id}', [CongiruationController::class, 'update_terminos_condiciones'])->name('update.terminos_condiciones');
 
-        // Usuarios
+        // Clientes
         Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios');
-        Route::get('/usuarios/nuevo-usuario', [UserController::class, 'create'])->name('create.usuario');
-        Route::post('/usuarios', [UserController::class, 'store'])->name('store.usuario');
-        Route::get('/usuarios/{id}/edit', [UserController::class, 'edit'])->name('edit.usuario');
-        Route::match(['put', 'patch'], '/usuarios/{id}', [UserController::class, 'update'])->name('update.usuario');
         Route::get('/usuarios/{id}', [UserController::class, 'show'])->name('show.usuario');
         Route::delete('/usuarios/{id}', [UserController::class, 'destroy'])->name('destroy.usuario');
+        // Ruta para exportar clientes
+        Route::get('/usuarios-export/exportar', [UserController::class, 'exportUsers'])->name('exportar.usuarios');
+
     });
 });
 

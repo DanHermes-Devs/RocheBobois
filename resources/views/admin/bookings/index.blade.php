@@ -45,7 +45,10 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            let table_bookings = $('#table_bookings').DataTable({
+
+            let table_bookings = '#table_bookings';
+
+            $(table_bookings).DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -83,9 +86,6 @@
                 ],
                 "language": idiomaDataTable
             });
-
-            // Cargamos el datatable
-            table_bookings.draw();
         });
     </script>
 @endsection

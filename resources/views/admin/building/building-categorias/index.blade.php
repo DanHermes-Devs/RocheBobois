@@ -45,7 +45,10 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            let table_building_categories = $('#table_building_categories').DataTable({
+            
+            let table_building_categories = '#table_building_categories';
+
+            $(table_building_categories).DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -70,8 +73,6 @@
                 ],
                 language: idiomaDataTable
             });
-
-            table_building_categories.draw();
         });
     </script>
 @endsection

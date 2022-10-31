@@ -44,7 +44,10 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            let table_categoryProducts = $('#table_categoryProducts').DataTable({
+            
+            let table_categoryProducts = '#table_categoryProducts';
+
+            $(table_categoryProducts).DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -75,8 +78,6 @@
                 ],
                 language: idiomaDataTable
             });
-
-            table_categoryProducts.draw();
         });
     </script>
 @endsection

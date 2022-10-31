@@ -44,7 +44,10 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            let talbe_slider = $('#table_slider').DataTable({
+            
+            let talbe_slider = '#table_slider';
+
+            $(talbe_slider).DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -69,8 +72,6 @@
                 ],
                 "language": idiomaDataTable
             });
-
-            talbe_slider.draw();
         });
     </script>
 @endsection

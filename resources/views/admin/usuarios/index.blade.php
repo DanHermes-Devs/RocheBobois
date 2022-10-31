@@ -5,6 +5,12 @@
         <div class="card p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0 fw-bold">Clientes</h2>
+                
+                {{-- Boton para exportar clientes --}}
+                <a href="{{ route('exportar.usuarios') }}" class="btn btn-success">
+                    <i class="fa-solid fa-file-export"></i>
+                    Exportar clientes
+                </a>
             </div>
 
 
@@ -40,6 +46,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            
             let table_clientes = '#table_clientes';
 
              $(table_clientes).DataTable({

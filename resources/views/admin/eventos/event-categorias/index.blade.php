@@ -62,7 +62,10 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            let table_event_categories = $('#table_event_categories').DataTable({
+        
+            let table_event_categories = '#table_event_categories';
+            
+            $(table_event_categories).DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -87,8 +90,6 @@
                 ],
                 "language": idiomaDataTable
             });
-
-            table_event_categories.draw();
         });
     </script>
 @endsection

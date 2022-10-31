@@ -45,7 +45,10 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            let table_events = $('#table_events').DataTable({
+            
+            let table_events = '#table_events';
+
+            $(table_events).DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -71,8 +74,6 @@
                 ],
                 "language": idiomaDataTable
             });
-
-            table_events.draw();
         });
     </script>
 @endsection

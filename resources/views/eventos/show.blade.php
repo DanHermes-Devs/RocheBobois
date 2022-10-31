@@ -252,10 +252,6 @@ MOVIL VERTICAL (revisamos en 320px)
 @section('scripts')
 <script>
     $(document).ready(function() {
-        $('body').addClass('full-width-content');
-    });
-
-    $(document).ready(function() {
         $('.btn_reservar').click(function() {
             var id = $(this).data('id');
             $('#reservar').find('input[name="id"]').val(id);

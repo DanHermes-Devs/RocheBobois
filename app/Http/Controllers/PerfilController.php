@@ -92,12 +92,13 @@ class PerfilController extends Controller
 
     public function printBooking($id)
     {
+        // Relacionar los bookings con el usuario
         $reserva = Booking::where('id', $id)->where('id_user', Auth::user()->id)->first();
 
-        return view('perfil.booking', compact('reserva'));
+        // return view('perfil.print_booking', compact('reserva'));
 
-        // $pdf = Pdf::loadView('perfil.booking', compact('reserva'));
-        // return $pdf->download('Reserva_'.$reserva->codigo_reserva . '.pdf');
+        $pdf = Pdf::loadView('perfil.print_booking', compact('reserva'));
+        return $pdf->download('Reserva_'.$reserva->codigo_reserva . '.pdf');
     }
 
     /**
